@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _306p2.Properties
+namespace CCF_app.Properties
 {
 
 

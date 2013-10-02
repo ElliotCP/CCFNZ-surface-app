@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{437542E6-B7E0-415C-B7C6-B5EC5F8012A1}</ProjectGuid>
+    <ProjectGuid>{9C660801-A282-4927-B1F6-8DB8E3E0EB1E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_306p2</RootNamespace>
-    <AssemblyName>306p2</AssemblyName>
+    <RootNamespace>CCF_app</RootNamespace>
+    <AssemblyName>CCF_app</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -97,7 +97,7 @@
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="306p2.xml">
+    <Content Include="CCF_app.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

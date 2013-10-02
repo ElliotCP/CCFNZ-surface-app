@@ -16,7 +16,7 @@ using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
 
-namespace _306p2
+namespace CCF_app
 {
     /// <summary>
     /// Interaction logic for SurfaceWindow1.xaml

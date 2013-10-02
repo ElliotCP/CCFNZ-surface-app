@@ -6,9 +6,9 @@ instructions.
 -->
 <ss:ApplicationInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ss="http://schemas.microsoft.com/Surface/2007/ApplicationMetadata">
   <Application>
-    <Title>306p2</Title>
-    <Description>306p2</Description>
-    <ExecutableFile>306p2.exe</ExecutableFile>
+    <Title>CCF_app</Title>
+    <Description>CCF_app</Description>
+    <ExecutableFile>CCF_app.exe</ExecutableFile>
     <Arguments>
     </Arguments>
     <IconImageFile>Resources\icon.png</IconImageFile>
