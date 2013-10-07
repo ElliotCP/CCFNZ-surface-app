@@ -1,0 +1,90 @@
+﻿<s:SurfaceWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="http://schemas.microsoft.com/surface/2008"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" mc:Ignorable="d" x:Class="CCF_app.MainWindow"
+    Title="CCF_app"
+    Width="1920"
+    Height="1080"
+    >
+    <Frame>
+		<Frame.Content>
+			<Grid>
+				<Grid x:Name="HomePage" Margin="0">
+					<Grid.Background>
+						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+							<GradientStop Color="#FF3BC1E3" Offset="0"/>
+							<GradientStop Color="#FF098EB1" Offset="0.884"/>
+						</LinearGradientBrush>
+					</Grid.Background>
+				</Grid>
+				<Grid x:Name="HelpPage" Margin="0" Visibility="Collapsed">
+					<Grid.Background>
+						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+							<GradientStop Color="#FF3BC1E3" Offset="0"/>
+							<GradientStop Color="#FF098EB1" Offset="0.884"/>
+						</LinearGradientBrush>
+					</Grid.Background>
+                    <s:SurfaceScrollViewer Margin="0,50,0,75">
+                        <s:SurfaceListBox BorderThickness="0" Background="{x:Null}">
+                    		<Image Source="Resources/icon.png" Margin="0" Height="190" Width="308"/>
+                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0"/>
+                    		<Image Source="Resources/icon.png" Margin="0" Height="190" Width="308"/>
+                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0" />
+							                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
+                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0"/>
+                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
+                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0" />
+							                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
+                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0"/>
+                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
+                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0" />
+							                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
+                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0"/>
+                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
+                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0" />
+                    	</s:SurfaceListBox>
+                    </s:SurfaceScrollViewer>
+                </Grid>
+				<Grid x:Name="SupportPage" Margin="0" Visibility="Collapsed" d:IsHidden="True">
+					<Grid.Background>
+						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+							<GradientStop Color="#FF3BC1E3" Offset="0"/>
+							<GradientStop Color="#FF098EB1" Offset="0.884"/>
+						</LinearGradientBrush>
+					</Grid.Background>
+				</Grid>
+				<Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="50">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="0.2*"/>
+						<ColumnDefinition Width="0.6*"/>
+						<ColumnDefinition Width="0.2*"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Center" Grid.Column="1" FontSize="48"><Run Foreground="#ea098d" Text="Child"/><Run Text=" "/><Run Foreground="#ef2e2f" Text="Cancer"/><Run Text=" "/><Run Foreground="#000000" Text="Foundation"/></TextBlock>
+				</Grid>
+				<Grid x:Name="BottomNavBar" VerticalAlignment="Bottom" Height="75" d:LayoutOverrides="GridBox">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="1*"/>
+					</Grid.ColumnDefinitions>
+                    <s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Arial" FontSize="18.667" Margin="0" Foreground="Black" Click="OnHomePageClick" >
+                        <s:SurfaceButton.Background>
+							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+								<GradientStop Color="#FFC0D72D" Offset="0.4"/>
+								<GradientStop Color="#FFE0E6AC"/>
+							</LinearGradientBrush>
+                        </s:SurfaceButton.Background>
+                    </s:SurfaceButton>
+                    <s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Background="White" BorderThickness="0" Foreground="#FF9CB208" FontFamily="Arial" FontSize="18.667" Margin="0"/>
+                    <s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" Background="White" BorderThickness="0" Foreground="#FF9CB208" FontFamily="Arial" FontSize="18.667" Margin="0" Click="OnHelpPageClick" />
+                    <s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Background="White" BorderThickness="0" Foreground="#FF9CB208" FontFamily="Arial" FontSize="18.667" Margin="0" Click="OnSupportPageClick"/>
+					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" Background="White" BorderThickness="0" Foreground="#FF9CB208" FontFamily="Arial" FontSize="18.667" Margin="0"/>
+				</Grid>
+				<s:SurfaceListBox HorizontalAlignment="Right" Height="4.5" Margin="0,370.5,-281,0" VerticalAlignment="Top" Width="0"/>
+			</Grid>
+		</Frame.Content>
+	</Frame>
+</s:SurfaceWindow>

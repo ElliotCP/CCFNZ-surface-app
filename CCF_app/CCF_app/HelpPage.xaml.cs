@@ -9,29 +9,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Surface;
-using Microsoft.Surface.Presentation;
-using Microsoft.Surface.Presentation.Controls;
-using Microsoft.Surface.Presentation.Input;
-
+using System.Windows.Navigation;
 
 namespace CCF_app
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for HelpPage.xaml
     /// </summary>
-    public partial class HomePage : SurfaceWindow
+    public partial class HelpPage : Page
     {
-        public HomePage()
+        public HelpPage()
         {
             InitializeComponent();
         }
 
-        private void NavHelp(object sender, RoutedEventArgs e)
+        private void NavHome(object sender, RoutedEventArgs e)
         {
-            this.frame1.Navigate(new Uri("HelpPage.xaml", UriKind.RelativeOrAbsolute));
+            this.Visibility = System.Windows.Visibility.Collapsed;
+            
+            
         }
     }
 }
