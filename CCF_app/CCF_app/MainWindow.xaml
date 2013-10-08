@@ -42,7 +42,7 @@
 						<TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right"><Run Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor."/><LineBreak/><Run/></TextBlock>
 					</Grid>
 				</Grid>
-				<Grid x:Name="InformationPage" Margin="0">
+				<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
 					<Grid.Background>
 						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
 					</Grid.Background>
