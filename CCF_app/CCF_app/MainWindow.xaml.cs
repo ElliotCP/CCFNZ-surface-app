@@ -26,12 +26,37 @@ namespace CCF_app
         /// <summary>
         /// Default constructor.
         /// </summary>
+
+        Brush Home_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFC7D960");
+        Brush AboutUs_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FF68CEEC");
+        Brush Help_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFFAAB5E");
+        Brush Support_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFE05D5D");
+        Brush Donate_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFB57BEA");
+
         public MainWindow()
         {
             InitializeComponent();
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
+            this.More1.MouseDown += new MouseButtonEventHandler(More1_MouseDown);
+            this.More2.MouseDown += new MouseButtonEventHandler(More2_MouseDown);
+            this.QRCode.MouseDown += new MouseButtonEventHandler(QRCode_MouseDown);
+        }
+
+        void QRCode_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.QRCode.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        void More2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.QRCode.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        void More1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.QRCode.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -103,61 +128,34 @@ namespace CCF_app
         private void OnHelpPageClick(object sender, EventArgs e)
         {
 
-            //var bc = new BrushConverter();
             
             CollapseAllPages();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
+
             this.InformationPageTitle.Text = "How Can I Help?";
+
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
 
-            //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
-            //Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
-
-            //this.Home_Btn.Background = background;
-            //this.Home_Btn.Foreground = foreground;
-            //this.Support_Btn.Background = background;
-            //this.Support_Btn.Foreground = foreground;
-
-
-
-
-
-            //this.Help_Btn.Background = SelectedButtonGradientSet();
-            //this.Help_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+            this.More1.Foreground = Help_Btn_Color;
+            this.More2.Foreground = Help_Btn_Color;
+            this.QRCode_Text.Foreground = Help_Btn_Color;
         
         }
 
 
         private void OnHomePageClick(object sender, EventArgs e)
         {
-            //var bc = new BrushConverter();
-            
 
             CollapseAllPages();
 
             this.HomePage.Visibility = System.Windows.Visibility.Visible;
 
-
-            //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
-            //Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
-
-            //this.Help_Btn.Background = background;
-            //this.Help_Btn.Foreground = foreground;
-            //this.Support_Btn.Background = background;
-            //this.Support_Btn.Foreground = foreground;
-
-
-            //this.Home_Btn.Background = SelectedButtonGradientSet();
-            //this.Home_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
-
         }
 
         private void OnSupportPageClick(object sender, EventArgs e)
         {
-            //var bc = new BrushConverter();
-
-
+            
             CollapseAllPages();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
@@ -165,17 +163,9 @@ namespace CCF_app
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
 
-            //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
-            //Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
-
-            //this.Home_Btn.Background = background;
-            //this.Home_Btn.Foreground = foreground;
-            //this.Help_Btn.Background = background;
-            //this.Help_Btn.Foreground = foreground;
-
-
-            //this.Support_Btn.Background = SelectedButtonGradientSet();
-            //this.Support_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+            this.More1.Foreground = Support_Btn_Color;
+            this.More2.Foreground = Support_Btn_Color;
+            this.QRCode_Text.Foreground = Support_Btn_Color;
 
         }
 
@@ -187,6 +177,10 @@ namespace CCF_app
             this.InformationPageTitle.Text = "What Is CCFNZ?";
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_blue.png", UriKind.RelativeOrAbsolute));
+
+            this.More1.Foreground = AboutUs_Btn_Color;
+            this.More2.Foreground = AboutUs_Btn_Color;
+            this.QRCode_Text.Foreground = AboutUs_Btn_Color;
         }
 
         private void OnDonatePageClick(object sender, EventArgs e)

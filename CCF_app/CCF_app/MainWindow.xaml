@@ -69,8 +69,12 @@
 							</Image.OpacityMask>
 						</Image>
 						<Image Grid.Column="2" Margin="0" Grid.Row="2" Source="Resources/icon.png"/>
-						<TextBlock Grid.Column="1" Grid.Row="1" Margin="20,20,40,20" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." d:LayoutOverrides="Height" Grid.ColumnSpan="2" FontSize="26.667" FontFamily="Segoe UI Light"/>
-						<TextBlock Margin="40,20,20,20" Grid.Row="2" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." Grid.ColumnSpan="2" FontSize="26.667" FontFamily="Segoe UI Light"/>
+						<TextBlock Grid.Column="1" Grid.Row="1" Margin="20,20,40,20" TextWrapping="Wrap" d:LayoutOverrides="Height" Grid.ColumnSpan="2" FontSize="26.667" FontFamily="Segoe UI Light"><Run Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor."/><InlineUIContainer>
+								<TextBlock x:Name="More1" TextWrapping="Wrap" Text="More&gt;" Margin="20,0,0,0" />
+							</InlineUIContainer></TextBlock>
+						<TextBlock Margin="40,20,20,20" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" FontSize="26.667" FontFamily="Segoe UI Light"><Run Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor."/><InlineUIContainer>
+								<TextBlock x:Name="More2" TextWrapping="Wrap" Text="More&gt;" Margin="20,0,0,0"/>
+							</InlineUIContainer></TextBlock>
 					</Grid>
 				</Grid>
 				<Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="80" Margin="0,20,0,0" Background="#00000000">
@@ -100,6 +104,26 @@
 				</Grid>
 				<TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="12"/>
 				<TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="0"/>
+				<Grid x:Name="QRCode" Background="#B2000000" Visibility="Collapsed">
+					<Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+						<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="0.2*"/>
+								<RowDefinition Height="0.8*"/>
+							</Grid.RowDefinitions>
+							<TextBlock x:Name="QRCode_Text" Grid.Row="0" TextWrapping="Wrap" Text="Scan For Website Link" FontSize="26.667" HorizontalAlignment="Center" FontFamily="Segoe UI Light" FontWeight="Bold">
+								<TextBlock.Background>
+									<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
+								</TextBlock.Background>
+							</TextBlock>
+                            <Image Source="Assets/QRCodes/what_we_do.png" Grid.Row="1" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="500">
+								<Image.OpacityMask>
+									<ImageBrush ImageSource="Assets/QRCodes/what_we_do.png" Stretch="Uniform"/>
+								</Image.OpacityMask>
+							</Image>
+						</Grid>
+					</Border>
+				</Grid>
 			</Grid>
 		</Frame.Content>
 	</Frame>
