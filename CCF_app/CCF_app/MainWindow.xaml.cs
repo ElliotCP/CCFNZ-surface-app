@@ -12,9 +12,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Surface;
+using System.Drawing;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
+
+using System.IO;
+using System.Drawing.Imaging;
+
+// QrCode Ref
+using MessagingToolkit.QRCode.Codec;
+using MessagingToolkit.QRCode.Codec.Ecc;
+using MessagingToolkit.QRCode.Codec.Data;
+using MessagingToolkit.QRCode.Codec.Util;
+
+// Alias for Point because of the namespace clash between
+// System.Window.Point and System.Drawing.Point
+using WinPoint = System.Windows.Point;
+using WinColor = System.Windows.Media.Color;
+
 
 namespace CCF_app
 {
@@ -187,12 +203,70 @@ namespace CCF_app
         private LinearGradientBrush SelectedButtonGradientSet()
         {
             LinearGradientBrush lgb = new LinearGradientBrush();
-            lgb.StartPoint = new Point(0.5, 0);
-            lgb.EndPoint = new Point(0.5, 1);
-            lgb.GradientStops.Add(new GradientStop(Color.FromArgb(225, 224, 230, 172), 0.0));
-            lgb.GradientStops.Add(new GradientStop(Color.FromArgb(225, 192, 215, 45), 0.4));
+            lgb.StartPoint = new WinPoint(0.5, 0);
+            lgb.EndPoint = new WinPoint(0.5, 1);
+            lgb.GradientStops.Add(new GradientStop(WinColor.FromArgb(225, 224, 230, 172), 0.0));
+            lgb.GradientStops.Add(new GradientStop(WinColor.FromArgb(225, 192, 215, 45), 0.4));
 
             return lgb;
         }
+
+        private void SurfaceWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        
+
+        private void Image_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+
+        }
+
+        // Probably not logical place to put this function.
+        // But for testing purposes its situated here. - Amruth
+        /// <summary>
+        /// Generates a QRCode with the given string to be encoded and the level (ie size) of the qr code.
+        /// </summary>
+        /// <param name="encodedString">The string that should be encoded into the QRCode.</param>
+        /// <param name="level">Detail level of QRCode can be changed using this. Higher = more detail.</param>
+        /// <returns></returns>
+        private System.Drawing.Image QRGenerator(string encodedString, int level)
+        {
+            MessagingToolkit.QRCode.Codec.QRCodeEncoder qrEncoder = new MessagingToolkit.QRCode.Codec.QRCodeEncoder();
+            qrEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+            qrEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.L;
+            qrEncoder.QRCodeVersion = level;
+            // Encode image into new bitmap instance.
+            System.Drawing.Bitmap bitmap = qrEncoder.Encode(encodedString);
+            return bitmap;
+        }
+
+        // Convert Drawing Image to ImageSource
+        // Source: http://social.msdn.microsoft.com/Forums/vstudio/en-US/833ca60f-6a11-4836-bb2b-ef779dfe3ff0/
+        private BitmapImage convertImageToImageSource(System.Drawing.Image img) { 
+            // Winforms Image we want to get the WPF Image from...
+            System.Drawing.Image imgWinForms = img;
+            // ImageSource ...
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            MemoryStream ms = new MemoryStream();
+            // Save to a memory stream...
+            imgWinForms.Save(ms, ImageFormat.Bmp);
+            // Rewind the stream..
+            ms.Seek(0, SeekOrigin.Begin);
+            // Tell the WPF image to use this stream...
+            bi.StreamSource = ms;
+            bi.EndInit();
+            return bi;
+        }
+
+        private void qrgen_btn_onclick(object sender, RoutedEventArgs e)
+        {
+            // TODO Replace the harded string with <ip-address>:8080/amount=xx
+            System.Drawing.Image img = QRGenerator("This is a test", 7);
+            this.QrCode_img.Source = convertImageToImageSource(img);
+        }
+
     }
 }
