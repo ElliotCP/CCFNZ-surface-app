@@ -105,9 +105,11 @@ namespace CCF_app
 
             //var bc = new BrushConverter();
             
-            //CollapseAllPages();
+            CollapseAllPages();
 
-            //this.HelpPage.Visibility = System.Windows.Visibility.Visible;
+            this.InformationPage.Visibility = System.Windows.Visibility.Visible;
+            this.InformationPageTitle.Text = "How Can I Help?";
+            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
 
             //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
             //Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
@@ -132,9 +134,9 @@ namespace CCF_app
             //var bc = new BrushConverter();
             
 
-            //CollapseAllPages();
+            CollapseAllPages();
 
-            //this.HomePage.Visibility = System.Windows.Visibility.Visible;
+            this.HomePage.Visibility = System.Windows.Visibility.Visible;
 
 
             //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
@@ -156,10 +158,12 @@ namespace CCF_app
             //var bc = new BrushConverter();
 
 
-            //CollapseAllPages();
+            CollapseAllPages();
 
-            //this.SupportPage.Visibility = System.Windows.Visibility.Visible;
+            this.InformationPage.Visibility = System.Windows.Visibility.Visible;
+            this.InformationPageTitle.Text = "How Can I Get Support?";
 
+            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
 
             //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
             //Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
@@ -173,6 +177,23 @@ namespace CCF_app
             //this.Support_Btn.Background = SelectedButtonGradientSet();
             //this.Support_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
 
+        }
+
+        private void OnAboutUsPageClick(object sender, EventArgs e)
+        {
+            CollapseAllPages();
+
+            this.InformationPage.Visibility = System.Windows.Visibility.Visible;
+            this.InformationPageTitle.Text = "What Is CCFNZ?";
+
+            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_blue.png", UriKind.RelativeOrAbsolute));
+        }
+
+        private void OnDonatePageClick(object sender, EventArgs e)
+        {
+            CollapseAllPages();
+
+            this.DonatePage.Visibility = System.Windows.Visibility.Visible;
         }
 
 

@@ -10,7 +10,7 @@
     <Frame>
 		<Frame.Content>
 			<Grid>
-				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True">
+				<Grid x:Name="HomePage" Margin="0">
 					<Grid.Background>
 						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
 					</Grid.Background>
@@ -19,7 +19,7 @@
 						<ed:BlockArrow Fill="#33000000" HorizontalAlignment="Right" Height="50" Orientation="Right" Stroke="#4C000000" VerticalAlignment="Center" Width="50" Margin="0,0,10,0"/>
 					</Grid>
 				</Grid>
-				<Grid x:Name="DonatePage" Margin="0">
+				<Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
 					<Grid.Background>
 						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
 					</Grid.Background>
@@ -42,28 +42,35 @@
 						<TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right"><Run Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor."/><LineBreak/><Run/></TextBlock>
 					</Grid>
 				</Grid>
-				<Grid x:Name="InformationPage" Margin="0" d:IsHidden="True">
+				<Grid x:Name="InformationPage" Margin="0">
 					<Grid.Background>
 						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
 					</Grid.Background>
-					<Grid Margin="0,150,0,250" Background="#00000000">
+					<Grid Margin="0,125,0,225" Background="#00000000">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="1*"/>
 							<ColumnDefinition Width="1*"/>
 							<ColumnDefinition Width="1*"/>
 						</Grid.ColumnDefinitions>
 						<Grid.RowDefinitions>
+							<RowDefinition Height="0.3*"/>
 							<RowDefinition Height="1*"/>
 							<RowDefinition Height="1*"/>
 						</Grid.RowDefinitions>
-						<Image Margin="0" Source="Resources/icon.png">
+						<Image x:Name="Pointer" Margin="20,10,0,10" Width="80" HorizontalAlignment="Left" Stretch="Fill" Source="Assets/Icons/pointer_original.png" Height="80">
+							<Image.OpacityMask>
+								<ImageBrush ImageSource="Assets/Icons/pointer_original.png"/>
+							</Image.OpacityMask>
+						</Image>
+						<TextBlock x:Name="InformationPageTitle" TextWrapping="Wrap" Text="TextBlock" FontSize="48" HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Center" FontFamily="Segoe UI Light" FontWeight="Bold"/>
+						<Image Margin="0"  Grid.Row="1" Source="Resources/icon.png">
 							<Image.OpacityMask>
 								<ImageBrush ImageSource="Resources/icon.png"/>
 							</Image.OpacityMask>
 						</Image>
-						<Image Grid.Column="2" Margin="0" Grid.Row="1" Source="Resources/icon.png"/>
-						<TextBlock Grid.Column="1" Margin="20" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." d:LayoutOverrides="Height" Grid.ColumnSpan="2" FontSize="26.667"/>
-						<TextBlock Margin="20" Grid.Row="1" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." Grid.ColumnSpan="2" FontSize="26.667"/>
+						<Image Grid.Column="2" Margin="0" Grid.Row="2" Source="Resources/icon.png"/>
+						<TextBlock Grid.Column="1" Grid.Row="1" Margin="20,20,40,20" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." d:LayoutOverrides="Height" Grid.ColumnSpan="2" FontSize="26.667" FontFamily="Segoe UI Light"/>
+						<TextBlock Margin="40,20,20,20" Grid.Row="2" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." Grid.ColumnSpan="2" FontSize="26.667" FontFamily="Segoe UI Light"/>
 					</Grid>
 				</Grid>
 				<Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="80" Margin="0,20,0,0" Background="#00000000">
@@ -86,11 +93,13 @@
 						<ColumnDefinition Width="1*"/>
 					</Grid.ColumnDefinitions>
                     <s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHomePageClick" Background="#FFC7D960" Height="140" Foreground="Black" />
-                    <s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FF68CEEC" Height="140"/>
+                    <s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FF68CEEC" Height="140" Click="OnAboutUsPageClick"/>
                     <s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHelpPageClick" Background="#FFFAAB5E" Height="140" />
                     <s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnSupportPageClick" Background="#FFE05D5D" Height="140"/>
-					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFB57BEA" Height="140"/>
+					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFB57BEA" Height="140" Click="OnDonatePageClick" />
 				</Grid>
+				<TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="12"/>
+				<TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="0"/>
 			</Grid>
 		</Frame.Content>
 	</Frame>

@@ -99,6 +99,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Background.scale-100.png" />
+    <Resource Include="Assets\Icons\MetroBack.png" />
+    <Resource Include="Assets\Icons\pointer_blue.png" />
+    <Resource Include="Assets\Icons\pointer_green.png" />
+    <Resource Include="Assets\Icons\pointer_orange.png" />
+    <Resource Include="Assets\Icons\pointer_original.png" />
+    <Resource Include="Assets\Icons\pointer_purple.png" />
+    <Resource Include="Assets\Icons\pointer_red.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
