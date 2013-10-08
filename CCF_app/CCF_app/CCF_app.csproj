@@ -107,6 +107,7 @@
     <Resource Include="Assets\Icons\pointer_purple.png" />
     <Resource Include="Assets\Icons\pointer_red.png" />
     <Resource Include="Assets\QRCodes\what_we_do.png" />
+    <Resource Include="Assets\Images\SAFEANDGENTLE BANNER8.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
