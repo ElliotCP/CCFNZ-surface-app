@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="http://schemas.microsoft.com/surface/2008"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" mc:Ignorable="d" x:Class="CCF_app.MainWindow"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" mc:Ignorable="d" x:Class="CCF_app.MainWindow"
     Title="CCF_app"
     Width="1920"
     Height="1080"
@@ -10,58 +10,72 @@
     <Frame>
 		<Frame.Content>
 			<Grid>
-				<Grid x:Name="HomePage" Margin="0">
+				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True">
 					<Grid.Background>
-						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-							<GradientStop Color="#FF3BC1E3"/>
-							<GradientStop Color="#FF098EB1" Offset="0.75"/>
-						</LinearGradientBrush>
+						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
 					</Grid.Background>
+					<Grid Margin="0,100,0,200">
+						<ed:BlockArrow Fill="#33000000" Margin="10,0,0,0" Orientation="Left" Stroke="#4C000000" Height="50" VerticalAlignment="Center" d:LayoutOverrides="Height" Width="50" HorizontalAlignment="Left"/>
+						<ed:BlockArrow Fill="#33000000" HorizontalAlignment="Right" Height="50" Orientation="Right" Stroke="#4C000000" VerticalAlignment="Center" Width="50" Margin="0,0,10,0"/>
+					</Grid>
 				</Grid>
-				<Grid x:Name="HelpPage" Margin="0" Visibility="Collapsed">
+				<Grid x:Name="DonatePage" Margin="0">
 					<Grid.Background>
-						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-							<GradientStop Color="#FF3BC1E3" Offset="0"/>
-							<GradientStop Color="#FF098EB1" Offset="0.884"/>
-						</LinearGradientBrush>
+						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
 					</Grid.Background>
-                    <s:SurfaceScrollViewer Margin="0,50,0,75">
-                        <s:SurfaceListBox BorderThickness="0" Background="{x:Null}">
-                    		<Image Source="Resources/icon.png" Margin="0" Height="190" Width="308"/>
-                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0"/>
-                    		<Image Source="Resources/icon.png" Margin="0" Height="190" Width="308"/>
-                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0" />
-							                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
-                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0"/>
-                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
-                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0" />
-							                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
-                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0"/>
-                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
-                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0" />
-							                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
-                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0"/>
-                    		<Image Source="Resources/icon.png" Margin="0"   Height="190" Width="308"/>
-                    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text Goes Here" VerticalAlignment="Center" FontSize="32" Margin="0" />
-                    	</s:SurfaceListBox>
-                    </s:SurfaceScrollViewer>
-                </Grid>
-				<Grid x:Name="SupportPage" Margin="0" Visibility="Collapsed" d:IsHidden="True">
-					<Grid.Background>
-						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-							<GradientStop Color="#FF3BC1E3" Offset="0"/>
-							<GradientStop Color="#FF098EB1" Offset="0.884"/>
-						</LinearGradientBrush>
-					</Grid.Background>
+					<Grid Margin="0,150,0,250">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="1*"/>
+							<RowDefinition Height="3*"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="1*"/>
+						</Grid.ColumnDefinitions>
+						<Rectangle Fill="#33000000" Margin="0,0,-2.5,0" Stroke="#4C000000" Width="5" HorizontalAlignment="Right" Grid.Row="1"/>
+						<TextBlock Margin="0" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." Grid.ColumnSpan="2" FontSize="18.667"/>
+						<TextBlock HorizontalAlignment="Left" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." VerticalAlignment="Top"/>
+						<TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." VerticalAlignment="Top"/>
+						<Image HorizontalAlignment="Right" Height="100" Margin="0,0,154,88" Grid.Row="1" VerticalAlignment="Bottom" Width="100" Source="Resources/icon.png"/>
+						<ComboBox HorizontalAlignment="Left" Margin="214,0,0,194.04" Grid.Row="1" VerticalAlignment="Bottom" Width="120"/>
+						<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="82,234.75,0,224.04" Grid.Row="1" Width="120" d:LayoutOverrides="Height"/>
+						<TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right"><Run Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor."/><LineBreak/><Run/></TextBlock>
+					</Grid>
 				</Grid>
-				<Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="80">
+				<Grid x:Name="InformationPage" Margin="0" d:IsHidden="True">
+					<Grid.Background>
+						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
+					</Grid.Background>
+					<Grid Margin="0,150,0,250" Background="#00000000">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="1*"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="1*"/>
+							<RowDefinition Height="1*"/>
+						</Grid.RowDefinitions>
+						<Image Margin="0" Source="Resources/icon.png">
+							<Image.OpacityMask>
+								<ImageBrush ImageSource="Resources/icon.png"/>
+							</Image.OpacityMask>
+						</Image>
+						<Image Grid.Column="2" Margin="0" Grid.Row="1" Source="Resources/icon.png"/>
+						<TextBlock Grid.Column="1" Margin="20" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." d:LayoutOverrides="Height" Grid.ColumnSpan="2" FontSize="26.667"/>
+						<TextBlock Margin="20" Grid.Row="1" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." Grid.ColumnSpan="2" FontSize="26.667"/>
+					</Grid>
+				</Grid>
+				<Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="80" Margin="0,20,0,0" Background="#00000000">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="8*"/>
 						<ColumnDefinition Width="1*"/>
 					</Grid.ColumnDefinitions>
-					<TextBlock TextWrapping="Wrap" d:LayoutOverrides="Height" HorizontalAlignment="Left" Grid.Column="2" FontSize="48" FontFamily="Calibri" Margin="0,10,0,0"><Run Foreground="#ea098d" Text="Child"/><Run Text=" "/><Run Foreground="#ef2e2f" Text="Cancer"/><Run Text=" "/><Run Foreground="#000000" Text="Foundation"/></TextBlock>
+					<TextBlock TextWrapping="Wrap" d:LayoutOverrides="Height" HorizontalAlignment="Left" Grid.Column="2" FontSize="48" FontFamily="Calibri" Margin="30,10,0,0"><Run Foreground="#ea098d" Text="Child"/><Run Text=" "/><Run Foreground="#ef2e2f" Text="Cancer"/><Run Text=" "/><Run Foreground="#000000" Text="Foundation"/></TextBlock>
+					<TextBlock Grid.Column="1" Margin="0" TextWrapping="Wrap" FontSize="64"><Run Language="en-nz" Text="LOGO"/><LineBreak/><Run Language="en-nz"/></TextBlock>
+					<Button Content="Button" Margin="0" Width="75" d:LayoutOverrides="Height"/>
 				</Grid>
 				<Grid x:Name="BottomNavBar" VerticalAlignment="Bottom" Height="200" d:LayoutOverrides="GridBox">
 					<Grid.ColumnDefinitions>
@@ -71,48 +85,12 @@
 						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="1*"/>
 					</Grid.ColumnDefinitions>
-                    <s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI" FontSize="32" Margin="0" Foreground="Black" Click="OnHomePageClick" >
-                        <s:SurfaceButton.Background>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#FFC0D72D" Offset="0.728"/>
-								<GradientStop Color="#FFE0E98B"/>
-							</LinearGradientBrush>
-                        </s:SurfaceButton.Background>
-                    </s:SurfaceButton>
-                    <s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI" FontSize="32" Margin="0">
-                    	<s:SurfaceButton.Background>
-                    		<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    			<GradientStop Color="#FFDEDEDE" Offset="0.4"/>
-                    			<GradientStop Color="White"/>
-                    		</LinearGradientBrush>
-                    	</s:SurfaceButton.Background>
-                    </s:SurfaceButton>
-                    <s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI" FontSize="32" Margin="0" Click="OnHelpPageClick" >
-                    	<s:SurfaceButton.Background>
-                    		<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    			<GradientStop Color="#FFDEDEDE" Offset="0.4"/>
-                    			<GradientStop Color="White"/>
-                    		</LinearGradientBrush>
-                    	</s:SurfaceButton.Background>
-                    </s:SurfaceButton>
-                    <s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI" FontSize="32" Margin="0" Click="OnSupportPageClick">
-                    	<s:SurfaceButton.Background>
-                    		<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    			<GradientStop Color="#FFDEDEDE" Offset="0.4"/>
-                    			<GradientStop Color="White"/>
-                    		</LinearGradientBrush>
-                    	</s:SurfaceButton.Background>
-                    </s:SurfaceButton>
-					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI" FontSize="32" Margin="0">
-						<s:SurfaceButton.Background>
-							<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-								<GradientStop Color="#FFDEDEDE" Offset="0.4"/>
-								<GradientStop Color="White"/>
-							</LinearGradientBrush>
-						</s:SurfaceButton.Background>
-					</s:SurfaceButton>
+                    <s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHomePageClick" Background="#FFC7D960" Height="140" Foreground="Black" />
+                    <s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FF68CEEC" Height="140"/>
+                    <s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHelpPageClick" Background="#FFFAAB5E" Height="140" />
+                    <s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnSupportPageClick" Background="#FFE05D5D" Height="140"/>
+					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFB57BEA" Height="140"/>
 				</Grid>
-				<s:SurfaceListBox HorizontalAlignment="Right" Height="4.5" Margin="0,370.5,-281,0" VerticalAlignment="Top" Width="0"/>
 			</Grid>
 		</Frame.Content>
 	</Frame>

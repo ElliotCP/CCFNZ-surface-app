@@ -103,75 +103,75 @@ namespace CCF_app
         private void OnHelpPageClick(object sender, EventArgs e)
         {
 
-            var bc = new BrushConverter();
+            //var bc = new BrushConverter();
             
-            CollapseAllPages();
+            //CollapseAllPages();
 
-            this.HelpPage.Visibility = System.Windows.Visibility.Visible;
+            //this.HelpPage.Visibility = System.Windows.Visibility.Visible;
 
-            Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
-            Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
+            //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
+            //Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
 
-            this.Home_Btn.Background = background;
-            this.Home_Btn.Foreground = foreground;
-            this.Support_Btn.Background = background;
-            this.Support_Btn.Foreground = foreground;
-
-
+            //this.Home_Btn.Background = background;
+            //this.Home_Btn.Foreground = foreground;
+            //this.Support_Btn.Background = background;
+            //this.Support_Btn.Foreground = foreground;
 
 
 
-            this.Help_Btn.Background = SelectedButtonGradientSet();
-            this.Help_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+
+
+            //this.Help_Btn.Background = SelectedButtonGradientSet();
+            //this.Help_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
         
         }
 
 
         private void OnHomePageClick(object sender, EventArgs e)
         {
-            var bc = new BrushConverter();
+            //var bc = new BrushConverter();
             
 
-            CollapseAllPages();
+            //CollapseAllPages();
 
-            this.HomePage.Visibility = System.Windows.Visibility.Visible;
-
-
-            Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
-            Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
-
-            this.Help_Btn.Background = background;
-            this.Help_Btn.Foreground = foreground;
-            this.Support_Btn.Background = background;
-            this.Support_Btn.Foreground = foreground;
+            //this.HomePage.Visibility = System.Windows.Visibility.Visible;
 
 
-            this.Home_Btn.Background = SelectedButtonGradientSet();
-            this.Home_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+            //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
+            //Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
+
+            //this.Help_Btn.Background = background;
+            //this.Help_Btn.Foreground = foreground;
+            //this.Support_Btn.Background = background;
+            //this.Support_Btn.Foreground = foreground;
+
+
+            //this.Home_Btn.Background = SelectedButtonGradientSet();
+            //this.Home_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
 
         }
 
         private void OnSupportPageClick(object sender, EventArgs e)
         {
-            var bc = new BrushConverter();
+            //var bc = new BrushConverter();
 
 
-            CollapseAllPages();
+            //CollapseAllPages();
 
-            this.SupportPage.Visibility = System.Windows.Visibility.Visible;
-
-
-            Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
-            Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
-
-            this.Home_Btn.Background = background;
-            this.Home_Btn.Foreground = foreground;
-            this.Help_Btn.Background = background;
-            this.Help_Btn.Foreground = foreground;
+            //this.SupportPage.Visibility = System.Windows.Visibility.Visible;
 
 
-            this.Support_Btn.Background = SelectedButtonGradientSet();
-            this.Support_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+            //Brush background = (Brush)bc.ConvertFrom("#FFFFFFFF");
+            //Brush foreground = (Brush)bc.ConvertFrom("#FF9CB208");
+
+            //this.Home_Btn.Background = background;
+            //this.Home_Btn.Foreground = foreground;
+            //this.Help_Btn.Background = background;
+            //this.Help_Btn.Foreground = foreground;
+
+
+            //this.Support_Btn.Background = SelectedButtonGradientSet();
+            //this.Support_Btn.Foreground = (Brush)bc.ConvertFrom("#FF000000");
 
         }
 
@@ -179,8 +179,8 @@ namespace CCF_app
         private void CollapseAllPages()
         {
             this.HomePage.Visibility = System.Windows.Visibility.Collapsed;
-            this.SupportPage.Visibility = System.Windows.Visibility.Collapsed;
-            this.HelpPage.Visibility = System.Windows.Visibility.Collapsed;
+            this.InformationPage.Visibility = System.Windows.Visibility.Collapsed;
+            this.DonatePage.Visibility = System.Windows.Visibility.Collapsed;
 
         }
 
