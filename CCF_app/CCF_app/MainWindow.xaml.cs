@@ -34,7 +34,7 @@ namespace CCF_app
         Brush Donate_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFB57BEA");
 
         string helpText1 = "We rely on the generosity of big-hearted New Zealander's to help us continue what we do. There are a variety of ways you can support children with cancer and their families."
-            + "\nOur Beads of Courage ® presents children with a bead representing an Act of Courage. Ideally (and sadly) this year, we expect that we will need approximately 5000 handmaid beads donated. We are currently reaching only 1800 and we need all the help we can get to help our kids.";
+            + "\nOur Beads of Courage ?presents children with a bead representing an Act of Courage. Ideally (and sadly) this year, we expect that we will need approximately 5000 handmaid beads donated. We are currently reaching only 1800 and we need all the help we can get to help our kids.";
         string helpText2 = "We rely on donations to continue our services. You can make a one-off donation through your credit card; it is simple, secure and super rewarding."
             + "\nYou can become a regular supporter of Child Cancer Foundation by setting up a regular donation from your credit card or bank account. More information on donations can be found on our website."
             + "\nEvery donation, no matter how big or small, helps us continue to support our children and families affected by this traumatic disease.";
@@ -50,6 +50,11 @@ namespace CCF_app
             + "\nEach year we need at least $6 million to continue our services. This is raised through the generosity of individuals, grants, donations and sponsorships."
             + "\nThe Foundation's work with children with cancer and their families is unique and receives no direct government funding or support from other cancer agencies.";
 
+        string donateText1 = "It's simple. It's fast. Make your donation now and help us make the world a better place for children with cancer.";
+
+        string donateText2 = "";
+
+        string donateText3 = "";
 
         public MainWindow()
         {
@@ -224,6 +229,7 @@ namespace CCF_app
             CollapseAllPages();
 
             this.DonatePage.Visibility = System.Windows.Visibility.Visible;
+
         }
 
 
