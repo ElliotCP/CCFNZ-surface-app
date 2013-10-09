@@ -111,11 +111,7 @@
     							<RowDefinition Height="40"/>
     							<RowDefinition Height="1*"/>
     						</Grid.RowDefinitions>
-    						<TextBlock x:Name="QRCode_Text" Grid.Row="0" TextWrapping="Wrap" Text="Scan For Website Link" FontSize="26.667" VerticalAlignment="Bottom" FontFamily="Segoe UI Light" FontWeight="Bold" Panel.ZIndex="1" Margin="0,0,0,-15.735" d:LayoutOverrides="Width" HorizontalAlignment="Center">
-    							<TextBlock.Background>
-    								<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
-    							</TextBlock.Background>
-    						</TextBlock>
+    						<TextBlock x:Name="QRCode_Text" Grid.Row="0" TextWrapping="Wrap" Text="Scan For Website Link" FontSize="26.667" VerticalAlignment="Bottom" FontFamily="Segoe UI Light" FontWeight="Bold" Panel.ZIndex="1" Margin="0,0,0,-15.735" d:LayoutOverrides="Width" HorizontalAlignment="Center"/>
     						<Image Source="Assets/QRCodes/what_we_do.png" Grid.Row="1" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="500" Margin="0,-10,0,0">
     							<Image.OpacityMask>
     								<ImageBrush ImageSource="Assets/QRCodes/what_we_do.png" Stretch="Uniform"/>
