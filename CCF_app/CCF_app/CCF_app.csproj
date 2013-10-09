@@ -108,6 +108,16 @@
     <Resource Include="Assets\Icons\pointer_red.png" />
     <Resource Include="Assets\QRCodes\what_we_do.png" />
     <Resource Include="Assets\Images\SAFEANDGENTLE BANNER8.png" />
+    <Resource Include="Assets\Images\blurredGrid.png" />
+    <Resource Include="Assets\Images\HomePage_Pic1.jpg" />
+    <Resource Include="Assets\Images\aboutUs1.png" />
+    <Resource Include="Assets\Images\help2.png" />
+    <Resource Include="Assets\Images\support1.png" />
+    <Resource Include="Assets\Images\support2.png" />
+    <Resource Include="Assets\Images\aboutUs3.png" />
+    <Resource Include="Assets\Images\aboutUs2.jpg" />
+    <Resource Include="Assets\Images\SAFEANDGENTLE BANNER82.png" />
+    <Resource Include="Assets\Images\help1.jpg" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
