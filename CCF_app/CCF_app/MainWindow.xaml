@@ -1,0 +1,130 @@
+﻿<s:SurfaceWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="http://schemas.microsoft.com/surface/2008"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" mc:Ignorable="d" x:Class="CCF_app.MainWindow"
+    Title="CCF_app"
+    Width="1920"
+    Height="1080"
+    >
+    <Frame>
+		<Frame.Content>
+    		<Viewbox>
+    			<Grid Height="1041" Width="1904">
+    				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True">
+    					<Grid.Background>
+    						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
+    					</Grid.Background>
+                        <Grid Margin="0,150,0,200" Opacity="0.8">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
+                            </Grid.Background>
+                            <ed:BlockArrow Fill="#4CFFFFFF" Margin="10,0,0,0" Orientation="Left" Stroke="#4C000000" Height="50" VerticalAlignment="Center" d:LayoutOverrides="Height" Width="50" HorizontalAlignment="Left" Panel.ZIndex="1"/>
+    						<ed:BlockArrow Fill="#4CFFFFFF" HorizontalAlignment="Right" Height="50" Orientation="Right" Stroke="#4C000000" VerticalAlignment="Center" Width="50" Margin="0,0,10,0" Panel.ZIndex="1"/>
+    						<Image Source="Assets/Images/blurredGrid.png" Stretch="Fill"/>
+    					</Grid>
+    				</Grid>
+    				<Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
+    					<Grid.Background>
+    						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
+    					</Grid.Background>
+    					<Grid Margin="0,150,0,250">
+    						<Grid.RowDefinitions>
+    							<RowDefinition Height="1*"/>
+    							<RowDefinition Height="3*"/>
+    						</Grid.RowDefinitions>
+    						<Grid.ColumnDefinitions>
+    							<ColumnDefinition Width="1*"/>
+    							<ColumnDefinition Width="1*"/>
+    						</Grid.ColumnDefinitions>
+    						<Rectangle Fill="#33000000" Margin="0,0,-2.5,0" Stroke="#4C000000" Width="5" HorizontalAlignment="Right" Grid.Row="1"/>
+    						<TextBlock Margin="0" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." Grid.ColumnSpan="2" FontSize="18.667"/>
+    						<TextBlock HorizontalAlignment="Left" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." VerticalAlignment="Top"/>
+    						<TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." VerticalAlignment="Top"/>
+    						<Image HorizontalAlignment="Right" Height="100" Margin="0,0,154,88" Grid.Row="1" VerticalAlignment="Bottom" Width="100" Source="Resources/icon.png"/>
+    						<ComboBox HorizontalAlignment="Left" Margin="214,0,0,194.04" Grid.Row="1" VerticalAlignment="Bottom" Width="120"/>
+    						<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="82,234.75,0,224.04" Grid.Row="1" Width="120" d:LayoutOverrides="Height"/>
+    						<TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right"><Run Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor."/><LineBreak/><Run/></TextBlock>
+    					</Grid>
+    				</Grid>
+    				<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
+    					<Grid.Background>
+    						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
+    					</Grid.Background>
+    					<Grid Margin="0,125,0,225" Background="#00000000">
+    						<Grid.ColumnDefinitions>
+    							<ColumnDefinition Width="1*"/>
+    							<ColumnDefinition Width="1*"/>
+    							<ColumnDefinition Width="1*"/>
+    						</Grid.ColumnDefinitions>
+    						<Grid.RowDefinitions>
+    							<RowDefinition Height="0.3*"/>
+    							<RowDefinition Height="1*"/>
+    							<RowDefinition Height="1*"/>
+    						</Grid.RowDefinitions>
+    						<Image x:Name="Pointer" Margin="20,10,0,10" Width="80" HorizontalAlignment="Left" Stretch="Fill" Source="Assets/Icons/pointer_original.png" Height="80">
+    							<Image.OpacityMask>
+    								<ImageBrush ImageSource="Assets/Icons/pointer_original.png"/>
+    							</Image.OpacityMask>
+    						</Image>
+    						<TextBlock x:Name="InformationPageTitle" TextWrapping="Wrap" Text="TextBlock" FontSize="48" HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Center" FontFamily="Segoe UI Light" FontWeight="Bold"/>
+    						<Image x:Name="Image1" Margin="0"  Grid.Row="1" Source="Resources/icon.png">
+    							<Image.OpacityMask>
+    								<ImageBrush ImageSource="Resources/icon.png"/>
+    							</Image.OpacityMask>
+    						</Image>
+    						<Image x:Name="Image2" Grid.Column="2" Margin="0" Grid.Row="2" Source="Resources/icon.png"/>
+    						<TextBlock x:Name="TextBlockOuter1" Grid.Column="1" Grid.Row="1" Margin="20,20,40,20" TextWrapping="Wrap" d:LayoutOverrides="Height" Grid.ColumnSpan="2" FontSize="26.667" FontFamily="Segoe UI Light"><InlineUIContainer>
+    								<TextBlock x:Name="Text1" TextWrapping="Wrap" Text="TextBlock"/>
+    							</InlineUIContainer><InlineUIContainer>
+    								<TextBlock x:Name="More1" TextWrapping="Wrap" Text="More&gt;" Margin="0" FontWeight="Bold" />
+    							</InlineUIContainer></TextBlock>
+    						<TextBlock x:Name="TextBlockOuter2" Margin="40,20,20,20" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" FontSize="26.667" FontFamily="Segoe UI Light"><Run Text=""/><InlineUIContainer>
+    								<TextBlock x:Name="Text2" TextWrapping="Wrap"><Run Language="en-nz" Text="Text block"/></TextBlock>
+    							</InlineUIContainer><InlineUIContainer>
+    								<TextBlock x:Name="More2" TextWrapping="Wrap" Text="More&gt;" Margin="0" FontWeight="Bold"/>
+    							</InlineUIContainer></TextBlock>
+    					</Grid>
+    				</Grid>
+    				<Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="100" Margin="0,40,0,0" OpacityMask="White">
+    					<Image Margin="0,0,0,20" Source="Assets/Images/SAFEANDGENTLE BANNER8.png" HorizontalAlignment="Center"/>
+    				</Grid>
+    				<Grid x:Name="BottomNavBar" VerticalAlignment="Bottom" Height="200" d:LayoutOverrides="GridBox">
+    					<Grid.ColumnDefinitions>
+    						<ColumnDefinition Width="1*"/>
+    						<ColumnDefinition Width="1*"/>
+    						<ColumnDefinition Width="1*"/>
+    						<ColumnDefinition Width="1*"/>
+    						<ColumnDefinition Width="1*"/>
+    					</Grid.ColumnDefinitions>
+    					<s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHomePageClick" Background="#FFC7D960" Height="140" Foreground="Black" />
+    					<s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FF68CEEC" Height="140" Click="OnAboutUsPageClick"/>
+    					<s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHelpPageClick" Background="#FFFAAB5E" Height="140" />
+    					<s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnSupportPageClick" Background="#FFE05D5D" Height="140"/>
+    					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFB57BEA" Height="140" Click="OnDonatePageClick" />
+    				</Grid>
+    				<TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="12"/>
+    				<TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="0"/>
+    				<Grid x:Name="QRCode" Background="#B2000000" Visibility="Collapsed">
+    					<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+    						<Grid.RowDefinitions>
+    							<RowDefinition Height="40"/>
+    							<RowDefinition Height="1*"/>
+    						</Grid.RowDefinitions>
+    						<TextBlock x:Name="QRCode_Text" Grid.Row="0" TextWrapping="Wrap" Text="Scan For Website Link" FontSize="26.667" VerticalAlignment="Bottom" FontFamily="Segoe UI Light" FontWeight="Bold" Panel.ZIndex="1" Margin="0,0,0,-15.735" d:LayoutOverrides="Width" HorizontalAlignment="Center">
+    							<TextBlock.Background>
+    								<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
+    							</TextBlock.Background>
+    						</TextBlock>
+    						<Image Source="Assets/QRCodes/what_we_do.png" Grid.Row="1" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="500" Margin="0,-10,0,0">
+    							<Image.OpacityMask>
+    								<ImageBrush ImageSource="Assets/QRCodes/what_we_do.png" Stretch="Uniform"/>
+    							</Image.OpacityMask>
+    						</Image>
+    					</Grid>					
+    				</Grid>
+    			</Grid>
+    		</Viewbox>
+    	</Frame.Content>
+	</Frame>
+</s:SurfaceWindow>
