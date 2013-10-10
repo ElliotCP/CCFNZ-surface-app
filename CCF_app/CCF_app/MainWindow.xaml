@@ -11,7 +11,7 @@
 		<Frame.Content>
     		<Viewbox>
     			<Grid Height="1041" Width="1904">
-    				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True">
+    				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True" Visibility="Visible">
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
@@ -37,12 +37,24 @@
     							<ColumnDefinition Width="1*"/>
     							<ColumnDefinition Width="1*"/>
     						</Grid.ColumnDefinitions>
-    						<Rectangle Fill="#33000000" Margin="0,0,-2.5,0" Stroke="#4C000000" Width="5" HorizontalAlignment="Right" Grid.Row="1"/>
+    						<Grid Margin="200,200,0,100" Grid.Row="1" HorizontalAlignment="Left">
+    							<Grid.RowDefinitions>
+    								<RowDefinition Height="1*"/>
+    								<RowDefinition Height="1*"/>
+    								<RowDefinition Height="1*"/>
+    								<RowDefinition Height="1*"/>
+    								<RowDefinition Height="1*"/>
+    							</Grid.RowDefinitions>
+    							<s:SurfaceRadioButton Margin="0" d:LayoutOverrides="Width, Height" Content="$5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+    							<s:SurfaceRadioButton Margin="0" d:LayoutOverrides="Height" Grid.Row="1" Content="$10" Padding="0" MinWidth="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+    							<s:SurfaceRadioButton Content="$15" Margin="0" d:LayoutOverrides="Width" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+    							<s:SurfaceRadioButton Margin="0" d:LayoutOverrides="Width" Grid.Row="3" Content="$20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+    							<s:SurfaceRadioButton Content="Custom" Margin="0" d:LayoutOverrides="Width" Grid.Row="4" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+    						</Grid>
                             <TextBlock Margin="50,50,50,0" TextWrapping="Wrap" Text="It's simple. It's fast. Make your donation now and help us make the world a better place for children with cancer." Grid.ColumnSpan="2" FontSize="30"/>
     						<TextBlock HorizontalAlignment="Left" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Donate using smartphone" FontSize="30" VerticalAlignment="Top"/>
     						<TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Donate using any mobile phone" FontSize="30" VerticalAlignment="Top"/>
     						<Image HorizontalAlignment="Right" Height="100" Margin="0,0,154,88" Grid.Row="1" VerticalAlignment="Bottom" Width="100" Source="Resources/icon.png"/>
-    						<ComboBox HorizontalAlignment="Left" Margin="214,0,0,194.04" Grid.Row="1" VerticalAlignment="Bottom" Width="120"/>
     						<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="82,234.75,0,224.04" Grid.Row="1" Width="120" d:LayoutOverrides="Height"/>
                             <TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right"><Run Text="How to donate by sending a text message"/><LineBreak/><Run/></TextBlock>
     					</Grid>
@@ -97,11 +109,16 @@
     						<ColumnDefinition Width="1*"/>
     						<ColumnDefinition Width="1*"/>
     					</Grid.ColumnDefinitions>
-    					<s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHomePageClick" Background="#FFC7D960" Height="140" Foreground="Black" />
-    					<s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FF68CEEC" Height="140" Click="OnAboutUsPageClick"/>
-    					<s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHelpPageClick" Background="#FFFAAB5E" Height="140" />
-    					<s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnSupportPageClick" Background="#FFE05D5D" Height="140"/>
-    					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFB57BEA" Height="140" Click="OnDonatePageClick" />
+    					<s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHomePageClick" Background="#FF33B5E5" Height="140" Foreground="Black" />
+    					<Rectangle x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom"/>
+    					<s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFAA66CC" Height="140" Click="OnAboutUsPageClick"/>
+    					<Rectangle x:Name="AboutUs_BtnRec" Fill="#FF9933CC" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="1"/>
+    					<s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHelpPageClick" Background="#FF99CC00" Height="140" />
+    					<Rectangle x:Name="Help_BtnRec" Fill="#FF669900" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="2"/>
+    					<s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnSupportPageClick" Background="#FFFFBB33" Height="140"/>
+    					<Rectangle x:Name="Support_BtnRec" Fill="#FFFF8800" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="3"/>
+    					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFFF4444" Height="140" Click="OnDonatePageClick" />
+    					<Rectangle x:Name="Donate_BtnRec" Fill="#FFCC0000" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="4"/>
     				</Grid>
     				<TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="12"/>
     				<TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="0"/>
@@ -119,6 +136,7 @@
     						</Image>
     					</Grid>					
     				</Grid>
+    				<Rectangle Fill="#FFCC0000" HorizontalAlignment="Right" Height="0" Margin="0,443.5,-730,0" VerticalAlignment="Top" Width="6"/>
     			</Grid>
     		</Viewbox>
     	</Frame.Content>

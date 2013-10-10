@@ -60,6 +60,8 @@ namespace CCF_app
         {
             InitializeComponent();
 
+            this.Home_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
             this.More1.MouseDown += new MouseButtonEventHandler(More1_MouseDown);
@@ -154,6 +156,7 @@ namespace CCF_app
             CollapseAllPages();
 
             this.HomePage.Visibility = System.Windows.Visibility.Visible;
+            this.Home_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
 
         }
 
@@ -164,6 +167,7 @@ namespace CCF_app
             CollapseAllPages();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
+            this.Help_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
 
             this.InformationPageTitle.Text = "How Can I Help?";
 
@@ -187,6 +191,8 @@ namespace CCF_app
             CollapseAllPages();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
+            this.Support_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+
             this.InformationPageTitle.Text = "How Can I Get Support?";
 
             this.Text1.Text = supportText1;
@@ -208,6 +214,8 @@ namespace CCF_app
             CollapseAllPages();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
+            this.AboutUs_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+
             this.InformationPageTitle.Text = "What Is CCFNZ?";
 
             this.Text1.Text = aboutUsText1;
@@ -229,6 +237,7 @@ namespace CCF_app
             CollapseAllPages();
 
             this.DonatePage.Visibility = System.Windows.Visibility.Visible;
+            this.Donate_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
 
         }
 
@@ -238,6 +247,12 @@ namespace CCF_app
             this.HomePage.Visibility = System.Windows.Visibility.Collapsed;
             this.InformationPage.Visibility = System.Windows.Visibility.Collapsed;
             this.DonatePage.Visibility = System.Windows.Visibility.Collapsed;
+
+            this.AboutUs_BtnRec.Visibility = System.Windows.Visibility.Visible;
+            this.Home_BtnRec.Visibility = System.Windows.Visibility.Visible;
+            this.Help_BtnRec.Visibility = System.Windows.Visibility.Visible;
+            this.Support_BtnRec.Visibility = System.Windows.Visibility.Visible;
+            this.Donate_BtnRec.Visibility = System.Windows.Visibility.Visible;
 
         }
 
