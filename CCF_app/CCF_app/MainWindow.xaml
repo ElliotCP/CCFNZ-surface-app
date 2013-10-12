@@ -6,7 +6,7 @@
     Title="CCF_app"
     Width="1920"
     Height="1080"
-    >
+    >    
     <Frame>
 		<Frame.Content>
     		<Viewbox>
@@ -24,7 +24,7 @@
     						<Image Source="Assets/Images/blurredGrid.png" Stretch="Fill"/>
     					</Grid>
     				</Grid>
-    				<Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
+    				<Grid x:Name="DonatePage" Margin="0">
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
@@ -37,7 +37,7 @@
     							<ColumnDefinition Width="1*"/>
     							<ColumnDefinition Width="1*"/>
     						</Grid.ColumnDefinitions>
-    						<Grid Margin="200,200,0,100" Grid.Row="1" HorizontalAlignment="Left">
+    						<Grid Margin="0,0,450,0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210">
     							<Grid.RowDefinitions>
     								<RowDefinition Height="1*"/>
     								<RowDefinition Height="1*"/>
@@ -45,18 +45,30 @@
     								<RowDefinition Height="1*"/>
     								<RowDefinition Height="1*"/>
     							</Grid.RowDefinitions>
-    							<s:SurfaceRadioButton Margin="0" d:LayoutOverrides="Width, Height" Content="$5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-    							<s:SurfaceRadioButton Margin="0" d:LayoutOverrides="Height" Grid.Row="1" Content="$10" Padding="0" MinWidth="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-    							<s:SurfaceRadioButton Content="$15" Margin="0" d:LayoutOverrides="Width" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-    							<s:SurfaceRadioButton Margin="0" d:LayoutOverrides="Width" Grid.Row="3" Content="$20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-    							<s:SurfaceRadioButton Content="Custom" Margin="0" d:LayoutOverrides="Width" Grid.Row="4" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+								<Grid.ColumnDefinitions>
+    								<ColumnDefinition Width="1*"/>
+    								<ColumnDefinition Width="1*"/>
+    							</Grid.ColumnDefinitions>
+                                <s:SurfaceRadioButton GroupName="DonationAmount"  Margin="0" d:LayoutOverrides="Width, Height" Content="$5" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8"/>
+                                <s:SurfaceRadioButton GroupName="DonationAmount" Margin="0" d:LayoutOverrides="Height" Grid.Row="1" Content="$10" Padding="25,0,0,0" MinWidth="38" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8"/>
+    							<s:SurfaceRadioButton GroupName="DonationAmount" Content="$15" Margin="0" d:LayoutOverrides="Width" Grid.Row="2" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8"/>
+    							<s:SurfaceRadioButton GroupName="DonationAmount" Margin="0" d:LayoutOverrides="Width" Grid.Row="3" Content="$20" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8"/>
+    							<s:SurfaceRadioButton GroupName="DonationAmount" Content="Custom" Margin="0" Grid.Row="4" Padding="25,0,0,0" VerticalContentAlignment="Center" Width="150" FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8"/>
+    							<Grid x:Name="CustomAmount" Margin="0" Grid.Column="1" Grid.Row="4" Background="#00FF0000" Width="100" Visibility="Collapsed">
+    								<Grid.ColumnDefinitions>
+    									<ColumnDefinition Width="0.1*"/>
+    									<ColumnDefinition Width="1*"/>
+    								</Grid.ColumnDefinitions>
+    								<TextBlock TextWrapping="Wrap" Text="$" d:LayoutOverrides="Width" VerticalAlignment="Center"/>
+    								<s:SurfaceTextBox Margin="0" TextWrapping="NoWrap" Text="0" Grid.Column="1" Background="#FFFF4444" Foreground="Black" Grid.Row="1" Width="63" FontFamily="Segoe UI Light" UndoLimit="5" ToolTip="Enter any amount you wish to donate" VerticalContentAlignment="Stretch" Padding="5,0,0,0" HorizontalScrollBarVisibility="Disabled" MaxLines="1" MaxLength="6" AcceptsReturn="True" BorderThickness="0,8" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"/>
+    							</Grid>
     						</Grid>
-                            <TextBlock Margin="50,50,50,0" TextWrapping="Wrap" Text="It's simple. It's fast. Make your donation now and help us make the world a better place for children with cancer." Grid.ColumnSpan="2" FontSize="30"/>
-    						<TextBlock HorizontalAlignment="Left" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Donate using smartphone" FontSize="30" VerticalAlignment="Top"/>
-    						<TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Donate using any mobile phone" FontSize="30" VerticalAlignment="Top"/>
-    						<Image HorizontalAlignment="Right" Height="100" Margin="0,0,154,88" Grid.Row="1" VerticalAlignment="Bottom" Width="100" Source="Resources/icon.png"/>
+                            <TextBlock Margin="50,50,50,0" TextWrapping="Wrap" Text="It's simple. It's fast. Make your donation now and help us make the world a better place for children with cancer." Grid.ColumnSpan="2" FontSize="30" FontFamily="Segoe UI Light"/>
+    						<TextBlock HorizontalAlignment="Left" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Donate using smartphone" FontSize="30" VerticalAlignment="Top" FontFamily="Segoe UI Light"/>
+    						<TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Donate using any mobile phone" FontSize="30" VerticalAlignment="Top" FontFamily="Segoe UI Light"/>
+    						<Image Height="300" Margin="300,0,0,0" Grid.Row="1" Width="300" Source="Assets/QRCodes/what_we_do.png"/>
     						<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="82,234.75,0,224.04" Grid.Row="1" Width="120" d:LayoutOverrides="Height"/>
-                            <TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right"><Run Text="How to donate by sending a text message"/><LineBreak/><Run/></TextBlock>
+                            <TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right" FontFamily="Segoe UI Light"><Run Text="How to donate by sending a text message"/><LineBreak/><Run/></TextBlock>
     					</Grid>
     				</Grid>
     				<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
@@ -110,15 +122,15 @@
     						<ColumnDefinition Width="1*"/>
     					</Grid.ColumnDefinitions>
     					<s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHomePageClick" Background="#FF33B5E5" Height="140" Foreground="Black" />
-    					<Rectangle x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom"/>
+                        <Rectangle x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" MouseLeftButtonUp="BtnRec_MouseUp"  />
     					<s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFAA66CC" Height="140" Click="OnAboutUsPageClick"/>
-    					<Rectangle x:Name="AboutUs_BtnRec" Fill="#FF9933CC" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="1"/>
+                        <Rectangle x:Name="AboutUs_BtnRec" Fill="#FF9933CC" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="1" MouseLeftButtonUp="BtnRec_MouseUp" />
     					<s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHelpPageClick" Background="#FF99CC00" Height="140" />
-    					<Rectangle x:Name="Help_BtnRec" Fill="#FF669900" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="2"/>
+                        <Rectangle x:Name="Help_BtnRec" Fill="#FF669900" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="2" MouseLeftButtonUp="BtnRec_MouseUp" />
     					<s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnSupportPageClick" Background="#FFFFBB33" Height="140"/>
-    					<Rectangle x:Name="Support_BtnRec" Fill="#FFFF8800" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="3"/>
+                        <Rectangle x:Name="Support_BtnRec" Fill="#FFFF8800" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="3" MouseLeftButtonUp="BtnRec_MouseUp" />
     					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFFF4444" Height="140" Click="OnDonatePageClick" />
-    					<Rectangle x:Name="Donate_BtnRec" Fill="#FFCC0000" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="4"/>
+                        <Rectangle x:Name="Donate_BtnRec" Fill="#FFCC0000" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="4" MouseLeftButtonUp="BtnRec_MouseUp" />
     				</Grid>
     				<TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="12"/>
     				<TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="0"/>

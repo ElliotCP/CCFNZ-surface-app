@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,8 @@ using Microsoft.Surface;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
+using System.Windows.Media.Animation;
+using System.Diagnostics;
 
 namespace CCF_app
 {
@@ -39,10 +41,10 @@ namespace CCF_app
             + "\nYou can become a regular supporter of Child Cancer Foundation by setting up a regular donation from your credit card or bank account. More information on donations can be found on our website."
             + "\nEvery donation, no matter how big or small, helps us continue to support our children and families affected by this traumatic disease.";
 
-        string supportText1 = "Our Family Support team work in conjunction with the foundation’s branch members (parents, caregivers, and volunteers) to deliver a range of support services to ensure every child and their family walking the child cancer journey will never feel alone."
+        string supportText1 = "Our Family Support team work in conjunction with the foundationâ€™s branch members (parents, caregivers, and volunteers) to deliver a range of support services to ensure every child and their family walking the child cancer journey will never feel alone."
             + " They offer individual and group support, information, financial assistance, and advocacy. Our Coordinators also offer support for bereaved families. They connect similar families and provide a link to other agencies and community support groups.";
         string supportText2 = "There are a variety of local and regional child, parent, grandparent, sibling and bereaved support programmes and events that aim to inform, reduce isolation and support your family through the experiences and challenges of child cancer."
-            + " Parent events, children’s holiday programmes and sibling days are among many that are well attended. ";
+            + " Parent events, childrenâ€™s holiday programmes and sibling days are among many that are well attended. ";
 
         string aboutUsText1 = "Child Cancer Foundation New Zealand's mission is that every child and their family walking the child cancer journey will never feel alone."
             +"\nEvery week in New Zealand three families are told their child has cancer. We support these families from the very beginning. By doing this we reduce isolation and the impact of cancer. We aim to reduce the impact of cancer by offering services to ensure children and their families are supported, informed and well cared for on their journey with cancer.";
@@ -55,6 +57,11 @@ namespace CCF_app
         string donateText2 = "";
 
         string donateText3 = "";
+
+        DoubleAnimation da = new DoubleAnimation(0, TimeSpan.FromMilliseconds(70));
+        DoubleAnimation da2 = new DoubleAnimation(40, TimeSpan.FromMilliseconds(70));
+        DoubleAnimation da3 = new DoubleAnimation(1, TimeSpan.FromMilliseconds(400));
+        DoubleAnimation da4 = new DoubleAnimation(0, TimeSpan.FromMilliseconds(400));
 
         public MainWindow()
         {
@@ -152,22 +159,26 @@ namespace CCF_app
 
         private void OnHomePageClick(object sender, EventArgs e)
         {
-
+            Unanimate();
             CollapseAllPages();
 
             this.HomePage.Visibility = System.Windows.Visibility.Visible;
-            this.Home_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+            //this.Home_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+
+            this.Home_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
 
         }
 
         private void OnHelpPageClick(object sender, EventArgs e)
         {
 
-            
+            Unanimate();
             CollapseAllPages();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
-            this.Help_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+            //this.Help_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+
+            this.Help_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
 
             this.InformationPageTitle.Text = "How Can I Help?";
 
@@ -187,11 +198,12 @@ namespace CCF_app
 
         private void OnSupportPageClick(object sender, EventArgs e)
         {
-            
+            Unanimate();   
             CollapseAllPages();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
-            this.Support_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+            //this.Support_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+            this.Support_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
 
             this.InformationPageTitle.Text = "How Can I Get Support?";
 
@@ -211,10 +223,12 @@ namespace CCF_app
 
         private void OnAboutUsPageClick(object sender, EventArgs e)
         {
+            Unanimate();
             CollapseAllPages();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
-            this.AboutUs_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+            //this.AboutUs_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+            this.AboutUs_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
 
             this.InformationPageTitle.Text = "What Is CCFNZ?";
 
@@ -234,10 +248,12 @@ namespace CCF_app
 
         private void OnDonatePageClick(object sender, EventArgs e)
         {
+            Unanimate();
             CollapseAllPages();
 
             this.DonatePage.Visibility = System.Windows.Visibility.Visible;
-            this.Donate_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+            //this.Donate_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
+            this.Donate_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
 
         }
 
@@ -250,10 +266,18 @@ namespace CCF_app
 
             this.AboutUs_BtnRec.Visibility = System.Windows.Visibility.Visible;
             this.Home_BtnRec.Visibility = System.Windows.Visibility.Visible;
-            this.Help_BtnRec.Visibility = System.Windows.Visibility.Visible;
-            this.Support_BtnRec.Visibility = System.Windows.Visibility.Visible;
+            this.Help_BtnRec.Visibility = System.Windows.Visibility.Visible;            
+            this.Support_BtnRec.Visibility = System.Windows.Visibility.Visible;            
             this.Donate_BtnRec.Visibility = System.Windows.Visibility.Visible;
+        }
 
+        private void Unanimate()
+        {
+            this.AboutUs_BtnRec.BeginAnimation(Rectangle.HeightProperty, da2);
+            this.Home_BtnRec.BeginAnimation(Rectangle.HeightProperty, da2);
+            this.Help_BtnRec.BeginAnimation(Rectangle.HeightProperty, da2);
+            this.Support_BtnRec.BeginAnimation(Rectangle.HeightProperty, da2);
+            this.Donate_BtnRec.BeginAnimation(Rectangle.HeightProperty, da2);
         }
 
         private LinearGradientBrush SelectedButtonGradientSet()
@@ -266,5 +290,57 @@ namespace CCF_app
 
             return lgb;
         }
+
+        private void BtnRec_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Rectangle rec = (Rectangle)sender;
+            var x =rec.Name.ToString();
+            Debug.WriteLine(x);
+            switch (x)
+            {
+                case "AboutUs_BtnRec":
+                    OnAboutUsPageClick(sender, e);
+                    break;
+                case "Home_BtnRec":
+                    OnHomePageClick(sender, e);
+                    break;
+                case "Help_BtnRec":
+                    OnHelpPageClick(sender, e);
+                    break;
+                case "Support_BtnRec":
+                    OnSupportPageClick(sender, e);
+                    break;
+                case "Donate_BtnRec":
+                    OnDonatePageClick(sender, e);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Donations_Radio_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton ck = sender as RadioButton;
+            //var z = ck.Content.ToString();
+            //var bc = new BrushConverter();
+            //ck.Background = (Brush)bc.ConvertFrom("#FFFF4444");
+            //ck.
+            
+            if (ck.Content.ToString() == "Custom")
+            {
+                this.CustomAmount.Visibility = System.Windows.Visibility.Visible;
+                this.CustomAmount.Opacity = 0;
+                this.CustomAmount.BeginAnimation(Grid.OpacityProperty, da3);
+
+            }
+            else
+            {
+                this.CustomAmount.BeginAnimation(Grid.OpacityProperty, da4);
+                this.CustomAmount.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            //ck.IsChecked = true;
+            //var x = 1;
+        }
+
     }
 }
