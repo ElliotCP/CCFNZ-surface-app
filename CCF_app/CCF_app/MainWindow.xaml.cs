@@ -57,12 +57,24 @@ namespace CCF_app
 
         string donateText3 = "";
 
-        string[] backgroundImages = new string[3] { "Assets/Images/HomePage_Pic1.jpg", "Assets/Images/HomePage_Pic2.jpg", "Assets/Images/HomePage_Pic3.jpg" };
+        ImageBrush[] backgrounds = new ImageBrush[3];
+
+        string[] backgroundImages = new string[3] { "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg" };
+
         int currentImage = 0;
 
         public MainWindow()
         {
             InitializeComponent();
+            int i = 0;
+            foreach (string s in backgroundImages)
+            {
+                ImageBrush ib = new ImageBrush();
+                ib.Stretch = Stretch.UniformToFill;
+                ib.ImageSource = new BitmapImage(new Uri(@s, UriKind.RelativeOrAbsolute));
+                backgrounds[i] = ib;
+                i++;
+            }
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
@@ -267,9 +279,8 @@ namespace CCF_app
             {
                 currentImage++;
             }
-            ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@backgroundImages[currentImage], UriKind.RelativeOrAbsolute));
-            ImageGrid.Background = ib;
+
+            ImageGrid.Background = backgrounds[currentImage];
         }
 
         private void PreviousImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -283,9 +294,8 @@ namespace CCF_app
             {
                 currentImage--;
             }
-            ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@backgroundImages[currentImage], UriKind.RelativeOrAbsolute));
-            ImageGrid.Background = ib;
+
+            ImageGrid.Background = backgrounds[currentImage];
         }
     }
 }
