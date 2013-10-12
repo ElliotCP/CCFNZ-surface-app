@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,7 @@ using Microsoft.Surface;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
+using System.Diagnostics;
 
 namespace CCF_app
 {
@@ -39,10 +40,10 @@ namespace CCF_app
             + "\nYou can become a regular supporter of Child Cancer Foundation by setting up a regular donation from your credit card or bank account. More information on donations can be found on our website."
             + "\nEvery donation, no matter how big or small, helps us continue to support our children and families affected by this traumatic disease.";
 
-        string supportText1 = "Our Family Support team work in conjunction with the foundation’s branch members (parents, caregivers, and volunteers) to deliver a range of support services to ensure every child and their family walking the child cancer journey will never feel alone."
+        string supportText1 = "Our Family Support team work in conjunction with the foundationâ€™s branch members (parents, caregivers, and volunteers) to deliver a range of support services to ensure every child and their family walking the child cancer journey will never feel alone."
             + " They offer individual and group support, information, financial assistance, and advocacy. Our Coordinators also offer support for bereaved families. They connect similar families and provide a link to other agencies and community support groups.";
         string supportText2 = "There are a variety of local and regional child, parent, grandparent, sibling and bereaved support programmes and events that aim to inform, reduce isolation and support your family through the experiences and challenges of child cancer."
-            + " Parent events, children’s holiday programmes and sibling days are among many that are well attended. ";
+            + " Parent events, childrenâ€™s holiday programmes and sibling days are among many that are well attended. ";
 
         string aboutUsText1 = "Child Cancer Foundation New Zealand's mission is that every child and their family walking the child cancer journey will never feel alone."
             +"\nEvery week in New Zealand three families are told their child has cancer. We support these families from the very beginning. By doing this we reduce isolation and the impact of cancer. We aim to reduce the impact of cancer by offering services to ensure children and their families are supported, informed and well cared for on their journey with cancer.";
@@ -55,6 +56,9 @@ namespace CCF_app
         string donateText2 = "";
 
         string donateText3 = "";
+
+        string[] backgroundImages = new string[3] { "Assets/Images/HomePage_Pic1.jpg", "Assets/Images/HomePage_Pic2.jpg", "Assets/Images/HomePage_Pic3.jpg" };
+        int currentImage = 0;
 
         public MainWindow()
         {
@@ -176,7 +180,7 @@ namespace CCF_app
             this.More2.Foreground = Help_Btn_Color;
             this.QRCode_Text.Foreground = Help_Btn_Color;
             this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
-            this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
             
         
         }
@@ -199,7 +203,7 @@ namespace CCF_app
             this.QRCode_Text.Foreground = Support_Btn_Color;
 
             this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
-            this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
             
         }
 
@@ -220,7 +224,7 @@ namespace CCF_app
             this.QRCode_Text.Foreground = AboutUs_Btn_Color;
 
             this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
-            this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
             
         }
 
@@ -250,6 +254,38 @@ namespace CCF_app
             lgb.GradientStops.Add(new GradientStop(Color.FromArgb(225, 192, 215, 45), 0.4));
 
             return lgb;
+        }
+
+        private void NextImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Debug.WriteLine("Changing image forwards");
+            if (currentImage == 2)
+            {
+                currentImage = 0;
+            }
+            else
+            {
+                currentImage++;
+            }
+            ImageBrush ib = new ImageBrush();
+            ib.ImageSource = new BitmapImage(new Uri(@backgroundImages[currentImage], UriKind.RelativeOrAbsolute));
+            ImageGrid.Background = ib;
+        }
+
+        private void PreviousImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Debug.WriteLine("Changing image backwards");
+            if (currentImage == 0)
+            {
+                currentImage = 2;
+            }
+            else
+            {
+                currentImage--;
+            }
+            ImageBrush ib = new ImageBrush();
+            ib.ImageSource = new BitmapImage(new Uri(@backgroundImages[currentImage], UriKind.RelativeOrAbsolute));
+            ImageGrid.Background = ib;
         }
     }
 }

@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Drawing" />
+    <Reference Include="Microsoft.Expression.Effects" />
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -118,6 +119,8 @@
     <Resource Include="Assets\Images\aboutUs2.jpg" />
     <Resource Include="Assets\Images\SAFEANDGENTLE BANNER82.png" />
     <Resource Include="Assets\Images\help1.jpg" />
+    <Resource Include="Assets\Images\HomePage_Pic2.jpg" />
+    <Resource Include="Assets\Images\HomePage_Pic3.jpg" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
