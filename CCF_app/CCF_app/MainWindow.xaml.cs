@@ -342,5 +342,39 @@ namespace CCF_app
             //var x = 1;
         }
 
+        private void QRDonate_Clicked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.Donate_Grid.Visibility = System.Windows.Visibility.Visible;
+            this.DonationMethod_Text.Text = "Donate Via Smartphone";
+            this.QRDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
+            this.TxtDoante_Button.Visibility = System.Windows.Visibility.Collapsed;
+
+            this.QRCode_Donation.Visibility = System.Windows.Visibility.Visible;
+            this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
+
+            this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void TxtDonate_Clicked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.Donate_Grid.Visibility = System.Windows.Visibility.Visible;
+            this.DonationMethod_Text.Text = "Donate Via Txt";
+            this.QRDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
+            this.TxtDoante_Button.Visibility = System.Windows.Visibility.Collapsed;
+            this.Txt_Donation.Visibility = System.Windows.Visibility.Visible;
+            this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void DonationMethod_Change(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	this.Donate_Grid.Visibility = System.Windows.Visibility.Collapsed;
+            this.QRDonate_Button.Visibility = System.Windows.Visibility.Visible;
+
+            this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
+            this.TxtDoante_Button.Visibility = System.Windows.Visibility.Visible;
+
+            this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
     }
 }
