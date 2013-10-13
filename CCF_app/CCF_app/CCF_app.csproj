@@ -119,6 +119,7 @@
     <Resource Include="Assets\Images\aboutUs2.jpg" />
     <Resource Include="Assets\Images\SAFEANDGENTLE BANNER82.png" />
     <Resource Include="Assets\Images\help1.jpg" />
+    <Resource Include="Assets\Icons\qrcode_icon.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

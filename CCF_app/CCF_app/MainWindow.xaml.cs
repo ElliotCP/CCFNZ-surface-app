@@ -29,11 +29,11 @@ namespace CCF_app
         /// Default constructor.
         /// </summary>
 
-        Brush Home_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFC7D960");
-        Brush AboutUs_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FF68CEEC");
-        Brush Help_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFFAAB5E");
-        Brush Support_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFE05D5D");
-        Brush Donate_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFB57BEA");
+        Brush Home_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FF33B5E5");
+        Brush AboutUs_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFAA66CC");
+        Brush Help_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FF99CC00");
+        Brush Support_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFFFBB33");
+        Brush Donate_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFFF4444");
 
         string helpText1 = "We rely on the generosity of big-hearted New Zealander's to help us continue what we do. There are a variety of ways you can support children with cancer and their families."
             + "\nOur Beads of Courage ?presents children with a bead representing an Act of Courage. Ideally (and sadly) this year, we expect that we will need approximately 5000 handmaid beads donated. We are currently reaching only 1800 and we need all the help we can get to help our kids.";
@@ -182,7 +182,7 @@ namespace CCF_app
 
             this.InformationPageTitle.Text = "How Can I Help?";
 
-            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
+            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_green.png", UriKind.RelativeOrAbsolute));
 
             this.Text1.Text = helpText1;
             this.Text2.Text = helpText2;
@@ -210,7 +210,7 @@ namespace CCF_app
             this.Text1.Text = supportText1;
             this.Text2.Text = supportText2;
 
-            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
+            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
 
             this.More1.Foreground = Support_Btn_Color;
             this.More2.Foreground = Support_Btn_Color;
@@ -235,7 +235,7 @@ namespace CCF_app
             this.Text1.Text = aboutUsText1;
             this.Text2.Text = aboutUsText2;
 
-            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_blue.png", UriKind.RelativeOrAbsolute));
+            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
 
             this.More1.Foreground = AboutUs_Btn_Color;
             this.More2.Foreground = AboutUs_Btn_Color;
@@ -250,6 +250,8 @@ namespace CCF_app
         {
             Unanimate();
             CollapseAllPages();
+
+            this.DonatePage_Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
 
             this.DonatePage.Visibility = System.Windows.Visibility.Visible;
             //this.Donate_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
@@ -317,16 +319,33 @@ namespace CCF_app
                     break;
             }
         }
-
+        
+        private string donationMethod = "";
         private void Donations_Radio_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton ck = sender as RadioButton;
-            //var z = ck.Content.ToString();
-            //var bc = new BrushConverter();
-            //ck.Background = (Brush)bc.ConvertFrom("#FFFF4444");
-            //ck.
-            
-            if (ck.Content.ToString() == "Custom")
+
+            this.Donations_Instructions.Visibility = System.Windows.Visibility.Visible;
+
+            if (donationMethod == "QR" && donationMethod != null)
+            {
+                this.QRCode_Donation.Visibility = System.Windows.Visibility.Visible;
+                this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
+
+            }
+            else if (donationMethod == "Txt" && donationMethod != null)
+            {
+                this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
+                this.Txt_Donation.Visibility = System.Windows.Visibility.Visible;
+
+            }
+
+            donationMethod = null;
+
+
+            this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
+          
+            if (ck.Content.ToString() == "Custom")//showing custom amount textbox
             {
                 this.CustomAmount.Visibility = System.Windows.Visibility.Visible;
                 this.CustomAmount.Opacity = 0;
@@ -338,31 +357,61 @@ namespace CCF_app
                 this.CustomAmount.BeginAnimation(Grid.OpacityProperty, da4);
                 this.CustomAmount.Visibility = System.Windows.Visibility.Collapsed;
             }
-            //ck.IsChecked = true;
-            //var x = 1;
         }
 
         private void QRDonate_Clicked(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (donationMethod != null)//changing the visibiltiy of the instructions depending on if a radio button has been pressed before
+            {
+                this.Donation_Help.Visibility = System.Windows.Visibility.Visible;
+                this.donationMethod = "QR";
+            }
+
+            this.DonationMethod_Text.Text = "Donate Via Smart Device";
             this.Donate_Grid.Visibility = System.Windows.Visibility.Visible;
-            this.DonationMethod_Text.Text = "Donate Via Smartphone";
+
+            if (donationMethod == null)
+            {
+                this.QRCode_Donation.Visibility = System.Windows.Visibility.Visible;
+                this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            
             this.QRDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
             this.TxtDoante_Button.Visibility = System.Windows.Visibility.Collapsed;
-
-            this.QRCode_Donation.Visibility = System.Windows.Visibility.Visible;
-            this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
-
+                        
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Visible;
+
+            this.Donations_Instructions.Margin = new Thickness(0, 0, 0, 350);
+            this.Donations_Instructions.Text = "Scan The Following QR Code To Donate:";
+            
         }
 
         private void TxtDonate_Clicked(object sender, System.Windows.RoutedEventArgs e)
         {
-            this.Donate_Grid.Visibility = System.Windows.Visibility.Visible;
+            if (donationMethod != null)//changing the visibiltiy of the instructions depending on if a radio button has been pressed before
+            {
+                this.Donation_Help.Visibility = System.Windows.Visibility.Visible;
+                this.donationMethod = "Txt";
+            }
+
             this.DonationMethod_Text.Text = "Donate Via Txt";
+
+            this.Donate_Grid.Visibility = System.Windows.Visibility.Visible;
+
+            if (donationMethod == null)
+            {
+                this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
+                this.Txt_Donation.Visibility = System.Windows.Visibility.Visible;
+            }
+
+
             this.QRDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
             this.TxtDoante_Button.Visibility = System.Windows.Visibility.Collapsed;
-            this.Txt_Donation.Visibility = System.Windows.Visibility.Visible;
+            
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Visible;
+
+            this.Donations_Instructions.Margin = new Thickness(0, 0, 0, 100);
+            this.Donations_Instructions.Text = "Text The Following Number To Donate:";
         }
 
         private void DonationMethod_Change(object sender, System.Windows.RoutedEventArgs e)
@@ -374,7 +423,11 @@ namespace CCF_app
             this.TxtDoante_Button.Visibility = System.Windows.Visibility.Visible;
 
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Collapsed;
-        }
 
+            if (this.Donation_Help.Visibility == System.Windows.Visibility.Visible && donationMethod != null)
+            {
+                this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
     }
 }

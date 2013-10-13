@@ -28,59 +28,71 @@
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
-    					<TextBlock TextWrapping="Wrap" Text="Text Goes here" Margin="0,160,0,0" Height="100" VerticalAlignment="Top" FontSize="29.333" FontFamily="Segoe UI Light"/>
-    					<Grid x:Name="Donate_Grid" Margin="0" Visibility="Collapsed">
-    						<Grid.RowDefinitions>
-    							<RowDefinition Height="1*"/>
-    							<RowDefinition Height="3*"/>
-    						</Grid.RowDefinitions>
+    					<Grid Margin="0,125,0,225" Background="#00000000">
     						<Grid.ColumnDefinitions>
     							<ColumnDefinition Width="1*"/>
     							<ColumnDefinition Width="1*"/>
+    							<ColumnDefinition Width="1*"/>
     						</Grid.ColumnDefinitions>
-    						<Grid x:Name="DonationAmount_Radio" Margin="0,0,200,200" Grid.Row="1" Width="250" VerticalAlignment="Center" HorizontalAlignment="Right">
+    						<Grid.RowDefinitions>
+    							<RowDefinition Height="0.3*"/>
+    							<RowDefinition Height="1*"/>
+    							<RowDefinition Height="1*"/>
+    						</Grid.RowDefinitions>
+    						<Image x:Name="DonatePage_Pointer" Margin="20,10,0,10" Width="80" Stretch="Fill" Source="Assets/Icons/pointer_original.png" Height="80" HorizontalAlignment="Left">
+    							<Image.OpacityMask>
+    								<ImageBrush ImageSource="Assets/Icons/pointer_red.png"/>
+    							</Image.OpacityMask>
+    						</Image>
+    						<TextBlock x:Name="DonatePage_Title" TextWrapping="Wrap" Text="Donate" FontSize="48" HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Center" FontFamily="Segoe UI Light" FontWeight="Bold"/>
+    						<TextBlock TextWrapping="Wrap" Text="Play a part in the fight against child cancer and help us to continue to care for children with cancer." Margin="40,0,0,0" FontSize="29.333" FontFamily="Segoe UI Light" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"/>
+    						<Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Collapsed">
     							<Grid.RowDefinitions>
     								<RowDefinition Height="1*"/>
-    								<RowDefinition Height="1*"/>
-    								<RowDefinition Height="1*"/>
-    								<RowDefinition Height="1*"/>
-    								<RowDefinition Height="1*"/>
+    								<RowDefinition Height="3*"/>
     							</Grid.RowDefinitions>
     							<Grid.ColumnDefinitions>
     								<ColumnDefinition Width="1*"/>
     								<ColumnDefinition Width="1*"/>
     							</Grid.ColumnDefinitions>
-    							<s:SurfaceRadioButton GroupName="DonationAmount"  Margin="0" d:LayoutOverrides="Width, Height" Content="$5" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
-    							<s:SurfaceRadioButton GroupName="DonationAmount" Margin="0" d:LayoutOverrides="Height" Grid.Row="1" Content="$10" Padding="25,0,0,0" MinWidth="38" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
-    							<s:SurfaceRadioButton GroupName="DonationAmount" Content="$15" Margin="0" d:LayoutOverrides="Width" Grid.Row="2" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
-    							<s:SurfaceRadioButton GroupName="DonationAmount" Margin="0" d:LayoutOverrides="Width" Grid.Row="3" Content="$20" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
-    							<s:SurfaceRadioButton GroupName="DonationAmount" Content="Custom" Margin="0" Grid.Row="4" Padding="25,0,0,0" VerticalContentAlignment="Center" Width="150" FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
-    							<Grid x:Name="CustomAmount" Margin="0" Grid.Column="1" Grid.Row="4" Background="#00FF0000" Width="100" Visibility="Collapsed">
+    							<Grid x:Name="DonationAmount_Radio" Margin="0,0,200,0" Grid.Row="1" Width="250" VerticalAlignment="Center" HorizontalAlignment="Right">
+    								<Grid.RowDefinitions>
+    									<RowDefinition Height="1*"/>
+    									<RowDefinition Height="1*"/>
+    									<RowDefinition Height="1*"/>
+    									<RowDefinition Height="1*"/>
+    									<RowDefinition Height="1*"/>
+    								</Grid.RowDefinitions>
     								<Grid.ColumnDefinitions>
-    									<ColumnDefinition Width="0.1*"/>
+    									<ColumnDefinition Width="1*"/>
     									<ColumnDefinition Width="1*"/>
     								</Grid.ColumnDefinitions>
-    								<TextBlock TextWrapping="Wrap" Text="$" d:LayoutOverrides="Width" VerticalAlignment="Center"/>
-    								<s:SurfaceTextBox Margin="0" TextWrapping="NoWrap" Text="0" Grid.Column="1" Background="#FFFF4444" Foreground="Black" Grid.Row="1" Width="63" FontFamily="Segoe UI Light" UndoLimit="5" ToolTip="Enter any amount you wish to donate" VerticalContentAlignment="Stretch" Padding="5,0,0,0" HorizontalScrollBarVisibility="Disabled" MaxLines="1" MaxLength="6" AcceptsReturn="True" BorderThickness="0,8" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount"  Margin="0" d:LayoutOverrides="Width, Height" Content="$5" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount" Margin="0" d:LayoutOverrides="Height" Grid.Row="1" Content="$10" Padding="25,0,0,0" MinWidth="38" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount" Content="$15" Margin="0" d:LayoutOverrides="Width" Grid.Row="2" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount" Margin="0" d:LayoutOverrides="Width" Grid.Row="3" Content="$20" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount" Content="Custom" Margin="0" Grid.Row="4" Padding="25,0,0,0" VerticalContentAlignment="Center" Width="150" FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<Grid x:Name="CustomAmount" Margin="0" Grid.Column="1" Grid.Row="4" Background="#00FF0000" Width="100" Visibility="Collapsed">
+    									<Grid.ColumnDefinitions>
+    										<ColumnDefinition Width="0.1*"/>
+    										<ColumnDefinition Width="1*"/>
+    									</Grid.ColumnDefinitions>
+    									<TextBlock TextWrapping="Wrap" Text="$" d:LayoutOverrides="Width" VerticalAlignment="Center"/>
+    									<s:SurfaceTextBox Margin="0" TextWrapping="NoWrap" Text="0" Grid.Column="1" Background="#FFFF4444" Foreground="Black" Grid.Row="1" Width="63" FontFamily="Segoe UI Light" UndoLimit="5" ToolTip="Enter any amount you wish to donate" VerticalContentAlignment="Stretch" Padding="5,0,0,0" HorizontalScrollBarVisibility="Disabled" MaxLines="1" MaxLength="6" AcceptsReturn="True" BorderThickness="0,8" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"/>
+    								</Grid>
     							</Grid>
+    							<TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="100,20,50,0" Grid.Row="1" TextWrapping="Wrap" FontSize="30" VerticalAlignment="Top" FontFamily="Segoe UI Light"><Run Text="Text"/></TextBlock>
+    							<s:SurfaceButton x:Name="DonationMethodSwitch_Button" Content="Change Payment Method" Margin="100,70,0,0" Background="#FFFF4444" Foreground="Black" FontFamily="Segoe UI Light" Click="DonationMethod_Change" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" FontSize="16" Padding="5,6,5,5"/>
+    							<TextBlock x:Name="Txt_Donation" TextWrapping="Wrap" Text="021 1234 56789" FontSize="48" FontFamily="Segoe UI Light" Grid.Row="1" Grid.Column="1" Margin="35,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed"/>
+    							<TextBlock x:Name="Donations_Instructions" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="0,0,0,100" FontFamily="Segoe UI Light" FontSize="24" Visibility="Collapsed"/>
+    							<Border x:Name="QRCode_Donation" BorderBrush="Black" BorderThickness="5" Grid.Row="1" Grid.Column="1" Height="300" Margin="50,0,0,0" HorizontalAlignment="Left" Visibility="Collapsed">
+    								<Image Margin="0" Source="Assets/QRCodes/what_we_do.png"/>
+    							</Border>
     						</Grid>
-    						<TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" FontSize="30" VerticalAlignment="Top" FontFamily="Segoe UI Light"><Run Text="Text"/></TextBlock>
-    						<s:SurfaceButton x:Name="DonationMethodSwitch_Button" Content="Change Method" Margin="50,100,0,0" Background="#FFFF4444" Foreground="Black" FontFamily="Segoe UI Light" Click="DonationMethod_Change" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" FontSize="16" Padding="5,6,5,5"/>
-    						<TextBlock x:Name="Txt_Donation" TextWrapping="Wrap" Text="021123456789" FontSize="32" FontFamily="Segoe UI Light" Grid.Row="1" Grid.Column="1" Margin="50,0,0,200" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed"/>
-    						<Border x:Name="QRCode_Donation" BorderBrush="Black" BorderThickness="5" Grid.Row="1" Grid.Column="1" Height="300" Margin="0,0,0,200" HorizontalAlignment="Left" Visibility="Collapsed">
-    							<Image Margin="0" Source="Assets/QRCodes/what_we_do.png"/>
-    						</Border>
+    						<s:SurfaceButton x:Name="QRDonate_Button" Content="QR Code" Margin="-82.667,0,417.333,0" Click="QRDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="200" Background="#FFFF4444"/>
+    						<s:SurfaceButton x:Name="TxtDoante_Button" Content="Text" Margin="417.333,0,-82.667,0" Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="200" Background="#FFFF4444"/>
+    						<TextBlock x:Name="Donation_Help" TextWrapping="Wrap" Text="Choose An Amount You Would Like To Donate From The Left..." VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26.667" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="Collapsed"/>
     					</Grid>
-    					<s:SurfaceButton x:Name="QRDonate_Button" Content="QR Code" Margin="0,0,500,0" Width="300" Height="300" Click="QRDonate_Clicked" Foreground="White" FontFamily="Segoe UI Light">
-    						<s:SurfaceButton.Background>
-    							<ImageBrush ImageSource="Resources/icon.png"/>
-    						</s:SurfaceButton.Background>
-    					</s:SurfaceButton>
-    					<s:SurfaceButton x:Name="TxtDoante_Button" Content="Text" Margin="500,0,0,0" Width="300" Height="300" Click="TxtDonate_Clicked" Foreground="White" FontFamily="Segoe UI Light">
-    						<s:SurfaceButton.Background>
-    							<ImageBrush ImageSource="Resources/icon.png"/>
-    						</s:SurfaceButton.Background>
-    					</s:SurfaceButton>
     				</Grid>
     				<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
     					<Grid.Background>
