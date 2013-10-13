@@ -16,6 +16,7 @@ using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
 using System.Diagnostics;
+using System.Windows.Media.Animation;
 
 namespace CCF_app
 {
@@ -58,7 +59,8 @@ namespace CCF_app
         string donateText3 = "";
 
         ImageBrush[] backgrounds = new ImageBrush[3];
-
+        DoubleAnimation fadeIn;
+        DoubleAnimation fadeOut;
         string[] backgroundImages = new string[3] { "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg" };
 
         int currentImage = 0;
@@ -75,6 +77,8 @@ namespace CCF_app
                 backgrounds[i] = ib;
                 i++;
             }
+
+
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
@@ -271,6 +275,7 @@ namespace CCF_app
         private void NextImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Debug.WriteLine("Changing image forwards");
+            //backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeOut);
             if (currentImage == 2)
             {
                 currentImage = 0;
@@ -280,7 +285,23 @@ namespace CCF_app
                 currentImage++;
             }
 
+            //fadeOut.Completed += delegate(object sender1, EventArgs e1) {
+            //    //once the fadeout is complete set the new back ground and fade back in. 
+            //    //Create a new background brush. 
+            //    ImageBrush bgBrush = backgrounds[currentImage];
+
+            //    //Set the grid background to the new brush. 
+            //    ImageGrid.Background = bgBrush;
+
+            //    //Set the brush...(not the background property) with the animation.
+            //    bgBrush.BeginAnimation(Brush.OpacityProperty, fadeInAnimation);
+            //};
+
+            fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
+            backgrounds[currentImage].Opacity = 0;
             ImageGrid.Background = backgrounds[currentImage];
+            Debug.WriteLine(backgrounds[currentImage].Opacity);
+            backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
         }
 
         private void PreviousImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -294,8 +315,11 @@ namespace CCF_app
             {
                 currentImage--;
             }
-
+            fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
+            backgrounds[currentImage].Opacity = 0;
             ImageGrid.Background = backgrounds[currentImage];
+            Debug.WriteLine(backgrounds[currentImage].Opacity);
+            backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
         }
     }
 }
