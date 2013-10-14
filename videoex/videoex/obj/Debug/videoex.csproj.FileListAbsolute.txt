@@ -1,0 +1,16 @@
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.csprojResolveAssemblyReference.cache
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\SurfaceWindow1.baml
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\App.baml
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\SurfaceWindow1.g.cs
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\App.g.cs
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex_Content.g.cs
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex_MarkupCompile.cache
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.g.resources
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.Properties.Resources.resources
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.csproj.GenerateResource.Cache
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\bin\Debug\Resources\icon.png
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\bin\Debug\videoex.xml
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\bin\Debug\videoex.exe
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\bin\Debug\videoex.pdb
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.exe
+c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.pdb
