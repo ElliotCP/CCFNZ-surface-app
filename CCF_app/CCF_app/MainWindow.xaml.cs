@@ -12,12 +12,30 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Surface;
+using System.Drawing;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
 
+using System.IO;
+using System.Drawing.Imaging;
+
+// QrCode Ref
+using MessagingToolkit.QRCode.Codec;
+using MessagingToolkit.QRCode.Codec.Ecc;
+using MessagingToolkit.QRCode.Codec.Data;
+using MessagingToolkit.QRCode.Codec.Util;
+
 using System.Windows.Media.Animation;
 using System.Diagnostics;
+
+/* Alias for conflicting namespaces */
+// e.g. System.Drawing.Brush conflicts with System.Windows.Media.Brush.
+// There might be a better way of doing this. -AA
+using Brush = System.Windows.Media.Brush;
+using Rectangle = System.Windows.Shapes.Rectangle;
+using Point = System.Windows.Point;
+using Color = System.Windows.Media.Color;
 
 namespace CCF_app
 {
@@ -392,6 +410,7 @@ namespace CCF_app
 
             this.Donations_Instructions.Visibility = System.Windows.Visibility.Visible;
 
+            // Toggle visibility of QRCode image and txt number depending on the payment type.
             if (donationMethod == "QR" && donationMethod != null)
             {
                 this.QRCode_Donation.Visibility = System.Windows.Visibility.Visible;
@@ -405,6 +424,19 @@ namespace CCF_app
 
             }
 
+            String donationAmount = ck.Content.ToString();
+            if (donationAmount == "Custom")
+            {
+                // Set initial amount to zero. 
+                // TODO Change QRCode when user inputs a number into the custom donation text box.
+                String qr_code_content = "<server-id>:<port>/?amount=0";
+                Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
+            }
+            else
+            {
+                String qr_code_content = "<server-id>:<port>/?amount=" + donationAmount;
+                Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
+            }
             donationMethod = null;
 
 
@@ -415,13 +447,56 @@ namespace CCF_app
                 this.CustomAmount.Visibility = System.Windows.Visibility.Visible;
                 this.CustomAmount.Opacity = 0;
                 this.CustomAmount.BeginAnimation(Grid.OpacityProperty, da3);
-
             }
             else
             {
                 this.CustomAmount.BeginAnimation(Grid.OpacityProperty, da4);
                 this.CustomAmount.Visibility = System.Windows.Visibility.Collapsed;
             }
+        }
+
+        /// <summary>
+        /// Generates a QRCode with the given string to be encoded and the level (ie size) of the qr code.
+        /// </summary>
+        /// <param name="encodedString">The string that should be encoded into the QRCode.</param>
+        /// <param name="level">Detail level of QRCode can be changed using this. Higher = more detail.</param>
+        /// <returns></returns>
+        private System.Drawing.Image QRGenerator(string encodedString, int level)
+        {
+            MessagingToolkit.QRCode.Codec.QRCodeEncoder qrEncoder = new MessagingToolkit.QRCode.Codec.QRCodeEncoder();
+            qrEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+            qrEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.L;
+            qrEncoder.QRCodeVersion = level;
+            // Encode image into new bitmap instance.
+            System.Drawing.Bitmap bitmap = qrEncoder.Encode(encodedString);
+            return bitmap;
+        }
+
+        // Convert Drawing Image to ImageSource
+        // Source: http://social.msdn.microsoft.com/Forums/vstudio/en-US/833ca60f-6a11-4836-bb2b-ef779dfe3ff0/
+        private BitmapImage convertImageToImageSource(System.Drawing.Image img)
+        {
+            // Winforms Image we want to get the WPF Image from...
+            System.Drawing.Image imgWinForms = img;
+            // ImageSource ...
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            MemoryStream ms = new MemoryStream();
+            // Save to a memory stream...
+            imgWinForms.Save(ms, ImageFormat.Bmp);
+            // Rewind the stream..
+            ms.Seek(0, SeekOrigin.Begin);
+            // Tell the WPF image to use this stream...
+            bi.StreamSource = ms;
+            bi.EndInit();
+            return bi;
+        }
+
+        private void Display_QRCode(String text, int level)
+        {
+            // TODO Replace the hard coded string with <ip-address>:8080/amount=xx
+            System.Drawing.Image img = QRGenerator(text, level);
+            this.QRCode_img.Source = convertImageToImageSource(img);
         }
 
         private void QRDonate_Clicked(object sender, System.Windows.RoutedEventArgs e)
