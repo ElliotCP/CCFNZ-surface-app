@@ -6,12 +6,12 @@
     Title="CCF_app"
     Width="1920"
     Height="1080"
-    >
+    >    
     <Frame>
 		<Frame.Content>
     		<Viewbox>
     			<Grid Height="1041" Width="1904">
-    				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True">
+    				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True" Visibility="Visible">
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
@@ -28,23 +28,70 @@
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
-    					<Grid Margin="0,150,0,250">
-    						<Grid.RowDefinitions>
-    							<RowDefinition Height="1*"/>
-    							<RowDefinition Height="3*"/>
-    						</Grid.RowDefinitions>
+    					<Grid Margin="0,125,0,225" Background="#00000000">
     						<Grid.ColumnDefinitions>
     							<ColumnDefinition Width="1*"/>
     							<ColumnDefinition Width="1*"/>
+    							<ColumnDefinition Width="1*"/>
     						</Grid.ColumnDefinitions>
-    						<Rectangle Fill="#33000000" Margin="0,0,-2.5,0" Stroke="#4C000000" Width="5" HorizontalAlignment="Right" Grid.Row="1"/>
-    						<TextBlock Margin="0" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." Grid.ColumnSpan="2" FontSize="18.667"/>
-    						<TextBlock HorizontalAlignment="Left" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." VerticalAlignment="Top"/>
-    						<TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="50,50,50,0" Grid.Row="1" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor." VerticalAlignment="Top"/>
-    						<Image HorizontalAlignment="Right" Height="100" Margin="0,0,154,88" Grid.Row="1" VerticalAlignment="Bottom" Width="100" Source="Resources/icon.png"/>
-    						<ComboBox HorizontalAlignment="Left" Margin="214,0,0,194.04" Grid.Row="1" VerticalAlignment="Bottom" Width="120"/>
-    						<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="82,234.75,0,224.04" Grid.Row="1" Width="120" d:LayoutOverrides="Height"/>
-    						<TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right"><Run Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae lacus in dolor congue consequat. Praesent sodales quam eget pulvinar condimentum. Praesent hendrerit id nunc nec accumsan. Nam porta lectus sit amet nisl vulputate, a vestibulum lacus imperdiet. Fusce enim nulla, volutpat quis euismod non, accumsan vel massa. Vestibulum eget nibh adipiscing, egestas nisi nec, aliquet arcu. Integer sed nisl et sem rutrum ullamcorper sed ut mauris. Donec feugiat ipsum in magna porta fringilla. Sed faucibus commodo risus, at tempus turpis placerat sit amet. Cras bibendum nunc sit amet mattis facilisis. Suspendisse varius blandit augue, a scelerisque tortor."/><LineBreak/><Run/></TextBlock>
+    						<Grid.RowDefinitions>
+    							<RowDefinition Height="0.3*"/>
+    							<RowDefinition Height="1*"/>
+    							<RowDefinition Height="1*"/>
+    						</Grid.RowDefinitions>
+    						<Image x:Name="DonatePage_Pointer" Margin="20,10,0,10" Width="80" Stretch="Fill" Source="Assets/Icons/pointer_original.png" Height="80" HorizontalAlignment="Left">
+    							<Image.OpacityMask>
+    								<ImageBrush ImageSource="Assets/Icons/pointer_red.png"/>
+    							</Image.OpacityMask>
+    						</Image>
+    						<TextBlock x:Name="DonatePage_Title" TextWrapping="Wrap" Text="Donate" FontSize="48" HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Center" FontFamily="Segoe UI Light" FontWeight="Bold"/>
+    						<TextBlock TextWrapping="Wrap" Text="Play a part in the fight against child cancer and help us to continue to care for children with cancer." Margin="40,0,0,0" FontSize="29.333" FontFamily="Segoe UI Light" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"/>
+    						<Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Collapsed">
+    							<Grid.RowDefinitions>
+    								<RowDefinition Height="1*"/>
+    								<RowDefinition Height="3*"/>
+    							</Grid.RowDefinitions>
+    							<Grid.ColumnDefinitions>
+    								<ColumnDefinition Width="1*"/>
+    								<ColumnDefinition Width="1*"/>
+    							</Grid.ColumnDefinitions>
+    							<Grid x:Name="DonationAmount_Radio" Margin="0,0,200,0" Grid.Row="1" Width="250" VerticalAlignment="Center" HorizontalAlignment="Right">
+    								<Grid.RowDefinitions>
+    									<RowDefinition Height="1*"/>
+    									<RowDefinition Height="1*"/>
+    									<RowDefinition Height="1*"/>
+    									<RowDefinition Height="1*"/>
+    									<RowDefinition Height="1*"/>
+    								</Grid.RowDefinitions>
+    								<Grid.ColumnDefinitions>
+    									<ColumnDefinition Width="1*"/>
+    									<ColumnDefinition Width="1*"/>
+    								</Grid.ColumnDefinitions>
+    								<s:SurfaceRadioButton GroupName="DonationAmount"  Margin="0" d:LayoutOverrides="Width, Height" Content="$5" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount" Margin="0" d:LayoutOverrides="Height" Grid.Row="1" Content="$10" Padding="25,0,0,0" MinWidth="38" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount" Content="$15" Margin="0" d:LayoutOverrides="Width" Grid.Row="2" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount" Margin="0" d:LayoutOverrides="Width" Grid.Row="3" Content="$20" VerticalContentAlignment="Center" FontFamily="Segoe UI Light" Padding="25,0,0,0" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<s:SurfaceRadioButton GroupName="DonationAmount" Content="Custom" Margin="0" Grid.Row="4" Padding="25,0,0,0" VerticalContentAlignment="Center" Width="150" FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked" Foreground="Black" BorderBrush="#FFFF4444" Background="#00FF4444" BorderThickness="8" FontSize="24"/>
+    								<Grid x:Name="CustomAmount" Margin="0" Grid.Column="1" Grid.Row="4" Background="#00FF0000" Width="100" Visibility="Collapsed">
+    									<Grid.ColumnDefinitions>
+    										<ColumnDefinition Width="0.1*"/>
+    										<ColumnDefinition Width="1*"/>
+    									</Grid.ColumnDefinitions>
+    									<TextBlock TextWrapping="Wrap" Text="$" d:LayoutOverrides="Width" VerticalAlignment="Center"/>
+    									<s:SurfaceTextBox Margin="0" TextWrapping="NoWrap" Text="0" Grid.Column="1" Background="#FFFF4444" Foreground="Black" Grid.Row="1" Width="63" FontFamily="Segoe UI Light" UndoLimit="5" ToolTip="Enter any amount you wish to donate" VerticalContentAlignment="Stretch" Padding="5,0,0,0" HorizontalScrollBarVisibility="Disabled" MaxLines="1" MaxLength="6" AcceptsReturn="True" BorderThickness="0,8" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"/>
+    								</Grid>
+    							</Grid>
+    							<TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="100,20,50,0" Grid.Row="1" TextWrapping="Wrap" FontSize="30" VerticalAlignment="Top" FontFamily="Segoe UI Light"><Run Text="Text"/></TextBlock>
+    							<s:SurfaceButton x:Name="DonationMethodSwitch_Button" Content="Change Payment Method" Margin="100,70,0,0" Background="#FFFF4444" Foreground="Black" FontFamily="Segoe UI Light" Click="DonationMethod_Change" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" FontSize="16" Padding="5,6,5,5"/>
+    							<TextBlock x:Name="Txt_Donation" TextWrapping="Wrap" Text="021 1234 56789" FontSize="48" FontFamily="Segoe UI Light" Grid.Row="1" Grid.Column="1" Margin="35,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed"/>
+    							<TextBlock x:Name="Donations_Instructions" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="0,0,0,100" FontFamily="Segoe UI Light" FontSize="24" Visibility="Collapsed"/>
+    							<Border x:Name="QRCode_Donation" BorderBrush="Black" BorderThickness="5" Grid.Row="1" Grid.Column="1" Height="300" Margin="50,0,0,0" HorizontalAlignment="Left" Visibility="Collapsed">
+    								<Image Margin="0" Source="Assets/QRCodes/what_we_do.png"/>
+    							</Border>
+    						</Grid>
+    						<s:SurfaceButton x:Name="QRDonate_Button" Content="QR Code" Margin="-82.667,0,417.333,0" Click="QRDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="200" Background="#FFFF4444"/>
+    						<s:SurfaceButton x:Name="TxtDoante_Button" Content="Text" Margin="417.333,0,-82.667,0" Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="200" Background="#FFFF4444"/>
+    						<TextBlock x:Name="Donation_Help" TextWrapping="Wrap" Text="Choose An Amount You Would Like To Donate From The Left..." VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26.667" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="Collapsed"/>
     					</Grid>
     				</Grid>
     				<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
@@ -97,11 +144,16 @@
     						<ColumnDefinition Width="1*"/>
     						<ColumnDefinition Width="1*"/>
     					</Grid.ColumnDefinitions>
-    					<s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHomePageClick" Background="#FFC7D960" Height="140" Foreground="Black" />
-    					<s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FF68CEEC" Height="140" Click="OnAboutUsPageClick"/>
-    					<s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHelpPageClick" Background="#FFFAAB5E" Height="140" />
-    					<s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnSupportPageClick" Background="#FFE05D5D" Height="140"/>
-    					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFB57BEA" Height="140" Click="OnDonatePageClick" />
+    					<s:SurfaceButton x:Name="Home_Btn" Content="Home" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHomePageClick" Background="#FF33B5E5" Height="140" Foreground="Black" />
+                        <Rectangle x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" MouseLeftButtonUp="BtnRec_MouseUp"  />
+    					<s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFAA66CC" Height="140" Click="OnAboutUsPageClick"/>
+                        <Rectangle x:Name="AboutUs_BtnRec" Fill="#FF9933CC" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="1" MouseLeftButtonUp="BtnRec_MouseUp" />
+    					<s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnHelpPageClick" Background="#FF99CC00" Height="140" />
+                        <Rectangle x:Name="Help_BtnRec" Fill="#FF669900" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="2" MouseLeftButtonUp="BtnRec_MouseUp" />
+    					<s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Click="OnSupportPageClick" Background="#FFFFBB33" Height="140"/>
+                        <Rectangle x:Name="Support_BtnRec" Fill="#FFFF8800" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="3" MouseLeftButtonUp="BtnRec_MouseUp" />
+    					<s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0" Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20" Background="#FFFF4444" Height="140" Click="OnDonatePageClick" />
+                        <Rectangle x:Name="Donate_BtnRec" Fill="#FFCC0000" Height="40" Margin="2.5,0,2.5,40" VerticalAlignment="Bottom" Grid.Column="4" MouseLeftButtonUp="BtnRec_MouseUp" />
     				</Grid>
     				<TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="12"/>
     				<TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="0"/>
@@ -111,11 +163,7 @@
     							<RowDefinition Height="40"/>
     							<RowDefinition Height="1*"/>
     						</Grid.RowDefinitions>
-    						<TextBlock x:Name="QRCode_Text" Grid.Row="0" TextWrapping="Wrap" Text="Scan For Website Link" FontSize="26.667" VerticalAlignment="Bottom" FontFamily="Segoe UI Light" FontWeight="Bold" Panel.ZIndex="1" Margin="0,0,0,-15.735" d:LayoutOverrides="Width" HorizontalAlignment="Center">
-    							<TextBlock.Background>
-    								<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
-    							</TextBlock.Background>
-    						</TextBlock>
+    						<TextBlock x:Name="QRCode_Text" Grid.Row="0" TextWrapping="Wrap" Text="Scan For Website Link" FontSize="26.667" VerticalAlignment="Bottom" FontFamily="Segoe UI Light" FontWeight="Bold" Panel.ZIndex="1" Margin="0,0,0,-15.735" d:LayoutOverrides="Width" HorizontalAlignment="Center"/>
     						<Image Source="Assets/QRCodes/what_we_do.png" Grid.Row="1" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="500" Margin="0,-10,0,0">
     							<Image.OpacityMask>
     								<ImageBrush ImageSource="Assets/QRCodes/what_we_do.png" Stretch="Uniform"/>
@@ -123,6 +171,7 @@
     						</Image>
     					</Grid>					
     				</Grid>
+    				<Rectangle Fill="#FFCC0000" HorizontalAlignment="Right" Height="0" Margin="0,443.5,-730,0" VerticalAlignment="Top" Width="6"/>
     			</Grid>
     		</Viewbox>
     	</Frame.Content>
