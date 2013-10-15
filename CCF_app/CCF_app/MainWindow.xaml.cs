@@ -15,13 +15,9 @@ using Microsoft.Surface;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
-<<<<<<< HEAD
-using System.Diagnostics;
-using System.Windows.Media.Animation;
-=======
+
 using System.Windows.Media.Animation;
 using System.Diagnostics;
->>>>>>> e23832511ae34a5d36b427be48b69112a3c3c0e9
 
 namespace CCF_app
 {
