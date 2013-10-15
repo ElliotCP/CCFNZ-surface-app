@@ -425,16 +425,17 @@ namespace CCF_app
             }
 
             String donationAmount = ck.Content.ToString();
+            String donation_server = "49.50.241.171:8080";
             if (donationAmount == "Custom")
             {
                 // Set initial amount to zero. 
                 // TODO Change QRCode when user inputs a number into the custom donation text box.
-                String qr_code_content = "<server-id>:<port>/?amount=0";
+                String qr_code_content = donation_server+"/?amount=0";
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
             }
             else
             {
-                String qr_code_content = "<server-id>:<port>/?amount=" + donationAmount;
+                String qr_code_content = donation_server+"/?amount=" + donationAmount;
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
             }
             donationMethod = null;
@@ -494,7 +495,6 @@ namespace CCF_app
 
         private void Display_QRCode(String text, int level)
         {
-            // TODO Replace the hard coded string with <ip-address>:8080/amount=xx
             System.Drawing.Image img = QRGenerator(text, level);
             this.QRCode_img.Source = convertImageToImageSource(img);
         }
