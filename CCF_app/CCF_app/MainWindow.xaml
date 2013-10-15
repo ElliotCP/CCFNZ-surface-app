@@ -92,8 +92,16 @@
                                     <Image x:Name="QRCode_img" Margin="0" Source="Assets/QRCodes/what_we_do.png"/>
     							</Border>
     						</Grid>
-    						<s:SurfaceButton x:Name="QRDonate_Button" Content="QR Code" Margin="-82.667,0,417.333,0" Click="QRDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="200" Background="#FFFF4444"/>
-    						<s:SurfaceButton x:Name="TxtDoante_Button" Content="Text" Margin="417.333,0,-82.667,0" Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="200" Background="#FFFF4444"/>
+    						<s:SurfaceButton x:Name="QRDonate_Button" Content="" Margin="-82.667,0,417.333,0" Click="QRDonate_Clicked" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="300" Height="300" Foreground="Black">
+    							<s:SurfaceButton.Background>
+    								<ImageBrush ImageSource="Assets/Icons/qr_donate.png" Stretch="Uniform"/>
+    							</s:SurfaceButton.Background>
+    						</s:SurfaceButton>
+    						<s:SurfaceButton x:Name="TxtDoante_Button" Content="" Margin="417.333,0,-82.667,0" Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="300" Height="300">
+    							<s:SurfaceButton.Background>
+    								<ImageBrush ImageSource="Assets/Icons/mobile_donate.png" Stretch="Uniform"/>
+    							</s:SurfaceButton.Background>
+    						</s:SurfaceButton>
     						<TextBlock x:Name="Donation_Help" TextWrapping="Wrap" Text="Choose An Amount You Would Like To Donate From The Left..." VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26.667" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="Collapsed"/>
     					</Grid>
     				</Grid>
