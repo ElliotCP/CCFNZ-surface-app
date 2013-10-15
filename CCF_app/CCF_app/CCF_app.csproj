@@ -121,6 +121,7 @@
     <Resource Include="Assets\Images\help1.jpg" />
     <Resource Include="Assets\Images\HomePage_Pic2.jpg" />
     <Resource Include="Assets\Images\HomePage_Pic3.jpg" />
+    <Resource Include="Assets\Icons\qrcode_icon.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
