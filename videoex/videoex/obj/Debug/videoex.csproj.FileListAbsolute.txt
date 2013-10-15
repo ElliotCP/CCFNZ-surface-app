@@ -14,3 +14,19 @@ c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\bin\Debug\v
 c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\bin\Debug\videoex.pdb
 c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.exe
 c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.pdb
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\videoex.exe
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\videoex.pdb
+E:\My Documents\Git\306p2\videoex\videoex\bin\Debug\Resources\icon.png
+E:\My Documents\Git\306p2\videoex\videoex\bin\Debug\videoex.xml
+E:\My Documents\Git\306p2\videoex\videoex\bin\Debug\videoex.exe
+E:\My Documents\Git\306p2\videoex\videoex\bin\Debug\videoex.pdb
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\videoex.csprojResolveAssemblyReference.cache
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\SurfaceWindow1.baml
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\App.baml
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\SurfaceWindow1.g.cs
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\App.g.cs
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\videoex_Content.g.cs
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\videoex_MarkupCompile.cache
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\videoex.g.resources
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\videoex.Properties.Resources.resources
+E:\My Documents\Git\306p2\videoex\videoex\obj\Debug\videoex.csproj.GenerateResource.Cache

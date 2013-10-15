@@ -195,7 +195,7 @@ namespace CCF_app
             this.More1.Foreground = Help_Btn_Color;
             this.More2.Foreground = Help_Btn_Color;
             this.QRCode_Text.Foreground = Help_Btn_Color;
-            this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
             
         
@@ -218,7 +218,7 @@ namespace CCF_app
             this.More2.Foreground = Support_Btn_Color;
             this.QRCode_Text.Foreground = Support_Btn_Color;
 
-            this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
             
         }
@@ -239,7 +239,7 @@ namespace CCF_app
             this.More2.Foreground = AboutUs_Btn_Color;
             this.QRCode_Text.Foreground = AboutUs_Btn_Color;
 
-            this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
             
         }

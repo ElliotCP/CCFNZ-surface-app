@@ -14,7 +14,7 @@
 		<Frame.Content>
     		<Viewbox>
     			<Grid Height="1041" Width="1904">
-    				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True">
+    				<Grid x:Name="HomePage" Margin="0">
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
@@ -50,7 +50,7 @@
                             <TextBlock Grid.Column="1" Margin="50,0,100,50" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Right"><Run Text="How to donate by sending a text message"/><LineBreak/><Run/></TextBlock>
     					</Grid>
     				</Grid>
-    				<Grid x:Name="InformationPage" Margin="0">
+    				<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
     					<Grid.RowDefinitions>
     						<RowDefinition Height="0.217*"/>
     						<RowDefinition Height="0.578*"/>
@@ -70,11 +70,6 @@
     							<Grid.RowDefinitions>
     								<RowDefinition/>
     							</Grid.RowDefinitions>
-    							<Image x:Name="Image1" Margin="0" Source="Resources/icon.png" Stretch="Fill" Grid.Column="1">
-    								<Image.OpacityMask>
-    									<ImageBrush ImageSource="Resources/icon.png"/>
-    								</Image.OpacityMask>
-    							</Image>
     							<TextBlock x:Name="TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap" d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light" ><InlineUIContainer>
     									<TextBlock x:Name="Text1" TextWrapping="Wrap" Text="TextBlock"/>
     								</InlineUIContainer><InlineUIContainer>
@@ -85,6 +80,7 @@
     								</InlineUIContainer><InlineUIContainer>
     									<TextBlock x:Name="More2" TextWrapping="Wrap" Text="More&gt;" Margin="0" FontWeight="Bold"/>
     								</InlineUIContainer></TextBlock>
+    							<MediaElement Grid.Column="1" Margin="0"/>
     						</Grid>
     					</ScrollViewer>
     					<Image x:Name="Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left" Stretch="Fill" Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom" d:LayoutOverrides="Height">
