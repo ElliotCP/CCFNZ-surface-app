@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,8 @@ using Microsoft.Surface;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
+using System.Diagnostics;
+using System.Windows.Media.Animation;
 
 namespace CCF_app
 {
@@ -34,15 +36,15 @@ namespace CCF_app
         Brush Donate_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFB57BEA");
 
         string helpText1 = "We rely on the generosity of big-hearted New Zealander's to help us continue what we do. There are a variety of ways you can support children with cancer and their families."
-            + "\nOur Beads of Courage ® presents children with a bead representing an Act of Courage. Ideally (and sadly) this year, we expect that we will need approximately 5000 handmaid beads donated. We are currently reaching only 1800 and we need all the help we can get to help our kids.";
+            + "\nOur Beads of Courage ?presents children with a bead representing an Act of Courage. Ideally (and sadly) this year, we expect that we will need approximately 5000 handmaid beads donated. We are currently reaching only 1800 and we need all the help we can get to help our kids.";
         string helpText2 = "We rely on donations to continue our services. You can make a one-off donation through your credit card; it is simple, secure and super rewarding."
             + "\nYou can become a regular supporter of Child Cancer Foundation by setting up a regular donation from your credit card or bank account. More information on donations can be found on our website."
             + "\nEvery donation, no matter how big or small, helps us continue to support our children and families affected by this traumatic disease.";
 
-        string supportText1 = "Our Family Support team work in conjunction with the foundation’s branch members (parents, caregivers, and volunteers) to deliver a range of support services to ensure every child and their family walking the child cancer journey will never feel alone."
+        string supportText1 = "Our Family Support team work in conjunction with the foundationâ€™s branch members (parents, caregivers, and volunteers) to deliver a range of support services to ensure every child and their family walking the child cancer journey will never feel alone."
             + " They offer individual and group support, information, financial assistance, and advocacy. Our Coordinators also offer support for bereaved families. They connect similar families and provide a link to other agencies and community support groups.";
         string supportText2 = "There are a variety of local and regional child, parent, grandparent, sibling and bereaved support programmes and events that aim to inform, reduce isolation and support your family through the experiences and challenges of child cancer."
-            + " Parent events, children’s holiday programmes and sibling days are among many that are well attended. ";
+            + " Parent events, childrenâ€™s holiday programmes and sibling days are among many that are well attended. ";
 
         string aboutUsText1 = "Child Cancer Foundation New Zealand's mission is that every child and their family walking the child cancer journey will never feel alone."
             +"\nEvery week in New Zealand three families are told their child has cancer. We support these families from the very beginning. By doing this we reduce isolation and the impact of cancer. We aim to reduce the impact of cancer by offering services to ensure children and their families are supported, informed and well cared for on their journey with cancer.";
@@ -50,10 +52,33 @@ namespace CCF_app
             + "\nEach year we need at least $6 million to continue our services. This is raised through the generosity of individuals, grants, donations and sponsorships."
             + "\nThe Foundation's work with children with cancer and their families is unique and receives no direct government funding or support from other cancer agencies.";
 
+        string donateText1 = "It's simple. It's fast. Make your donation now and help us make the world a better place for children with cancer.";
+
+        string donateText2 = "";
+
+        string donateText3 = "";
+
+        ImageBrush[] backgrounds = new ImageBrush[3];
+        DoubleAnimation fadeIn;
+        DoubleAnimation fadeOut;
+        string[] backgroundImages = new string[3] { "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg" };
+
+        int currentImage = 0;
 
         public MainWindow()
         {
             InitializeComponent();
+            int i = 0;
+            foreach (string s in backgroundImages)
+            {
+                ImageBrush ib = new ImageBrush();
+                ib.Stretch = Stretch.UniformToFill;
+                ib.ImageSource = new BitmapImage(new Uri(@s, UriKind.RelativeOrAbsolute));
+                backgrounds[i] = ib;
+                i++;
+            }
+
+
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
@@ -171,7 +196,7 @@ namespace CCF_app
             this.More2.Foreground = Help_Btn_Color;
             this.QRCode_Text.Foreground = Help_Btn_Color;
             this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
-            this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
             
         
         }
@@ -194,7 +219,7 @@ namespace CCF_app
             this.QRCode_Text.Foreground = Support_Btn_Color;
 
             this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
-            this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
             
         }
 
@@ -215,7 +240,7 @@ namespace CCF_app
             this.QRCode_Text.Foreground = AboutUs_Btn_Color;
 
             this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
-            this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
             
         }
 
@@ -224,6 +249,7 @@ namespace CCF_app
             CollapseAllPages();
 
             this.DonatePage.Visibility = System.Windows.Visibility.Visible;
+
         }
 
 
@@ -244,6 +270,56 @@ namespace CCF_app
             lgb.GradientStops.Add(new GradientStop(Color.FromArgb(225, 192, 215, 45), 0.4));
 
             return lgb;
+        }
+
+        private void NextImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Debug.WriteLine("Changing image forwards");
+            //backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeOut);
+            if (currentImage == 2)
+            {
+                currentImage = 0;
+            }
+            else
+            {
+                currentImage++;
+            }
+
+            //fadeOut.Completed += delegate(object sender1, EventArgs e1) {
+            //    //once the fadeout is complete set the new back ground and fade back in. 
+            //    //Create a new background brush. 
+            //    ImageBrush bgBrush = backgrounds[currentImage];
+
+            //    //Set the grid background to the new brush. 
+            //    ImageGrid.Background = bgBrush;
+
+            //    //Set the brush...(not the background property) with the animation.
+            //    bgBrush.BeginAnimation(Brush.OpacityProperty, fadeInAnimation);
+            //};
+
+            fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
+            backgrounds[currentImage].Opacity = 0;
+            ImageGrid.Background = backgrounds[currentImage];
+            Debug.WriteLine(backgrounds[currentImage].Opacity);
+            backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
+        }
+
+        private void PreviousImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Debug.WriteLine("Changing image backwards");
+            if (currentImage == 0)
+            {
+                currentImage = 2;
+            }
+            else
+            {
+                currentImage--;
+            }
+            fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
+            backgrounds[currentImage].Opacity = 0;
+            ImageGrid.Background = backgrounds[currentImage];
+            Debug.WriteLine(backgrounds[currentImage].Opacity);
+            backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
         }
     }
 }
