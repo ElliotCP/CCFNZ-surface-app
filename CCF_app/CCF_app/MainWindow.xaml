@@ -95,7 +95,18 @@
     						<s:SurfaceButton x:Name="QRDonate_Button" Content="QR Code" Margin="-82.667,0,417.333,0" Click="QRDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="200" Background="#FFFF4444"/>
     						<s:SurfaceButton x:Name="TxtDoante_Button" Content="Text" Margin="417.333,0,-82.667,0" Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="200" Background="#FFFF4444"/>
     						<TextBlock x:Name="Donation_Help" TextWrapping="Wrap" Text="Choose An Amount You Would Like To Donate From The Left..." VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26.667" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="Collapsed"/>
-    					</Grid>
+                            <Grid Grid.Column="1" Height="100" Grid.Row="2" VerticalAlignment="Bottom" Margin="8,0,8,8">
+                                <StatusBarItem x:Name="Feedback" Height="100" Margin="0,0,-12.333,-30" BorderThickness="5,0,0,0" Background="#00000000">
+                                    <StatusBarItem.Resources>
+                                        <Style TargetType="ProgressBar"/>
+                                        <!-- magic; do not remove -->
+                                    </StatusBarItem.Resources>
+                                    <ProgressBar x:Name="DonationProgress_Bar" Height="40" Margin="8,0,8,46" Minimum="0" Maximum="100" Value="60" Width="602.667" Background="White" VerticalAlignment="Bottom" Foreground="#FF008200" />
+                                </StatusBarItem>
+
+                                <TextBlock x:Name="DonateProgressText" TextWrapping="Wrap" FontSize="24" Height="40" FontFamily="Segoe UI Light" VerticalAlignment="Bottom" HorizontalAlignment="Center" d:LayoutOverrides="Height"><Run Language="en-nz" Text="60% funded | $70 donated | 15 days to go"/></TextBlock>
+                            </Grid>
+                        </Grid>
     				</Grid>
     				<Grid x:Name="InformationPage" Margin="0">
     					<Grid.RowDefinitions>

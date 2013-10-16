@@ -77,6 +77,11 @@ namespace CCF_app
 
         string donateText3 = "";
 
+        int donatePercentFunded = 60;
+        int donateTotalDonated = 60;
+        int donateTarget = 200;
+        int donateDaysToGo = 15;
+
         ImageBrush[] backgrounds = new ImageBrush[3];
         DoubleAnimation fadeIn;
         DoubleAnimation fadeOut;
@@ -289,9 +294,18 @@ namespace CCF_app
             this.DonatePage.Visibility = System.Windows.Visibility.Visible;
             //this.Donate_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
             this.Donate_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
+            //this.DonationProgress_Bar.Visibility = System.Windows.Visibility.Visible;
 
+            UpdateProgressBarAndText(0);
         }
 
+        private void UpdateProgressBarAndText(int amount)
+        {
+            donateTotalDonated += amount;
+            donatePercentFunded = donateTotalDonated * 100 / donateTarget;
+            this.DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go", donatePercentFunded, donateTotalDonated, donateDaysToGo);
+            this.DonationProgress_Bar.Value = donatePercentFunded;
+        }
 
         private void CollapseAllPages()
         {
@@ -435,6 +449,8 @@ namespace CCF_app
             }
             else
             {
+                int amountDonated = Convert.ToInt32(donationAmount.Replace("$", ""));
+                UpdateProgressBarAndText(amountDonated);
                 String qr_code_content = donation_server+"/?amount=" + donationAmount;
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
             }
