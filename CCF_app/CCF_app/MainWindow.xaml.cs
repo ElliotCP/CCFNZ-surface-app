@@ -96,6 +96,10 @@ namespace CCF_app
         DoubleAnimation da3 = new DoubleAnimation(1, TimeSpan.FromMilliseconds(400));
         DoubleAnimation da4 = new DoubleAnimation(0, TimeSpan.FromMilliseconds(400));
 
+        System.Windows.Threading.DispatcherTimer dt;
+
+        private int ScreenSaverWaitTime = 30;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -117,6 +121,42 @@ namespace CCF_app
             this.More1.MouseDown += new MouseButtonEventHandler(More1_MouseDown);
             this.More2.MouseDown += new MouseButtonEventHandler(More2_MouseDown);
             this.QRCode.MouseDown += new MouseButtonEventHandler(QRCode_MouseDown);
+
+            dt = new System.Windows.Threading.DispatcherTimer();
+            dt.Tick +=new EventHandler(dt_Tick);
+            dt.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
+            dt.Start();
+
+            this.ScreenSaver.MouseDown += new MouseButtonEventHandler(ScreenSaver_MouseDown);
+
+            //http://stackoverflow.com/questions/2105607/wpf-catch-last-window-click-anywhere - jano
+            InputManager.Current.PreProcessInput += (sender, e) =>
+              {
+                  if (e.StagingItem.Input is MouseButtonEventArgs)
+                      GlobalClickEventHandler(sender,
+                        (MouseButtonEventArgs)e.StagingItem.Input);
+              };
+
+            
+        }
+
+        void ScreenSaver_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.ScreenSaver.Visibility = System.Windows.Visibility.Collapsed;
+            this.OnHomePageClick(sender, e);
+        }
+
+        void GlobalClickEventHandler(object sender, MouseButtonEventArgs e)
+        {
+            dt.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
+
+        }
+
+        void dt_Tick(object sender, EventArgs e)
+        {
+            Debug.WriteLine("zzzzzzzz");
+            this.ScreenSaver.Visibility = System.Windows.Visibility.Visible;
+            this.CollapseAllPages();
         }
 
         void QRCode_MouseDown(object sender, MouseButtonEventArgs e)
