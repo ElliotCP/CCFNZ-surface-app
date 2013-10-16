@@ -82,6 +82,9 @@ namespace CCF_app
         int donateTarget = 200;
         int donateDaysToGo = 15;
 
+        private string donationMethod = "";
+
+
         ImageBrush[] backgrounds = new ImageBrush[3];
         DoubleAnimation fadeIn;
         DoubleAnimation fadeOut;
@@ -296,7 +299,29 @@ namespace CCF_app
             this.Donate_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
             //this.DonationProgress_Bar.Visibility = System.Windows.Visibility.Visible;
 
+
             UpdateProgressBarAndText(0);
+
+            this.donationMethod = "";
+            this.CustomAmount.Visibility = System.Windows.Visibility.Collapsed;
+            this.Donate_Grid.Visibility = System.Windows.Visibility.Collapsed;
+            this.QRDonate_Button.Visibility = System.Windows.Visibility.Visible;
+
+            this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
+            this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
+
+            this.TxtDoante_Button.Visibility = System.Windows.Visibility.Visible;
+
+            this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Collapsed;
+            this.Donations_Instructions.Visibility = System.Windows.Visibility.Collapsed;
+
+            if (this.Donation_Help.Visibility == System.Windows.Visibility.Visible && donationMethod != null)
+            {
+                this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
+            }
+
+            this.UncheckRadioButtons();
+
         }
 
         private void UpdateProgressBarAndText(int amount)
@@ -416,11 +441,11 @@ namespace CCF_app
                 break;
             }
         }
-        
-        private string donationMethod = "";
+
+        private RadioButton ck;
         private void Donations_Radio_Checked(object sender, RoutedEventArgs e)
         {
-            RadioButton ck = sender as RadioButton;
+            ck = sender as RadioButton;
 
             this.Donations_Instructions.Visibility = System.Windows.Visibility.Visible;
 
@@ -583,6 +608,18 @@ namespace CCF_app
             if (this.Donation_Help.Visibility == System.Windows.Visibility.Visible && donationMethod != null)
             {
                 this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
+
+        private void UncheckRadioButtons()
+        {
+            try
+            {
+                ck.IsChecked = false;
+            }
+            catch (NullReferenceException e)
+            {
+                
             }
         }
     }
