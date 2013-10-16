@@ -127,6 +127,16 @@
     <Resource Include="Assets\Images\HomePage_Pic3.jpg" />
     <Resource Include="Assets\Icons\mobile_donate.png" />
     <Resource Include="Assets\Icons\qr_donate.png" />
+    <Resource Include="Assets\Videos\vid1.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Videos\vid2.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Videos\vid3.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Videos\Wildlife.wmv" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

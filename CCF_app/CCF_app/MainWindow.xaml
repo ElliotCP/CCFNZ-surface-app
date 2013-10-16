@@ -116,7 +116,7 @@
                             </Grid>
                         </Grid>
     				</Grid>
-    				<Grid x:Name="InformationPage" Margin="0">
+    				<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
     					<Grid.RowDefinitions>
     						<RowDefinition Height="0.217*"/>
     						<RowDefinition Height="0.578*"/>
@@ -136,11 +136,9 @@
     							<Grid.RowDefinitions>
     								<RowDefinition/>
     							</Grid.RowDefinitions>
-    							<Image x:Name="Image1" Margin="0" Source="Resources/icon.png" Stretch="Fill" Grid.Column="1">
-    								<Image.OpacityMask>
-    									<ImageBrush ImageSource="Resources/icon.png"/>
-    								</Image.OpacityMask>
-    							</Image>
+                                <MediaElement x:Name="MyVideo1" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\Jano\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid1.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
+                                <MediaElement x:Name="MyVideo2" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\Jano\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid2.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
+                                <MediaElement x:Name="MyVideo3" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\Jano\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid3.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
     							<TextBlock x:Name="TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap" d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light" ><InlineUIContainer>
     									<TextBlock x:Name="Text1" TextWrapping="Wrap" Text="TextBlock"/>
     								</InlineUIContainer><InlineUIContainer>

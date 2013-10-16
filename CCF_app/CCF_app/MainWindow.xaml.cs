@@ -217,6 +217,9 @@ namespace CCF_app
             Unanimate();
             CollapseAllPages();
 
+            this.MyVideo1.Visibility = System.Windows.Visibility.Visible;
+            this.MyVideo1.Play();
+
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
             //this.Help_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
 
@@ -232,7 +235,7 @@ namespace CCF_app
             this.More1.Foreground = Help_Btn_Color;
             this.More2.Foreground = Help_Btn_Color;
             this.QRCode_Text.Foreground = Help_Btn_Color;
-            this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
             
             
@@ -242,6 +245,9 @@ namespace CCF_app
         {
             Unanimate();   
             CollapseAllPages();
+
+            this.MyVideo2.Visibility = System.Windows.Visibility.Visible;
+            this.MyVideo2.Play();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
             //this.Support_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
@@ -257,7 +263,7 @@ namespace CCF_app
             this.More2.Foreground = Support_Btn_Color;
             this.QRCode_Text.Foreground = Support_Btn_Color;
 
-            this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
             
         }
@@ -266,6 +272,9 @@ namespace CCF_app
         {
             Unanimate();
             CollapseAllPages();
+
+            this.MyVideo3.Visibility = System.Windows.Visibility.Visible;
+            this.MyVideo3.Play();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
             //this.AboutUs_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
@@ -282,7 +291,7 @@ namespace CCF_app
             this.More2.Foreground = AboutUs_Btn_Color;
             this.QRCode_Text.Foreground = AboutUs_Btn_Color;
 
-            this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
             
         }
@@ -322,6 +331,7 @@ namespace CCF_app
 
             this.UncheckRadioButtons();
 
+
         }
 
         private void UpdateProgressBarAndText(int amount)
@@ -343,6 +353,14 @@ namespace CCF_app
             this.Help_BtnRec.Visibility = System.Windows.Visibility.Visible;            
             this.Support_BtnRec.Visibility = System.Windows.Visibility.Visible;            
             this.Donate_BtnRec.Visibility = System.Windows.Visibility.Visible;
+
+
+            this.MyVideo1.Stop();
+            this.MyVideo1.Visibility = System.Windows.Visibility.Collapsed;
+            this.MyVideo2.Stop();
+            this.MyVideo2.Visibility = System.Windows.Visibility.Collapsed;
+            this.MyVideo3.Stop();
+            this.MyVideo3.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void Unanimate()
@@ -620,6 +638,23 @@ namespace CCF_app
             catch (NullReferenceException e)
             {
                 
+            }
+        }
+
+        private Boolean playing = true;
+        private void VideoClicked_Event(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+        	// TODO: Add event handler implementation here.
+            MediaElement m = sender as MediaElement;
+            if (playing)
+            {
+                m.Pause();
+                this.playing = false;
+            }
+            else
+            {
+                m.Play();
+                this.playing = true;
             }
         }
     }

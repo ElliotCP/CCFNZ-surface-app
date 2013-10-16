@@ -14,3 +14,19 @@ c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\bin\Debug\v
 c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\bin\Debug\videoex.pdb
 c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.exe
 c:\users\peter\documents\visual studio 2010\Projects\videoex\videoex\obj\Debug\videoex.pdb
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\videoex.exe
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\videoex.pdb
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\bin\Debug\Resources\icon.png
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\bin\Debug\videoex.xml
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\bin\Debug\videoex.exe
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\bin\Debug\videoex.pdb
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\videoex.csprojResolveAssemblyReference.cache
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\SurfaceWindow1.baml
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\App.baml
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\SurfaceWindow1.g.cs
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\App.g.cs
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\videoex_Content.g.cs
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\videoex_MarkupCompile.cache
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\videoex.g.resources
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\videoex.Properties.Resources.resources
+C:\Users\Jano\Documents\GitHub\306p2\videoex\videoex\obj\Debug\videoex.csproj.GenerateResource.Cache
