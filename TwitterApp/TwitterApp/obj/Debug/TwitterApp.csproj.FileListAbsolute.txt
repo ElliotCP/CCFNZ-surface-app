@@ -15,3 +15,5 @@ c:\users\nicole\documents\visual studio 2010\Projects\TwitterApp\TwitterApp\obj\
 c:\users\nicole\documents\visual studio 2010\Projects\TwitterApp\TwitterApp\obj\Debug\GenerateResource.write.1.tlog
 c:\users\nicole\documents\visual studio 2010\Projects\TwitterApp\TwitterApp\obj\Debug\TwitterApp.exe
 c:\users\nicole\documents\visual studio 2010\Projects\TwitterApp\TwitterApp\obj\Debug\TwitterApp.pdb
+C:\Users\Nicole\Documents\GitHub\306p2\TwitterApp\TwitterApp\obj\Debug\TwitterApp.exe
+C:\Users\Nicole\Documents\GitHub\306p2\TwitterApp\TwitterApp\obj\Debug\TwitterApp.pdb

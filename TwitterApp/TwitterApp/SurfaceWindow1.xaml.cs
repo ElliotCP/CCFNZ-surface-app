@@ -18,6 +18,7 @@ using Microsoft.Surface.Presentation.Input;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Xml.Linq;
+using TweetSharp;
 
 namespace TwitterApp
 {
