@@ -86,7 +86,7 @@
     							</Grid>
     							<TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="100,20,50,0" Grid.Row="1" TextWrapping="Wrap" FontSize="30" VerticalAlignment="Top" FontFamily="Segoe UI Light"><Run Text="Text"/></TextBlock>
     							<s:SurfaceButton x:Name="DonationMethodSwitch_Button" Content="Change Payment Method" Margin="100,70,0,0" Background="#FFFF4444" Foreground="Black" FontFamily="Segoe UI Light" Click="DonationMethod_Change" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" FontSize="16" Padding="5,6,5,5"/>
-    							<TextBlock x:Name="Txt_Donation" TextWrapping="Wrap" Text="021 1234 56789" FontSize="48" FontFamily="Segoe UI Light" Grid.Row="1" Grid.Column="1" Margin="35,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed"/>
+    							<TextBlock x:Name="Txt_Donation" TextWrapping="Wrap" Text="3032 02" FontSize="48" FontFamily="Segoe UI Light" Grid.Row="1" Grid.Column="1" Margin="35,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed"/>
     							<TextBlock x:Name="Donations_Instructions" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="0,0,0,100" FontFamily="Segoe UI Light" FontSize="24" Visibility="Collapsed"/>
     							<Border x:Name="QRCode_Donation" BorderBrush="Black" BorderThickness="5" Grid.Row="1" Grid.Column="1" Height="300" Margin="50,0,0,0" HorizontalAlignment="Left" Visibility="Collapsed">
                                     <Image x:Name="QRCode_img" Margin="0" Source="Assets/QRCodes/what_we_do.png"/>
@@ -192,8 +192,8 @@
     						</Image>
     					</Grid>					
     				</Grid>
-    				<Grid x:Name="ScreenSaver" Visibility="Collapsed">
-                        <Image Source="Assets/Images/ScreenSaver.png" Stretch="Fill" MaxHeight="1080" Visibility="Collapsed"/>
+    				<Grid x:Name="ScreenSaver">
+                        <Image Source="Assets/Images/ScreenSaver.png" Stretch="Fill" MaxHeight="1080"/>
     				</Grid>
     			</Grid>
     		</Viewbox>

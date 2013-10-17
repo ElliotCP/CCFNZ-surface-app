@@ -515,6 +515,14 @@ namespace CCF_app
                 // TODO Change QRCode when user inputs a number into the custom donation text box.
                 String qr_code_content = donation_server + "/?amount=" + Donation_CustomAmount.Text;
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
+                if (Convert.ToInt32(Donation_CustomAmount.Text) < 999)
+                {
+                    Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
+                }
+                else
+                {
+                    Txt_Donation.Text = "Please use a QR Code to donate more than $1000.";
+                }
             }
             else
             {
@@ -522,6 +530,7 @@ namespace CCF_app
                 UpdateProgressBarAndText(amountDonated);
                 String qr_code_content = donation_server + "/?amount=" + donationAmount;
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
+                Txt_Donation.Text = "3032 " + donationAmount;
             }
             donationMethod = null;
 
