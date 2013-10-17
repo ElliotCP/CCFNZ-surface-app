@@ -435,6 +435,7 @@ namespace CCF_app
 
             fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
             backgrounds[currentImage].Opacity = 0;
+            ImageGrid.Background.Opacity = 0;
             ImageGrid.Background = backgrounds[currentImage];
             Debug.WriteLine(backgrounds[currentImage].Opacity);
             backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);

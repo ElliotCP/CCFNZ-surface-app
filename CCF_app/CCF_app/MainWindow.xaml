@@ -14,7 +14,7 @@
 		<Frame.Content>
     		<Viewbox>
     			<Grid Height="1041" Width="1904">
-    				<Grid x:Name="HomePage" Margin="0" Visibility="Collapsed">
+    				<Grid x:Name="HomePage" Margin="0">
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
@@ -27,7 +27,7 @@
     						<Image x:Name="image" Source="Assets/Images/blurredGrid.png" Stretch="Fill"/>
     					</Grid>
     				</Grid>
-    				<Grid x:Name="DonatePage" Margin="0">
+    				<Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
@@ -49,7 +49,7 @@
     						</Image>
     						<TextBlock x:Name="DonatePage_Title" TextWrapping="Wrap" Text="Donate" FontSize="48" HorizontalAlignment="Left" Margin="90,40.195,0,16.195" FontFamily="Segoe UI Light" FontWeight="Bold" d:LayoutOverrides="Height"/>
     						<TextBlock TextWrapping="Wrap" Text="Play a part in the fight against child cancer and help us to continue to care for children with cancer." Margin="40,0,0,0" FontSize="29.333" FontFamily="Segoe UI Light" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"/>
-    						<Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.RowSpan="3">
+    						<Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Collapsed">
     							<Grid.RowDefinitions>
     								<RowDefinition Height="1*"/>
     								<RowDefinition Height="3*"/>
