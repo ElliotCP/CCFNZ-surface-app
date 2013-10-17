@@ -146,9 +146,10 @@ namespace CCF_app
         void dt_Tick(object sender, EventArgs e)
         {
             Debug.WriteLine("zzzzzzzz");
-            this.ScreenSaver.Visibility = System.Windows.Visibility.Visible;
+            Unanimate();            
             this.CollapseAllPages();
             this.HomePage.Visibility = System.Windows.Visibility.Visible;
+            this.ScreenSaver.Visibility = System.Windows.Visibility.Visible;
         }
 
         void QRCode_MouseDown(object sender, MouseButtonEventArgs e)
@@ -703,7 +704,7 @@ namespace CCF_app
             // TODO: Add event handler implementation here.
         }
 
-        
+
 
         private void GotFocux(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -729,6 +730,18 @@ namespace CCF_app
             // TODO Change QRCode when user inputs a number into the custom donation text box.
             String qr_code_content = donation_server + "/?amount=" + Donation_CustomAmount.Text;
             Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
+
+            if (Donation_CustomAmount.Text != "" && Convert.ToInt32(Donation_CustomAmount.Text) < 999)
+            {
+                Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
+            }
+            else if (Donation_CustomAmount.Text != "" && Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
+            {
+                Txt_Donation.Text = "Please use a QR Code";
+            } else {
+                Txt_Donation.Text = "3032 02";
+            }
+            
 
             donationMethod = null;
 
@@ -768,7 +781,16 @@ namespace CCF_app
                 // TODO Change QRCode when user inputs a number into the custom donation text box.
                 String qr_code_content = donation_server + "/?amount=" + Donation_CustomAmount.Text;
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
-
+                if (Convert.ToInt32(Donation_CustomAmount.Text) < 999 && Donation_CustomAmount.Text != "")
+            {
+                Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
+            }
+            else if (Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
+            {
+                Txt_Donation.Text = "Please use a QR Code";
+            } else {
+                Txt_Donation.Text = "3032 02";
+            }
                 donationMethod = null;
 
 
