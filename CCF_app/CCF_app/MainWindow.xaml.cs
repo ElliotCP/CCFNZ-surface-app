@@ -531,7 +531,7 @@ namespace CCF_app
                 UpdateProgressBarAndText(amountDonated);
                 String qr_code_content = donation_server + "/?amount=" + donationAmount;
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
-                Txt_Donation.Text = "3032 " + donationAmount;
+                Txt_Donation.Text = "3032 " + donationAmount.Replace("$", "");
             }
             donationMethod = null;
 
