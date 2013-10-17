@@ -98,7 +98,11 @@ namespace CCF_app
 
         System.Windows.Threading.DispatcherTimer dt;
 
+<<<<<<< HEAD
         private int ScreenSaverWaitTime = 10;
+=======
+        private int ScreenSaverWaitTime = 30;
+>>>>>>> 04c1b84af367e3d73373e82d681a210884852bb9
 
         public MainWindow()
         {
