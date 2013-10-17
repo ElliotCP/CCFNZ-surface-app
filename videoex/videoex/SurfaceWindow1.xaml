@@ -9,7 +9,7 @@
             <RowDefinition Height="9*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <MediaElement Name="MyVideo" Source="C:\Users\Public\Videos\aaa.mp4" LoadedBehavior="Manual" 
+        <MediaElement Name="MyVideo" Source="C:\Users\Public\Videos\Sample Videos\Wildlife.wmv" LoadedBehavior="Manual" 
                       Loaded="instructionVideo_Loaded" MediaEnded="instructionVideo_MediaEnded" Grid.RowSpan="1"/>
       
         <StackPanel Grid.Row="1" Orientation="Horizontal">
