@@ -197,6 +197,11 @@
     					</Grid>					
     				</Grid>
     				<Rectangle Fill="#FFCC0000" HorizontalAlignment="Right" Height="0" Margin="0,443.5,-730,0" VerticalAlignment="Top" Width="6"/>
+    				<Grid x:Name="ScreenSaver" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1920" Visibility="Collapsed">
+
+                        <Image Source="Assets/Images/ScreenSaver.png" Stretch="Fill" MaxHeight="1080"/>
+                        
+    				</Grid>
     			</Grid>
     		</Viewbox>
     	</Frame.Content>
