@@ -14,20 +14,20 @@
 		<Frame.Content>
     		<Viewbox>
     			<Grid Height="1041" Width="1904">
-    				<Grid x:Name="HomePage" Margin="0" d:IsHidden="True" Visibility="Visible">
+    				<Grid x:Name="HomePage" Margin="0" Visibility="Collapsed">
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
-                        <Grid x:Name="ImageGrid" Margin="0,150,0,200" Opacity="0.8">
-                            <Grid.Background>
-                                <ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
-                            </Grid.Background>
-                            <ed:BlockArrow x:Name="PreviousImage" Fill="#4CFFFFFF" Margin="10,0,0,0" Orientation="Left" Stroke="#4C000000" Height="50" VerticalAlignment="Center" d:LayoutOverrides="Height" Width="50" HorizontalAlignment="Left" Panel.ZIndex="1" MouseDown="PreviousImage_MouseDown"/>
+    					<Grid x:Name="ImageGrid" Margin="0,150,0,200" Opacity="0.8">
+    						<Grid.Background>
+    							<ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
+    						</Grid.Background>
+    						<ed:BlockArrow x:Name="PreviousImage" Fill="#4CFFFFFF" Margin="10,0,0,0" Orientation="Left" Stroke="#4C000000" Height="50" VerticalAlignment="Center" d:LayoutOverrides="Height" Width="50" HorizontalAlignment="Left" Panel.ZIndex="1" MouseDown="PreviousImage_MouseDown"/>
     						<ed:BlockArrow x:Name="NextImage" Fill="#4CFFFFFF" HorizontalAlignment="Right" Height="50" Orientation="Right" Stroke="#4C000000" VerticalAlignment="Center" Width="50" Margin="0,0,10,0" Panel.ZIndex="1" MouseDown="NextImage_MouseDown"/>
     						<Image x:Name="image" Source="Assets/Images/blurredGrid.png" Stretch="Fill"/>
     					</Grid>
     				</Grid>
-    				<Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
+    				<Grid x:Name="DonatePage" Margin="0">
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
@@ -38,18 +38,18 @@
     							<ColumnDefinition Width="1*"/>
     						</Grid.ColumnDefinitions>
     						<Grid.RowDefinitions>
-    							<RowDefinition Height="0.3*"/>
-    							<RowDefinition Height="1*"/>
-    							<RowDefinition Height="1*"/>
+    							<RowDefinition Height="0.174*"/>
+    							<RowDefinition Height="0.391*"/>
+    							<RowDefinition Height="0.435*"/>
     						</Grid.RowDefinitions>
-    						<Image x:Name="DonatePage_Pointer" Margin="20,10,0,10" Width="80" Stretch="Fill" Source="Assets/Icons/pointer_original.png" Height="80" HorizontalAlignment="Left">
+    						<Image x:Name="DonatePage_Pointer" Margin="20,33.117,0,7.117" Width="80" Stretch="Fill" Source="Assets/Icons/pointer_original.png" Height="80" HorizontalAlignment="Left">
     							<Image.OpacityMask>
     								<ImageBrush ImageSource="Assets/Icons/pointer_red.png"/>
     							</Image.OpacityMask>
     						</Image>
-    						<TextBlock x:Name="DonatePage_Title" TextWrapping="Wrap" Text="Donate" FontSize="48" HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Center" FontFamily="Segoe UI Light" FontWeight="Bold"/>
+    						<TextBlock x:Name="DonatePage_Title" TextWrapping="Wrap" Text="Donate" FontSize="48" HorizontalAlignment="Left" Margin="90,40.195,0,16.195" FontFamily="Segoe UI Light" FontWeight="Bold" d:LayoutOverrides="Height"/>
     						<TextBlock TextWrapping="Wrap" Text="Play a part in the fight against child cancer and help us to continue to care for children with cancer." Margin="40,0,0,0" FontSize="29.333" FontFamily="Segoe UI Light" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"/>
-    						<Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Collapsed">
+    						<Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.RowSpan="3">
     							<Grid.RowDefinitions>
     								<RowDefinition Height="1*"/>
     								<RowDefinition Height="3*"/>
@@ -58,7 +58,7 @@
     								<ColumnDefinition Width="1*"/>
     								<ColumnDefinition Width="1*"/>
     							</Grid.ColumnDefinitions>
-    							<Grid x:Name="DonationAmount_Radio" Margin="0,0,200,0" Grid.Row="1" Width="250" VerticalAlignment="Center" HorizontalAlignment="Right">
+    							<Grid x:Name="DonationAmount_Radio" Margin="0,0,200,0" Grid.Row="1" Width="250" VerticalAlignment="Center" HorizontalAlignment="Right" Height="200">
     								<Grid.RowDefinitions>
     									<RowDefinition Height="1*"/>
     									<RowDefinition Height="1*"/>
@@ -80,8 +80,8 @@
     										<ColumnDefinition Width="0.1*"/>
     										<ColumnDefinition Width="1*"/>
     									</Grid.ColumnDefinitions>
-    									<TextBlock TextWrapping="Wrap" Text="$" d:LayoutOverrides="Width" VerticalAlignment="Center"/>
-    									<s:SurfaceTextBox x:Name="Donation_CustomAmount"  Margin="0" TextWrapping="NoWrap" Text="0" Grid.Column="1" Background="#FFFF4444" Foreground="Black" Grid.Row="1" Width="63" FontFamily="Segoe UI Light" UndoLimit="5" ToolTip="Enter any amount you wish to donate" VerticalContentAlignment="Stretch" Padding="5,0,0,0" HorizontalScrollBarVisibility="Disabled" MaxLines="1" MaxLength="6" AcceptsReturn="True" BorderThickness="0,8" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"/>
+    									<TextBlock TextWrapping="Wrap" Text="$" d:LayoutOverrides="Width" VerticalAlignment="Center" KeyDown="Donations_Radio_Checked"/>
+    									<s:SurfaceTextBox x:Name="Donation_CustomAmount"  Margin="0" TextWrapping="NoWrap" Text="0" Grid.Column="1" Background="#FFFF4444" Foreground="Black" Width="80" FontFamily="Segoe UI Light" UndoLimit="5" ToolTip="Enter any amount you wish to donate" VerticalContentAlignment="Center" Padding="5,0,0,0" HorizontalScrollBarVisibility="Disabled" MaxLines="1" MaxLength="6" AcceptsReturn="True" BorderThickness="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left" d:LayoutOverrides="VerticalAlignment, GridBox" KeyDown="GotFocux" TextChanged="GotFocux" Height="30" />
     								</Grid>
     							</Grid>
     							<TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="100,20,50,0" Grid.Row="1" TextWrapping="Wrap" FontSize="30" VerticalAlignment="Top" FontFamily="Segoe UI Light"><Run Text="Text"/></TextBlock>
@@ -103,30 +103,30 @@
     							</s:SurfaceButton.Background>
     						</s:SurfaceButton>
     						<TextBlock x:Name="Donation_Help" TextWrapping="Wrap" Text="Choose An Amount You Would Like To Donate From The Left..." VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26.667" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                            <Grid Grid.Column="1" Height="100" Grid.Row="2" VerticalAlignment="Bottom" Margin="8,0,8,8">
+                            <Grid Grid.Column="1" Height="120" Grid.Row="2" VerticalAlignment="Bottom" Margin="0">
                                 <StatusBarItem x:Name="Feedback" Height="100" Margin="0,0,-12.333,-30" BorderThickness="5,0,0,0" Background="#00000000">
                                     <StatusBarItem.Resources>
-                                        <Style TargetType="ProgressBar"/>
+                                        <Style TargetType="{x:Type ProgressBar}"/>
                                         <!-- magic; do not remove -->
                                     </StatusBarItem.Resources>
-                                    <ProgressBar x:Name="DonationProgress_Bar" Height="40" Margin="8,0,8,46" Minimum="0" Maximum="100" Value="60" Width="602.667" Background="White" VerticalAlignment="Bottom" Foreground="#FF008200" />
+                                    <ProgressBar x:Name="DonationProgress_Bar" Height="40" Margin="8,0,8,46" Minimum="0" Maximum="100" Value="60" Width="602.667" Background="White" VerticalAlignment="Bottom" Foreground="#FFCC0000" />
                                 </StatusBarItem>
 
-                                <TextBlock x:Name="DonateProgressText" TextWrapping="Wrap" FontSize="24" Height="40" FontFamily="Segoe UI Light" VerticalAlignment="Bottom" HorizontalAlignment="Center" d:LayoutOverrides="Height"><Run Language="en-nz" Text="60% funded | $70 donated | 15 days to go"/></TextBlock>
+                                <TextBlock x:Name="DonateProgressText" TextWrapping="Wrap" FontSize="24" Height="40" FontFamily="Segoe UI Light" VerticalAlignment="Bottom" HorizontalAlignment="Center" d:LayoutOverrides="Height" Margin="0,10,0,0"><Run Language="en-nz" Text="60% funded | $70 donated | 15 days to go"/></TextBlock>
                             </Grid>
                         </Grid>
     				</Grid>
     				<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
     					<Grid.RowDefinitions>
-    						<RowDefinition Height="0.217*"/>
-    						<RowDefinition Height="0.578*"/>
+    						<RowDefinition Height="0.229*"/>
+    						<RowDefinition Height="0.566*"/>
     						<RowDefinition Height="0.205*"/>
     					</Grid.RowDefinitions>
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
-    					<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" PanningMode="HorizontalOnly">
-    						<Grid Background="#00000000" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+    					<ScrollViewer Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+    						<Grid Background="#00000000" Margin="0" >
     							<Grid.ColumnDefinitions>
     								<ColumnDefinition Width="100"/>
     								<ColumnDefinition Width="600"/>
@@ -136,18 +136,14 @@
     							<Grid.RowDefinitions>
     								<RowDefinition/>
     							</Grid.RowDefinitions>
-                                <MediaElement x:Name="MyVideo1" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\Jano\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid1.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
-                                <MediaElement x:Name="MyVideo2" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\Jano\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid2.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
-                                <MediaElement x:Name="MyVideo3" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\Jano\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid3.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
+                                <MediaElement x:Name="MyVideo1" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\ecol120\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid1.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
+                                <MediaElement x:Name="MyVideo2" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\ecol120\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid2.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
+                                <MediaElement x:Name="MyVideo3" LoadedBehavior="Manual"  VerticalAlignment="Top" Source="C:\Users\ecol120\Documents\GitHub\306p2\CCF_app\CCF_app\Assets\Videos\vid3.mp4" Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed"/>
     							<TextBlock x:Name="TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap" d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light" ><InlineUIContainer>
     									<TextBlock x:Name="Text1" TextWrapping="Wrap" Text="TextBlock"/>
-    								</InlineUIContainer><InlineUIContainer>
-    									<TextBlock x:Name="More1" TextWrapping="Wrap" Text="More&gt;" Margin="0" FontWeight="Bold" />
     								</InlineUIContainer></TextBlock>
     							<TextBlock x:Name="TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667" FontFamily="Segoe UI Light" Grid.Column="3"><Run Text=""/><InlineUIContainer>
     									<TextBlock x:Name="Text2" TextWrapping="Wrap"><Run Language="en-nz" Text="Text block"/></TextBlock>
-    								</InlineUIContainer><InlineUIContainer>
-    									<TextBlock x:Name="More2" TextWrapping="Wrap" Text="More&gt;" Margin="0" FontWeight="Bold"/>
     								</InlineUIContainer></TextBlock>
     						</Grid>
     					</ScrollViewer>
@@ -196,21 +192,8 @@
     						</Image>
     					</Grid>					
     				</Grid>
-    				<Rectangle Fill="#FFCC0000" HorizontalAlignment="Right" Height="0" Margin="0,443.5,-730,0" VerticalAlignment="Top" Width="6"/>
-<<<<<<< HEAD
-    				<Grid x:Name="ScreenSaver" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1920" Visibility="Collapsed">
-
-                        <Image Source="Assets/Images/ScreenSaver.png" Stretch="Fill" MaxHeight="1080"/>
-                        
-=======
-    				<Grid x:Name="ScreenSaver" HorizontalAlignment="Left" Height="1080" VerticalAlignment="Top" Width="1920" Visibility="Collapsed">
-    					<Grid.Background>
-    						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    							<GradientStop Color="Black" Offset="0"/>
-    							<GradientStop Color="White" Offset="1"/>
-    						</LinearGradientBrush>
-    					</Grid.Background>
->>>>>>> 04c1b84af367e3d73373e82d681a210884852bb9
+    				<Grid x:Name="ScreenSaver" Visibility="Collapsed">
+                        <Image Source="Assets/Images/ScreenSaver.png" Stretch="Fill" MaxHeight="1080" Visibility="Collapsed"/>
     				</Grid>
     			</Grid>
     		</Viewbox>

@@ -66,20 +66,14 @@ namespace CCF_app
         + " Parent events, children’s holiday programmes and sibling days are among many that are well attended. ";
 
         string aboutUsText1 = "Child Cancer Foundation New Zealand's mission is that every child and their family walking the child cancer journey will never feel alone."
-        +"\nEvery week in New Zealand three families are told their child has cancer. We support these families from the very beginning. By doing this we reduce isolation and the impact of cancer. We aim to reduce the impact of cancer by offering services to ensure children and their families are supported, informed and well cared for on their journey with cancer.";
+        + "\nEvery week in New Zealand three families are told their child has cancer. We support these families from the very beginning. By doing this we reduce isolation and the impact of cancer. We aim to reduce the impact of cancer by offering services to ensure children and their families are supported, informed and well cared for on their journey with cancer.";
         string aboutUsText2 = "This assistance is delivered throughout New Zealand by our Family Support team working in conjunction with the foundation's branch members (parents and volunteers) in the local community."
         + "\nEach year we need at least $6 million to continue our services. This is raised through the generosity of individuals, grants, donations and sponsorships."
         + "\nThe Foundation's work with children with cancer and their families is unique and receives no direct government funding or support from other cancer agencies.";
 
-        string donateText1 = "It's simple. It's fast. Make your donation now and help us make the world a better place for children with cancer.";
-
-        string donateText2 = "";
-
-        string donateText3 = "";
-
         int donatePercentFunded = 60;
-        int donateTotalDonated = 60;
-        int donateTarget = 200;
+        int donateTarget = 10000;
+        int donateTotalDonated = 6000;
         int donateDaysToGo = 15;
 
         private string donationMethod = "";
@@ -87,7 +81,6 @@ namespace CCF_app
 
         ImageBrush[] backgrounds = new ImageBrush[3];
         DoubleAnimation fadeIn;
-        DoubleAnimation fadeOut;
         string[] backgroundImages = new string[3] { "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg" };
 
         int currentImage = 0;
@@ -98,11 +91,7 @@ namespace CCF_app
 
         System.Windows.Threading.DispatcherTimer dt;
 
-<<<<<<< HEAD
-        private int ScreenSaverWaitTime = 10;
-=======
-        private int ScreenSaverWaitTime = 30;
->>>>>>> 04c1b84af367e3d73373e82d681a210884852bb9
+        private int ScreenSaverWaitTime = 20;
 
         public MainWindow()
         {
@@ -122,12 +111,10 @@ namespace CCF_app
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
-            this.More1.MouseDown += new MouseButtonEventHandler(More1_MouseDown);
-            this.More2.MouseDown += new MouseButtonEventHandler(More2_MouseDown);
             this.QRCode.MouseDown += new MouseButtonEventHandler(QRCode_MouseDown);
 
             dt = new System.Windows.Threading.DispatcherTimer();
-            dt.Tick +=new EventHandler(dt_Tick);
+            dt.Tick += new EventHandler(dt_Tick);
             dt.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
             dt.Start();
 
@@ -141,7 +128,7 @@ namespace CCF_app
                         (MouseButtonEventArgs)e.StagingItem.Input);
               };
 
-            
+
         }
 
         void ScreenSaver_MouseDown(object sender, MouseButtonEventArgs e)
@@ -161,6 +148,7 @@ namespace CCF_app
             Debug.WriteLine("zzzzzzzz");
             this.ScreenSaver.Visibility = System.Windows.Visibility.Visible;
             this.CollapseAllPages();
+            this.HomePage.Visibility = System.Windows.Visibility.Visible;
         }
 
         void QRCode_MouseDown(object sender, MouseButtonEventArgs e)
@@ -275,19 +263,16 @@ namespace CCF_app
 
             this.Text1.Text = helpText1;
             this.Text2.Text = helpText2;
-
-            this.More1.Foreground = Help_Btn_Color;
-            this.More2.Foreground = Help_Btn_Color;
             this.QRCode_Text.Foreground = Help_Btn_Color;
             //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
-            
-            
+
+
         }
 
         private void OnSupportPageClick(object sender, EventArgs e)
         {
-            Unanimate();   
+            Unanimate();
             CollapseAllPages();
 
             this.MyVideo2.Visibility = System.Windows.Visibility.Visible;
@@ -303,13 +288,11 @@ namespace CCF_app
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
 
-            this.More1.Foreground = Support_Btn_Color;
-            this.More2.Foreground = Support_Btn_Color;
             this.QRCode_Text.Foreground = Support_Btn_Color;
 
             //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
-            
+
         }
 
         private void OnAboutUsPageClick(object sender, EventArgs e)
@@ -331,13 +314,11 @@ namespace CCF_app
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
 
-            this.More1.Foreground = AboutUs_Btn_Color;
-            this.More2.Foreground = AboutUs_Btn_Color;
             this.QRCode_Text.Foreground = AboutUs_Btn_Color;
 
             //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
-            
+
         }
 
         private void OnDonatePageClick(object sender, EventArgs e)
@@ -394,8 +375,8 @@ namespace CCF_app
 
             this.AboutUs_BtnRec.Visibility = System.Windows.Visibility.Visible;
             this.Home_BtnRec.Visibility = System.Windows.Visibility.Visible;
-            this.Help_BtnRec.Visibility = System.Windows.Visibility.Visible;            
-            this.Support_BtnRec.Visibility = System.Windows.Visibility.Visible;            
+            this.Help_BtnRec.Visibility = System.Windows.Visibility.Visible;
+            this.Support_BtnRec.Visibility = System.Windows.Visibility.Visible;
             this.Donate_BtnRec.Visibility = System.Windows.Visibility.Visible;
 
 
@@ -480,27 +461,27 @@ namespace CCF_app
         private void BtnRec_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Rectangle rec = (Rectangle)sender;
-            var x =rec.Name.ToString();
+            var x = rec.Name.ToString();
             Debug.WriteLine(x);
             switch (x)
             {
                 case "AboutUs_BtnRec":
-                OnAboutUsPageClick(sender, e);
-                break;
+                    OnAboutUsPageClick(sender, e);
+                    break;
                 case "Home_BtnRec":
-                OnHomePageClick(sender, e);
-                break;
+                    OnHomePageClick(sender, e);
+                    break;
                 case "Help_BtnRec":
-                OnHelpPageClick(sender, e);
-                break;
+                    OnHelpPageClick(sender, e);
+                    break;
                 case "Support_BtnRec":
-                OnSupportPageClick(sender, e);
-                break;
+                    OnSupportPageClick(sender, e);
+                    break;
                 case "Donate_BtnRec":
-                OnDonatePageClick(sender, e);
-                break;
+                    OnDonatePageClick(sender, e);
+                    break;
                 default:
-                break;
+                    break;
             }
         }
 
@@ -526,26 +507,26 @@ namespace CCF_app
             }
 
             String donationAmount = ck.Content.ToString();
-            String donation_server = "49.50.241.171:8080";
+            String donation_server = "223.27.24.159:8080";
             if (donationAmount == "Custom")
             {
                 // Set initial amount to zero. 
                 // TODO Change QRCode when user inputs a number into the custom donation text box.
-                String qr_code_content = donation_server+"/?amount=0";
+                String qr_code_content = donation_server + "/?amount=" + Donation_CustomAmount.Text;
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
             }
             else
             {
                 int amountDonated = Convert.ToInt32(donationAmount.Replace("$", ""));
                 UpdateProgressBarAndText(amountDonated);
-                String qr_code_content = donation_server+"/?amount=" + donationAmount;
+                String qr_code_content = donation_server + "/?amount=" + donationAmount;
                 Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
             }
             donationMethod = null;
 
 
             this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
-            
+
             if (ck.Content.ToString() == "Custom")//showing custom amount textbox
             {
                 this.CustomAmount.Visibility = System.Windows.Visibility.Visible;
@@ -618,15 +599,15 @@ namespace CCF_app
                 this.QRCode_Donation.Visibility = System.Windows.Visibility.Visible;
                 this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
             }
-            
+
             this.QRDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
             this.TxtDoante_Button.Visibility = System.Windows.Visibility.Collapsed;
-            
+
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Visible;
 
             this.Donations_Instructions.Margin = new Thickness(0, 0, 0, 350);
             this.Donations_Instructions.Text = "Scan The Following QR Code To Donate:";
-            
+
         }
 
         private void TxtDonate_Clicked(object sender, System.Windows.RoutedEventArgs e)
@@ -650,7 +631,7 @@ namespace CCF_app
 
             this.QRDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
             this.TxtDoante_Button.Visibility = System.Windows.Visibility.Collapsed;
-            
+
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Visible;
 
             this.Donations_Instructions.Margin = new Thickness(0, 0, 0, 100);
@@ -659,7 +640,7 @@ namespace CCF_app
 
         private void DonationMethod_Change(object sender, System.Windows.RoutedEventArgs e)
         {
-        	this.Donate_Grid.Visibility = System.Windows.Visibility.Collapsed;
+            this.Donate_Grid.Visibility = System.Windows.Visibility.Collapsed;
             this.QRDonate_Button.Visibility = System.Windows.Visibility.Visible;
 
             this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
@@ -681,14 +662,14 @@ namespace CCF_app
             }
             catch (NullReferenceException e)
             {
-                
+
             }
         }
 
         private Boolean playing = true;
         private void VideoClicked_Event(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-        	// TODO: Add event handler implementation here.
+            // TODO: Add event handler implementation here.
             MediaElement m = sender as MediaElement;
             if (playing)
             {
@@ -699,6 +680,103 @@ namespace CCF_app
             {
                 m.Play();
                 this.playing = true;
+            }
+        }
+
+        private void Donations_Radio_Checked(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            // TODO: Add event handler implementation here.
+        }
+
+        private void Donations_Radio_Checked(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            // TODO: Add event handler implementation here.
+        }
+
+        
+
+        private void GotFocux(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+            this.Donations_Instructions.Visibility = System.Windows.Visibility.Visible;
+
+            // Toggle visibility of QRCode image and txt number depending on the payment type.
+            if (donationMethod == "QR" && donationMethod != null)
+            {
+                this.QRCode_Donation.Visibility = System.Windows.Visibility.Visible;
+                this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
+
+            }
+            else if (donationMethod == "Txt" && donationMethod != null)
+            {
+                this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
+                this.Txt_Donation.Visibility = System.Windows.Visibility.Visible;
+
+            }
+
+            String donation_server = "223.27.24.159:8080";
+            // Set initial amount to zero. 
+            // TODO Change QRCode when user inputs a number into the custom donation text box.
+            String qr_code_content = donation_server + "/?amount=" + Donation_CustomAmount.Text;
+            Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
+
+            donationMethod = null;
+
+
+            this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
+
+
+            this.CustomAmount.Visibility = System.Windows.Visibility.Visible;
+            this.CustomAmount.Opacity = 0;
+            this.CustomAmount.BeginAnimation(Grid.OpacityProperty, da3);
+
+        }
+
+        private void GotFocux(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+            try
+            {
+
+
+                // Toggle visibility of QRCode image and txt number depending on the payment type.
+                if (donationMethod == "QR" && donationMethod != null)
+                {
+                    this.QRCode_Donation.Visibility = System.Windows.Visibility.Visible;
+                    this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
+
+                }
+                else if (donationMethod == "Txt" && donationMethod != null)
+                {
+                    this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
+                    this.Txt_Donation.Visibility = System.Windows.Visibility.Visible;
+
+                }
+
+                String donation_server = "223.27.24.159:8080";
+                // Set initial amount to zero. 
+                // TODO Change QRCode when user inputs a number into the custom donation text box.
+                String qr_code_content = donation_server + "/?amount=" + Donation_CustomAmount.Text;
+                Display_QRCode(qr_code_content, 5); // Generate and set QR_Code image.
+
+                donationMethod = null;
+
+
+                this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
+
+
+
+                this.CustomAmount.Visibility = System.Windows.Visibility.Visible;
+                this.CustomAmount.Opacity = 0;
+                this.CustomAmount.BeginAnimation(Grid.OpacityProperty, da3);
+
+
+
+                this.Donations_Instructions.Visibility = System.Windows.Visibility.Visible;
+            }
+            catch (Exception cantClose)
+            {
+                Debug.WriteLine("Can't close");
             }
         }
     }
