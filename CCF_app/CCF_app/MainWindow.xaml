@@ -97,7 +97,7 @@
     								<ImageBrush ImageSource="Assets/Icons/qr_donate.png" Stretch="Uniform"/>
     							</s:SurfaceButton.Background>
     						</s:SurfaceButton>
-    						<s:SurfaceButton x:Name="TxtDoante_Button" Content="" Margin="417.333,0,-82.667,0" Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="300" Height="300">
+    						<s:SurfaceButton x:Name="TxtDonate_Button" Content="" Margin="417.333,0,-82.667,0" Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3" FontSize="26.667" Width="300" Height="300">
     							<s:SurfaceButton.Background>
     								<ImageBrush ImageSource="Assets/Icons/mobile_donate.png" Stretch="Uniform"/>
     							</s:SurfaceButton.Background>

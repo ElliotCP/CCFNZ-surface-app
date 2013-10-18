@@ -16,9 +16,9 @@ using System.Drawing;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
-
 using System.IO;
 using System.Drawing.Imaging;
+using System.Windows.Threading;
 
 // QrCode Ref
 using MessagingToolkit.QRCode.Codec;
@@ -48,12 +48,14 @@ namespace CCF_app
         /// Default constructor.
         /// </summary>
 
+        //Bush colors for the navigation buttons
         Brush Home_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FF33B5E5");
         Brush AboutUs_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFAA66CC");
         Brush Help_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FF99CC00");
         Brush Support_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFFFBB33");
         Brush Donate_Btn_Color = (Brush)new BrushConverter().ConvertFrom("#FFFF4444");
 
+        //text for information pages
         string helpText1 = "We rely on the generosity of big-hearted New Zealander's to help us continue what we do. There are a variety of ways you can support children with cancer and their families."
         + "\nOur Beads of Courage ?presents children with a bead representing an Act of Courage. Ideally (and sadly) this year, we expect that we will need approximately 5000 handmaid beads donated. We are currently reaching only 1800 and we need all the help we can get to help our kids.";
         string helpText2 = "We rely on donations to continue our services. You can make a one-off donation through your credit card; it is simple, secure and super rewarding."
@@ -71,11 +73,11 @@ namespace CCF_app
         + "\nEach year we need at least $6 million to continue our services. This is raised through the generosity of individuals, grants, donations and sponsorships."
         + "\nThe Foundation's work with children with cancer and their families is unique and receives no direct government funding or support from other cancer agencies.";
 
+        //donation bar variables
         int donatePercentFunded = 60;
         int donateTarget = 10000;
         int donateTotalDonated = 6000;
         int donateDaysToGo = 15;
-
         private string donationMethod = "";
 
 
@@ -84,18 +86,21 @@ namespace CCF_app
         string[] backgroundImages = new string[3] { "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg" };
 
         int currentImage = 0;
+
+        //animation timings for transitions
         DoubleAnimation da = new DoubleAnimation(0, TimeSpan.FromMilliseconds(70));
         DoubleAnimation da2 = new DoubleAnimation(40, TimeSpan.FromMilliseconds(70));
         DoubleAnimation da3 = new DoubleAnimation(1, TimeSpan.FromMilliseconds(400));
         DoubleAnimation da4 = new DoubleAnimation(0, TimeSpan.FromMilliseconds(400));
 
-        System.Windows.Threading.DispatcherTimer dt;
-
-        private int ScreenSaverWaitTime = 20;
+        //used in screen saver
+        DispatcherTimer timer;
+        private int ScreenSaverWaitTime = 5;
 
         public MainWindow()
         {
             InitializeComponent();
+
             int i = 0;
             foreach (string s in backgroundImages)
             {
@@ -111,13 +116,15 @@ namespace CCF_app
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
-            this.QRCode.MouseDown += new MouseButtonEventHandler(QRCode_MouseDown);
 
-            dt = new System.Windows.Threading.DispatcherTimer();
-            dt.Tick += new EventHandler(dt_Tick);
-            dt.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
-            dt.Start();
 
+            //creating timer and binding event handler to keep track of timer
+            timer = new System.Windows.Threading.DispatcherTimer();
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
+            timer.Start();
+
+            //when user touches screen wen screen saver is up
             this.ScreenSaver.MouseDown += new MouseButtonEventHandler(ScreenSaver_MouseDown);
 
             //http://stackoverflow.com/questions/2105607/wpf-catch-last-window-click-anywhere - jano
@@ -131,40 +138,42 @@ namespace CCF_app
 
         }
 
+        /// <summary>
+        /// Showing home page and hiding the screen saver when screen is touched
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void ScreenSaver_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.ScreenSaver.Visibility = System.Windows.Visibility.Collapsed;
             this.OnHomePageClick(sender, e);
         }
 
+        /// <summary>
+        /// reseting screen saver timer each time screen is touched
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void GlobalClickEventHandler(object sender, MouseButtonEventArgs e)
         {
-            dt.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
-
+            timer.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
         }
 
-        void dt_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// shows screen saver when timer has reached a certain value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Timer_Tick(object sender, EventArgs e)
         {
-            Debug.WriteLine("zzzzzzzz");
-            Unanimate();            
+            Unanimate();//unanimating button transitions
+            
+            //displaying hompage to go behind screen saver
             this.CollapseAllPages();
             this.HomePage.Visibility = System.Windows.Visibility.Visible;
+
+            //screen saver
             this.ScreenSaver.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        void QRCode_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.QRCode.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
-        void More2_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.QRCode.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        void More1_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.QRCode.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -239,22 +248,26 @@ namespace CCF_app
             CollapseAllPages();
 
             this.HomePage.Visibility = System.Windows.Visibility.Visible;
-            //this.Home_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
 
             this.Home_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
-
         }
 
+        /// <summary>
+        /// displays the "how you I can help" page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnHelpPageClick(object sender, EventArgs e)
         {
+            //transition effects
             Unanimate();
             CollapseAllPages();
 
+            //loading and playing video
             this.MyVideo1.Visibility = System.Windows.Visibility.Visible;
             this.MyVideo1.Play();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
-            //this.Help_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
 
             this.Help_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
 
@@ -262,15 +275,16 @@ namespace CCF_app
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_green.png", UriKind.RelativeOrAbsolute));
 
+            //setting the text on the page
             this.Text1.Text = helpText1;
             this.Text2.Text = helpText2;
-            this.QRCode_Text.Foreground = Help_Btn_Color;
-            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
-            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
-
-
         }
 
+        /// <summary>
+        /// displays the "how can i get support" page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnSupportPageClick(object sender, EventArgs e)
         {
             Unanimate();
@@ -280,22 +294,21 @@ namespace CCF_app
             this.MyVideo2.Play();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
-            //this.Support_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
             this.Support_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
+
             this.InformationPageTitle.Text = "How Can I Get Support?";
 
             this.Text1.Text = supportText1;
             this.Text2.Text = supportText2;
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
-
-            this.QRCode_Text.Foreground = Support_Btn_Color;
-
-            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
-            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
-
         }
 
+        /// <summary>
+        /// displays the "what we do" page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnAboutUsPageClick(object sender, EventArgs e)
         {
             Unanimate();
@@ -305,7 +318,6 @@ namespace CCF_app
             this.MyVideo3.Play();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
-            //this.AboutUs_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
             this.AboutUs_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
 
             this.InformationPageTitle.Text = "What Is CCFNZ?";
@@ -314,14 +326,13 @@ namespace CCF_app
             this.Text2.Text = aboutUsText2;
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
-
-            this.QRCode_Text.Foreground = AboutUs_Btn_Color;
-
-            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
-            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
-
         }
 
+        /// <summary>
+        /// displays the "donate" page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDonatePageClick(object sender, EventArgs e)
         {
             Unanimate();
@@ -330,34 +341,29 @@ namespace CCF_app
             this.DonatePage_Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
 
             this.DonatePage.Visibility = System.Windows.Visibility.Visible;
-            //this.Donate_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
             this.Donate_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
-            //this.DonationProgress_Bar.Visibility = System.Windows.Visibility.Visible;
-
 
             UpdateProgressBarAndText(0);
 
-            this.donationMethod = "";
+            this.donationMethod = "";//used to figure out whether or not to display the donation help text (i.e "choose amount you would like to donate ....")
+
+            //only displaying the 2 buttons to choose donation method
             this.CustomAmount.Visibility = System.Windows.Visibility.Collapsed;
             this.Donate_Grid.Visibility = System.Windows.Visibility.Collapsed;
-            this.QRDonate_Button.Visibility = System.Windows.Visibility.Visible;
-
             this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
             this.Txt_Donation.Visibility = System.Windows.Visibility.Collapsed;
-
-            this.TxtDoante_Button.Visibility = System.Windows.Visibility.Visible;
-
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Collapsed;
             this.Donations_Instructions.Visibility = System.Windows.Visibility.Collapsed;
+            this.QRDonate_Button.Visibility = System.Windows.Visibility.Visible;
+            this.TxtDonate_Button.Visibility = System.Windows.Visibility.Visible;
 
+            //removing the donation help text if it is unnneeded
             if (this.Donation_Help.Visibility == System.Windows.Visibility.Visible && donationMethod != null)
             {
                 this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
             }
-
+            
             this.UncheckRadioButtons();
-
-
         }
 
         private void UpdateProgressBarAndText(int amount)
@@ -368,6 +374,9 @@ namespace CCF_app
             this.DonationProgress_Bar.Value = donatePercentFunded;
         }
 
+        /// <summary>
+        /// sets the visiblity of all pages to collapsed and stops the videos playing
+        /// </summary>
         private void CollapseAllPages()
         {
             this.HomePage.Visibility = System.Windows.Visibility.Collapsed;
@@ -389,6 +398,9 @@ namespace CCF_app
             this.MyVideo3.Visibility = System.Windows.Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// animation to reset the button style to how it was when it was unclicked
+        /// </summary>
         private void Unanimate()
         {
             this.AboutUs_BtnRec.BeginAnimation(Rectangle.HeightProperty, da2);
@@ -397,7 +409,7 @@ namespace CCF_app
             this.Support_BtnRec.BeginAnimation(Rectangle.HeightProperty, da2);
             this.Donate_BtnRec.BeginAnimation(Rectangle.HeightProperty, da2);
         }
-
+        
         private LinearGradientBrush SelectedButtonGradientSet()
         {
             LinearGradientBrush lgb = new LinearGradientBrush();
@@ -460,11 +472,15 @@ namespace CCF_app
             backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
         }
 
+        /// <summary>
+        /// added mouse click event for the bottom 1/2 of the buttons (darker part)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnRec_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Rectangle rec = (Rectangle)sender;
             var x = rec.Name.ToString();
-            Debug.WriteLine(x);
             switch (x)
             {
                 case "AboutUs_BtnRec":
@@ -487,7 +503,13 @@ namespace CCF_app
             }
         }
 
-        private RadioButton ck;
+        private RadioButton ck;//used to check which radio button has been checked
+
+        /// <summary>
+        /// functionality for when the radio buttons on donate page is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Donations_Radio_Checked(object sender, RoutedEventArgs e)
         {
             ck = sender as RadioButton;
@@ -594,6 +616,11 @@ namespace CCF_app
             this.QRCode_img.Source = convertImageToImageSource(img);
         }
 
+        /// <summary>
+        /// when user chooses to donate via QR code
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void QRDonate_Clicked(object sender, System.Windows.RoutedEventArgs e)
         {
             if (donationMethod != null)//changing the visibiltiy of the instructions depending on if a radio button has been pressed before
@@ -612,7 +639,7 @@ namespace CCF_app
             }
 
             this.QRDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
-            this.TxtDoante_Button.Visibility = System.Windows.Visibility.Collapsed;
+            this.TxtDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
 
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Visible;
 
@@ -621,6 +648,11 @@ namespace CCF_app
 
         }
 
+        /// <summary>
+        /// when user chooses to donate via text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TxtDonate_Clicked(object sender, System.Windows.RoutedEventArgs e)
         {
             if (donationMethod != null)//changing the visibiltiy of the instructions depending on if a radio button has been pressed before
@@ -641,7 +673,7 @@ namespace CCF_app
 
 
             this.QRDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
-            this.TxtDoante_Button.Visibility = System.Windows.Visibility.Collapsed;
+            this.TxtDonate_Button.Visibility = System.Windows.Visibility.Collapsed;
 
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Visible;
 
@@ -649,13 +681,18 @@ namespace CCF_app
             this.Donations_Instructions.Text = "Text The Following Number To Donate:";
         }
 
+        /// <summary>
+        /// when user wants to change the donation method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DonationMethod_Change(object sender, System.Windows.RoutedEventArgs e)
         {
             this.Donate_Grid.Visibility = System.Windows.Visibility.Collapsed;
             this.QRDonate_Button.Visibility = System.Windows.Visibility.Visible;
 
             this.QRCode_Donation.Visibility = System.Windows.Visibility.Collapsed;
-            this.TxtDoante_Button.Visibility = System.Windows.Visibility.Visible;
+            this.TxtDonate_Button.Visibility = System.Windows.Visibility.Visible;
 
             this.DonationMethodSwitch_Button.Visibility = System.Windows.Visibility.Collapsed;
 
@@ -664,20 +701,29 @@ namespace CCF_app
                 this.Donation_Help.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
-
+        
+        /// <summary>
+        /// unchecks all radio button selections
+        /// </summary>
         private void UncheckRadioButtons()
         {
             try
             {
                 ck.IsChecked = false;
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException e)//if no buttons are checked anyway
             {
 
             }
         }
 
         private Boolean playing = true;
+
+        /// <summary>
+        /// when user pauses/unpauses a video
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VideoClicked_Event(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             // TODO: Add event handler implementation here.
@@ -693,17 +739,6 @@ namespace CCF_app
                 this.playing = true;
             }
         }
-
-        private void Donations_Radio_Checked(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            // TODO: Add event handler implementation here.
-        }
-
-        private void Donations_Radio_Checked(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            // TODO: Add event handler implementation here.
-        }
-
 
 
         private void GotFocux(object sender, System.Windows.Input.KeyEventArgs e)
