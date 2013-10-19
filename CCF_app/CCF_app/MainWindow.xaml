@@ -12,7 +12,7 @@
 	</s:SurfaceWindow.Resources>
     <Frame>
 		<Frame.Content>
-    		<Viewbox>
+    		<Viewbox x:Name="viewbox">
     			<Grid Height="1041" Width="1904">
     				<Grid x:Name="HomePage" Margin="0">
     					<Grid.Background>
