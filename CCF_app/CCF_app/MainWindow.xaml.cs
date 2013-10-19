@@ -80,6 +80,9 @@ namespace CCF_app
         int donateDaysToGo = 15;
         private string donationMethod = "";
 
+        // Provide pages with an identifier for easy reference.
+        enum Pages { Home = 1, AboutUs, Help, Support, Donate };
+        Pages currentPage = Pages.Home;
 
         ImageBrush[] backgrounds = new ImageBrush[3];
         DoubleAnimation fadeIn;
@@ -111,12 +114,10 @@ namespace CCF_app
                 i++;
             }
 
-
             this.Home_BtnRec.Visibility = System.Windows.Visibility.Collapsed;
 
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
-
 
             //creating timer and binding event handler to keep track of timer
             timer = new System.Windows.Threading.DispatcherTimer();
@@ -134,7 +135,7 @@ namespace CCF_app
                       GlobalClickEventHandler(sender,
                         (MouseButtonEventArgs)e.StagingItem.Input);
               };
-
+            Touch.FrameReported += new TouchFrameEventHandler(Touch_FrameReported);
 
         }
 
@@ -250,6 +251,7 @@ namespace CCF_app
             this.HomePage.Visibility = System.Windows.Visibility.Visible;
 
             this.Home_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
+            currentPage = Pages.Home;
         }
 
         /// <summary>
@@ -278,6 +280,7 @@ namespace CCF_app
             //setting the text on the page
             this.Text1.Text = helpText1;
             this.Text2.Text = helpText2;
+            currentPage = Pages.Help;
         }
 
         /// <summary>
@@ -302,6 +305,7 @@ namespace CCF_app
             this.Text2.Text = supportText2;
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
+            currentPage = Pages.Support;
         }
 
         /// <summary>
@@ -326,6 +330,7 @@ namespace CCF_app
             this.Text2.Text = aboutUsText2;
 
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
+            currentPage = Pages.AboutUs;
         }
 
         /// <summary>
@@ -364,6 +369,128 @@ namespace CCF_app
             }
             
             this.UncheckRadioButtons();
+            currentPage = Pages.Donate;
+        }
+
+        Point initialTouchPoint;
+        bool AlreadySwiped;
+        bool isSwipeLeft = true;
+        /// <summary>
+        /// Control Multi-Touch inputs using this method.
+        /// Currently provides page switch on swipe with a single finger.
+        /// </summary>
+        void Touch_FrameReported(object sender, TouchFrameEventArgs e)
+        {
+            if (this.viewbox != null)
+            {
+                // Reset screensaver timer on touch interation.
+                timer.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
+
+                // Interact with each of the finger touches.
+                foreach (TouchPoint _touchPoint in e.GetTouchPoints(this.viewbox))
+                {
+                    if (_touchPoint.Action == TouchAction.Down)
+                    {
+                        // Make sure the touches are captured from the viewbox.
+                        // Might need to adjust depending on components that might require swipe gestures. - ASA
+                        _touchPoint.TouchDevice.Capture(this.viewbox);
+                        initialTouchPoint.X = _touchPoint.Position.X;
+                    }
+                    // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
+                    else if (_touchPoint.Action == TouchAction.Move && e.GetPrimaryTouchPoint(this.viewbox) != null)
+                    {
+                        // First finger touch.
+                        if (_touchPoint.TouchDevice.Id == e.GetPrimaryTouchPoint(this.viewbox).TouchDevice.Id)
+                        {
+                            if (!AlreadySwiped)
+                            {
+                                // Swipe Left with 50px threshold.
+                                if (_touchPoint.Position.X > (initialTouchPoint.X + 50))
+                                {
+                                    switchPage(true); // Switch Pages
+                                    AlreadySwiped = true;
+                                }
+
+                                // Swipe Right with 50px threshold.
+                                if (_touchPoint.Position.X < (initialTouchPoint.X - 50))
+                                {
+                                    switchPage(false); // Switch pages.
+                                    AlreadySwiped = true;
+                                }
+                            }
+                        }
+                        // Perform second finger touch point.
+                        //else if (_touchPoint.TouchDevice.Id != e.GetPrimaryTouchPoint(this.viewbox).TouchDevice.Id)
+                        //{
+                        //    // _touchPoint is now the object of the second finger.
+                        //}
+                    }
+
+                    else if (_touchPoint.Action == TouchAction.Up)
+                    {
+                        AlreadySwiped = false;
+                        // Release viewbox touch capture.
+                        if (_touchPoint.TouchDevice.Captured == this.viewbox)
+                        {
+                            this.viewbox.ReleaseTouchCapture(_touchPoint.TouchDevice);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Transition page to the next depending on the direction of swipe.
+        /// </summary>
+        void switchPage(bool isSwipeLeft)
+        {
+            Debug.WriteLine(currentPage);
+            if (!isSwipeLeft)
+            {
+                switch (currentPage)
+                {
+                    case Pages.Home:
+                        OnAboutUsPageClick(null, null);
+                        break;
+                    case Pages.AboutUs:
+                        OnHelpPageClick(null, null);
+                        break;
+                    case Pages.Help:
+                        OnSupportPageClick(null, null);
+                        break;
+                    case Pages.Support:
+                        OnDonatePageClick(null, null);
+                        break;
+                    case Pages.Donate:
+                        // OnHomePageClick(null, null); // Uncomment this for cyclic page rotation - ASA
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (currentPage)
+                {
+                    case Pages.Home:
+                        //OnDonatePageClick(null, null); // Uncomment this for cyclic page rotation - ASA
+                        break;
+                    case Pages.AboutUs:
+                        OnHomePageClick(null, null);
+                        break;
+                    case Pages.Help:
+                        OnAboutUsPageClick(null, null);
+                        break;
+                    case Pages.Support:
+                        OnHelpPageClick(null, null);
+                        break;
+                    case Pages.Donate:
+                        OnSupportPageClick(null, null);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         private void UpdateProgressBarAndText(int amount)
