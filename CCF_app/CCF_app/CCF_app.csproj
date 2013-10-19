@@ -111,7 +111,6 @@
     <Resource Include="Assets\Icons\pointer_original.png" />
     <Resource Include="Assets\Icons\pointer_purple.png" />
     <Resource Include="Assets\Icons\pointer_red.png" />
-    <Resource Include="Assets\QRCodes\what_we_do.png" />
     <Resource Include="Assets\Images\SAFEANDGENTLE BANNER8.png" />
     <Resource Include="Assets\Images\blurredGrid.png" />
     <Resource Include="Assets\Images\HomePage_Pic1.jpg" />
@@ -127,16 +126,8 @@
     <Resource Include="Assets\Images\HomePage_Pic3.jpg" />
     <Resource Include="Assets\Icons\mobile_donate.png" />
     <Resource Include="Assets\Icons\qr_donate.png" />
-    <Resource Include="Assets\Videos\vid1.mp4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Videos\vid2.mp4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Videos\vid3.mp4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Assets\Images\ScreenSaver.png" />
+    <Resource Include="Assets\Images\VideoPlaceHolder.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

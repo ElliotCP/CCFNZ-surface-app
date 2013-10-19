@@ -95,7 +95,7 @@ namespace CCF_app
 
         //used in screen saver
         DispatcherTimer timer;
-        private int ScreenSaverWaitTime = 5;
+        private int ScreenSaverWaitTime = 50;
 
         public MainWindow()
         {
@@ -263,9 +263,10 @@ namespace CCF_app
             Unanimate();
             CollapseAllPages();
 
-            //loading and playing video
+            //loading and playing video            
+            this.MyVideo1.Source = new Uri("http://www.youtube.com/embed/JCq-k3BBn68?autoplay=1");
             this.MyVideo1.Visibility = System.Windows.Visibility.Visible;
-            this.MyVideo1.Play();
+            //this.MyVideo1.Play();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
 
@@ -289,9 +290,10 @@ namespace CCF_app
         {
             Unanimate();
             CollapseAllPages();
-
+                        
+            this.MyVideo2.Source = new Uri("https://www.youtube.com/embed/rvQi43wwR_4?autoplay=1");
             this.MyVideo2.Visibility = System.Windows.Visibility.Visible;
-            this.MyVideo2.Play();
+            //this.MyVideo2.Play();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
             this.Support_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
@@ -313,9 +315,10 @@ namespace CCF_app
         {
             Unanimate();
             CollapseAllPages();
-
+                        
+            this.MyVideo3.Source = new Uri("https://www.youtube.com/embed/SF4Umzs1wWU?autoplay=1");
             this.MyVideo3.Visibility = System.Windows.Visibility.Visible;
-            this.MyVideo3.Play();
+            //this.MyVideo3.Play();
 
             this.InformationPage.Visibility = System.Windows.Visibility.Visible;
             this.AboutUs_BtnRec.BeginAnimation(Rectangle.HeightProperty, da);
@@ -390,11 +393,14 @@ namespace CCF_app
             this.Donate_BtnRec.Visibility = System.Windows.Visibility.Visible;
 
 
-            this.MyVideo1.Stop();
+            //this.MyVideo1.Stop();
+            this.MyVideo1.Source = null;
             this.MyVideo1.Visibility = System.Windows.Visibility.Collapsed;
-            this.MyVideo2.Stop();
+            //this.MyVideo2.Stop();
+            this.MyVideo2.Source = null;
             this.MyVideo2.Visibility = System.Windows.Visibility.Collapsed;
-            this.MyVideo3.Stop();
+            //this.MyVideo3.Stop();
+            this.MyVideo3.Source = null;
             this.MyVideo3.Visibility = System.Windows.Visibility.Collapsed;
         }
 
