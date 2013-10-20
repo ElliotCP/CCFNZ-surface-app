@@ -1,15 +1,24 @@
-﻿<s:SurfaceWindow
+﻿<s:SurfaceWindow 
+    x:Class="CCF_app.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="http://schemas.microsoft.com/surface/2008"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" xmlns:ee="http://schemas.microsoft.com/expression/2010/effects" mc:Ignorable="d" x:Class="CCF_app.MainWindow"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+    xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" 
+    xmlns:ee="http://schemas.microsoft.com/expression/2010/effects" 
+    mc:Ignorable="d" 
+    xmlns:FluidControls="clr-namespace:FluidKit.Controls;assembly=FluidKit"
     Title="CCF_app"
     Width="1920"
     Height="1080"
     >
 	<s:SurfaceWindow.Resources>
-		<Storyboard x:Key="OnMouseDown1"/>
-	</s:SurfaceWindow.Resources>
+        <Storyboard x:Key="OnMouseDown1"/>
+        <FluidControls:SlideTransition x:Key="SlideTransitioner"/>
+    </s:SurfaceWindow.Resources>
     <Frame>
 		<Frame.Content>
     		<Viewbox x:Name="viewbox">
@@ -18,14 +27,31 @@
     					<Grid.Background>
     						<ImageBrush ImageSource="Assets/Images/Background.scale-100.png"/>
     					</Grid.Background>
+						
+
+
+                        <!-- Carousel Image Grid -->
     					<Grid x:Name="ImageGrid" Margin="0,150,0,200" Opacity="0.8">
-    						<Grid.Background>
+    						<!--<Grid.Background>
     							<ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
-    						</Grid.Background>
+    						</Grid.Background>-->
     						<ed:BlockArrow x:Name="PreviousImage" Fill="#4CFFFFFF" Margin="10,0,0,0" Orientation="Left" Stroke="#4C000000" Height="50" VerticalAlignment="Center" d:LayoutOverrides="Height" Width="50" HorizontalAlignment="Left" Panel.ZIndex="1" MouseDown="PreviousImage_MouseDown"/>
     						<ed:BlockArrow x:Name="NextImage" Fill="#4CFFFFFF" HorizontalAlignment="Right" Height="50" Orientation="Right" Stroke="#4C000000" VerticalAlignment="Center" Width="50" Margin="0,0,10,0" Panel.ZIndex="1" MouseDown="NextImage_MouseDown"/>
-    						<Image x:Name="image" Source="Assets/Images/blurredGrid.png" Stretch="Fill"/>
-    					</Grid>
+
+                            <Image x:Name="image" Source="Assets/Images/blurredGrid.png" Stretch="Fill"/>
+                            <!-- Add following tags for auto image rotation after x:Name. RestDuration="0:0:5" for image switch every 5 seconds and IsLooped=true  -->
+                            <FluidControls:TransitionPresenter x:Name="TransitionPresenter" Transition="{StaticResource SlideTransitioner}">
+                                <Image x:Name="img1"
+                                       Source="Assets/Images/HomePage_Pic1.jpg"
+                                       Stretch="Fill" />
+                                <Image x:Name="img2"
+                                       Source="Assets/Images/HomePage_Pic2.jpg"
+                                       Stretch="Fill" />
+                                <Image x:Name="img3"
+                                       Source="Assets/Images/HomePage_Pic3.jpg"
+                                       Stretch="Fill" />
+                            </FluidControls:TransitionPresenter>
+                        </Grid>
     				</Grid>
     				<Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
     					<Grid.Background>
