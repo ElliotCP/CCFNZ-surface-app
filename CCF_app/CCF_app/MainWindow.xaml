@@ -35,22 +35,25 @@
     						<!--<Grid.Background>
     							<ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
     						</Grid.Background>-->
+                            <!--<Grid.Background>
+    							<ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
+    						</Grid.Background>-->
+    						<!-- Add following tags for auto image rotation after x:Name. RestDuration="0:0:5" for image switch every 5 seconds and IsLooped=true  -->
+                            <FluidControls:TransitionPresenter x:Name="TransitionPresenter" Transition="{StaticResource SlideTransitioner}">
+                            	<Image x:Name="img1"
+                            		Source="Assets/Images/HomePage_Pic1.jpg"
+                            		Stretch="Fill" />
+                            	<Image x:Name="img2"
+                            		Source="Assets/Images/HomePage_Pic2.jpg"
+                            		Stretch="Fill" />
+                            	<Image x:Name="img3"
+                            		Source="Assets/Images/HomePage_Pic3.jpg"
+                            		Stretch="Fill" />
+                            </FluidControls:TransitionPresenter>
+    						<Image x:Name="image" Source="Assets/Images/blurredGrid.png" Stretch="Fill"/>
     						<ed:BlockArrow x:Name="PreviousImage" Fill="#4CFFFFFF" Margin="10,0,0,0" Orientation="Left" Stroke="#4C000000" Height="50" VerticalAlignment="Center" d:LayoutOverrides="Height" Width="50" HorizontalAlignment="Left" Panel.ZIndex="1" MouseDown="PreviousImage_MouseDown"/>
     						<ed:BlockArrow x:Name="NextImage" Fill="#4CFFFFFF" HorizontalAlignment="Right" Height="50" Orientation="Right" Stroke="#4C000000" VerticalAlignment="Center" Width="50" Margin="0,0,10,0" Panel.ZIndex="1" MouseDown="NextImage_MouseDown"/>
-
-                            <Image x:Name="image" Source="Assets/Images/blurredGrid.png" Stretch="Fill"/>
                             <!-- Add following tags for auto image rotation after x:Name. RestDuration="0:0:5" for image switch every 5 seconds and IsLooped=true  -->
-                            <FluidControls:TransitionPresenter x:Name="TransitionPresenter" Transition="{StaticResource SlideTransitioner}">
-                                <Image x:Name="img1"
-                                       Source="Assets/Images/HomePage_Pic1.jpg"
-                                       Stretch="Fill" />
-                                <Image x:Name="img2"
-                                       Source="Assets/Images/HomePage_Pic2.jpg"
-                                       Stretch="Fill" />
-                                <Image x:Name="img3"
-                                       Source="Assets/Images/HomePage_Pic3.jpg"
-                                       Stretch="Fill" />
-                            </FluidControls:TransitionPresenter>
                         </Grid>
     				</Grid>
     				<Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
@@ -218,7 +221,7 @@
     						</Image>
     					</Grid>					
     				</Grid>
-    				<Grid x:Name="ScreenSaver">
+    				<Grid x:Name="ScreenSaver" d:IsHidden="True">
                         <Image Source="Assets/Images/ScreenSaver.png" Stretch="Fill" MaxHeight="1080"/>
     				</Grid>
     			</Grid>
