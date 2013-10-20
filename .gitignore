@@ -14,8 +14,17 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
+<<<<<<< HEAD
 */obj/
 */bin/
+=======
+*/bin/
+*/obj/
+*.exe
+*.g.cs
+*.cache
+*.i.cache
+>>>>>>> f016703e7e50723ec5af19d72a43f76983cfa62c
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/

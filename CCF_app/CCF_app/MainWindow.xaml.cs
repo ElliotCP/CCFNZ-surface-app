@@ -285,7 +285,18 @@ namespace CCF_app
             //setting the text on the page
             this.Text1.Text = helpText1;
             this.Text2.Text = helpText2;
+<<<<<<< HEAD
             currentPage = Pages.Help;
+=======
+
+            this.More1.Foreground = Help_Btn_Color;
+            this.More2.Foreground = Help_Btn_Color;
+            this.QRCode_Text.Foreground = Help_Btn_Color;
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
+            
+        
+>>>>>>> f016703e7e50723ec5af19d72a43f76983cfa62c
         }
 
         /// <summary>
@@ -309,8 +320,20 @@ namespace CCF_app
             this.Text1.Text = supportText1;
             this.Text2.Text = supportText2;
 
+<<<<<<< HEAD
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
             currentPage = Pages.Support;
+=======
+            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
+
+            this.More1.Foreground = Support_Btn_Color;
+            this.More2.Foreground = Support_Btn_Color;
+            this.QRCode_Text.Foreground = Support_Btn_Color;
+
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/support1.png", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/support2.png", UriKind.RelativeOrAbsolute));
+            
+>>>>>>> f016703e7e50723ec5af19d72a43f76983cfa62c
         }
 
         /// <summary>
@@ -334,8 +357,20 @@ namespace CCF_app
             this.Text1.Text = aboutUsText1;
             this.Text2.Text = aboutUsText2;
 
+<<<<<<< HEAD
             this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
             currentPage = Pages.AboutUs;
+=======
+            this.Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_blue.png", UriKind.RelativeOrAbsolute));
+
+            this.More1.Foreground = AboutUs_Btn_Color;
+            this.More2.Foreground = AboutUs_Btn_Color;
+            this.QRCode_Text.Foreground = AboutUs_Btn_Color;
+
+            //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/aboutUs1.png", UriKind.RelativeOrAbsolute));
+            //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/aboutUs2.jpg", UriKind.RelativeOrAbsolute));
+            
+>>>>>>> f016703e7e50723ec5af19d72a43f76983cfa62c
         }
 
         /// <summary>
