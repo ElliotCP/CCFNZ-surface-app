@@ -406,7 +406,23 @@ namespace CCF_app
                         // First finger touch.
                         if (_touchPoint.TouchDevice.Id == e.GetPrimaryTouchPoint(this.viewbox).TouchDevice.Id)
                         {
-                            // TODO Carousel transition when a single finger swipe is performed.
+                            if (currentPage == Pages.Home) 
+                            {
+                                _touchPoint.TouchDevice.Capture(this.ImageGrid);
+                                // Swipe Left with 50px threshold.
+                                if (_touchPoint.Position.X > (initialTouchPoint.X + 50))
+                                {
+                                    NextImage_MouseDown(null,null); // Transition to the next carousel image.
+                                    AlreadySwiped = true;
+                                }
+
+                                // Swipe Right with 50px threshold.
+                                if (_touchPoint.Position.X < (initialTouchPoint.X - 50))
+                                {
+                                    PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
+                                    AlreadySwiped = true;
+                                }
+                            }
                         }
                         // Perform second finger touch point.
                         else if (_touchPoint.TouchDevice.Id != e.GetPrimaryTouchPoint(this.viewbox).TouchDevice.Id)
@@ -417,14 +433,14 @@ namespace CCF_app
                                 // Swipe Left with 50px threshold.
                                 if (_touchPoint.Position.X > (initialTouchPoint.X + 50))
                                 {
-                                    switchPage(false); // Switch Pages
+                                    switchPage(true); // Switch Pages
                                     AlreadySwiped = true;
                                 }
 
                                 // Swipe Right with 50px threshold.
                                 if (_touchPoint.Position.X < (initialTouchPoint.X - 50))
                                 {
-                                    switchPage(true); // Switch pages.
+                                    switchPage(false); // Switch pages.
                                     AlreadySwiped = true;
                                 }
                             }
@@ -438,6 +454,10 @@ namespace CCF_app
                         {
                             this.viewbox.ReleaseTouchCapture(_touchPoint.TouchDevice);
                         }
+                        else if ((_touchPoint.TouchDevice.Captured == this.ImageGrid))
+                        {
+                            this.ImageGrid.ReleaseTouchCapture(_touchPoint.TouchDevice);
+                        }
                     }
                 }
             }
@@ -449,6 +469,7 @@ namespace CCF_app
         void switchPage(bool isSwipeLeft)
         {
             Debug.WriteLine(currentPage);
+            // Switch pages to the right.
             if (!isSwipeLeft)
             {
                 switch (currentPage)
@@ -466,18 +487,19 @@ namespace CCF_app
                         OnDonatePageClick(null, null);
                         break;
                     case Pages.Donate:
-                        // OnHomePageClick(null, null); // Uncomment this for cyclic page rotation - ASA
+                        OnHomePageClick(null, null); // Comment this for non-cyclic page transition (i.e. back-and-forth) - ASA
                         break;
                     default:
                         break;
                 }
             }
+            // Switch pages to the left.
             else
             {
                 switch (currentPage)
                 {
                     case Pages.Home:
-                        // OnDonatePageClick(null, null); // Uncomment this for cyclic page rotation - ASA
+                        OnDonatePageClick(null, null); // Comment this for non-cyclic page transition (i.e. back-and-forth) - ASA
                         break;
                     case Pages.AboutUs:
                         OnHomePageClick(null, null);
