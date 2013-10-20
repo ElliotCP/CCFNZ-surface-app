@@ -408,6 +408,7 @@ namespace CCF_app
                         {
                             if (currentPage == Pages.Home) 
                             {
+                                ReleaseAllTouchCaptures();
                                 _touchPoint.TouchDevice.Capture(this.ImageGrid);
                                 // Swipe Left with 50px threshold.
                                 if (_touchPoint.Position.X > (initialTouchPoint.X + 50))
