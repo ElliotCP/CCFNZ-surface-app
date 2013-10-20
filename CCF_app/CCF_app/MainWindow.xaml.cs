@@ -29,6 +29,8 @@ using MessagingToolkit.QRCode.Codec.Util;
 using System.Windows.Media.Animation;
 using System.Diagnostics;
 
+using FluidKit.Controls;
+
 /* Alias for conflicting namespaces */
 // e.g. System.Drawing.Brush conflicts with System.Windows.Media.Brush.
 // There might be a better way of doing this. -AA
@@ -84,6 +86,10 @@ namespace CCF_app
         enum Pages { Home = 1, AboutUs, Help, Support, Donate };
         Pages currentPage = Pages.Home;
 
+        // Home Image identifier for easy reference.
+        enum HomePageImages { img1 = 1, img2, img3 };
+        HomePageImages currentHomeImage = HomePageImages.img3;
+
         ImageBrush[] backgrounds = new ImageBrush[3];
         DoubleAnimation fadeIn;
         string[] backgroundImages = new string[3] { "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg", "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg" };
@@ -136,7 +142,6 @@ namespace CCF_app
                         (MouseButtonEventArgs)e.StagingItem.Input);
               };
             Touch.FrameReported += new TouchFrameEventHandler(Touch_FrameReported);
-
         }
 
         /// <summary>
@@ -374,7 +379,6 @@ namespace CCF_app
 
         Point initialTouchPoint;
         bool AlreadySwiped;
-        bool isSwipeLeft = true;
         /// <summary>
         /// Control Multi-Touch inputs using this method.
         /// Currently provides page switch on swipe with a single finger.
@@ -383,7 +387,7 @@ namespace CCF_app
         {
             if (this.viewbox != null)
             {
-                // Reset screensaver timer on touch interation.
+                // Reset screensaver timer on touch interation as it previously only resetted on mouse interaction.
                 timer.Interval = new TimeSpan(0, 0, this.ScreenSaverWaitTime);
 
                 // Interact with each of the finger touches.
@@ -392,7 +396,7 @@ namespace CCF_app
                     if (_touchPoint.Action == TouchAction.Down)
                     {
                         // Make sure the touches are captured from the viewbox.
-                        // Might need to adjust depending on components that might require swipe gestures. - ASA
+                        // Might need to adjust depending on components that might affected by swipe gestures. - ASA
                         _touchPoint.TouchDevice.Capture(this.viewbox);
                         initialTouchPoint.X = _touchPoint.Position.X;
                     }
@@ -402,30 +406,30 @@ namespace CCF_app
                         // First finger touch.
                         if (_touchPoint.TouchDevice.Id == e.GetPrimaryTouchPoint(this.viewbox).TouchDevice.Id)
                         {
+                            // TODO Carousel transition when a single finger swipe is performed.
+                        }
+                        // Perform second finger touch point.
+                        else if (_touchPoint.TouchDevice.Id != e.GetPrimaryTouchPoint(this.viewbox).TouchDevice.Id)
+                        {
+                            // _touchPoint is now the object of the second finger.
                             if (!AlreadySwiped)
                             {
                                 // Swipe Left with 50px threshold.
                                 if (_touchPoint.Position.X > (initialTouchPoint.X + 50))
                                 {
-                                    switchPage(true); // Switch Pages
+                                    switchPage(false); // Switch Pages
                                     AlreadySwiped = true;
                                 }
 
                                 // Swipe Right with 50px threshold.
                                 if (_touchPoint.Position.X < (initialTouchPoint.X - 50))
                                 {
-                                    switchPage(false); // Switch pages.
+                                    switchPage(true); // Switch pages.
                                     AlreadySwiped = true;
                                 }
                             }
                         }
-                        // Perform second finger touch point.
-                        //else if (_touchPoint.TouchDevice.Id != e.GetPrimaryTouchPoint(this.viewbox).TouchDevice.Id)
-                        //{
-                        //    // _touchPoint is now the object of the second finger.
-                        //}
                     }
-
                     else if (_touchPoint.Action == TouchAction.Up)
                     {
                         AlreadySwiped = false;
@@ -473,7 +477,7 @@ namespace CCF_app
                 switch (currentPage)
                 {
                     case Pages.Home:
-                        //OnDonatePageClick(null, null); // Uncomment this for cyclic page rotation - ASA
+                        // OnDonatePageClick(null, null); // Uncomment this for cyclic page rotation - ASA
                         break;
                     case Pages.AboutUs:
                         OnHomePageClick(null, null);
@@ -548,18 +552,60 @@ namespace CCF_app
             return lgb;
         }
 
+        /// <summary>
+        /// Adding transition to the TransitionPresenter which will perform the slide animation/transition.
+        /// </summary>
+        public void AddTransition(FrameworkElement _img1, FrameworkElement _img2) 
+        {
+            TransitionPresenter.ApplyTransition(_img1, _img2);
+        }
+
+        FrameworkElement _currentImage;
+        FrameworkElement _nextImage;
         private void NextImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Debug.WriteLine("Changing image forwards");
+            SlideTransition transition = Resources["SlideTransitioner"] as SlideTransition;
+            transition.Direction = Direction.LeftToRight;
+            TransitionPresenter.Transition = transition;
+
+            // Move image transition to the right.
+            switch (currentHomeImage)
+            {
+                case HomePageImages.img1:
+                    // Retrieve image elements
+                    _currentImage = (FrameworkElement)FindName("img1");
+                    _nextImage = (FrameworkElement)FindName("img2");
+                    AddTransition(_currentImage, _nextImage); // Begin transition
+                    currentHomeImage = HomePageImages.img2; // Set next image as current
+                    break;
+                case HomePageImages.img2:
+                    // Retrieve image elements
+                    _currentImage = (FrameworkElement)FindName("img2");
+                    _nextImage = (FrameworkElement)FindName("img3");
+                    AddTransition(_currentImage, _nextImage); // Begin transition
+                    currentHomeImage = HomePageImages.img3; // Set next image as current
+                    break;
+                case HomePageImages.img3:
+                    // Retrieve image elements
+                    _currentImage = (FrameworkElement)FindName("img3");
+                    _nextImage = (FrameworkElement)FindName("img1");
+                    AddTransition(_currentImage, _nextImage); // Begin transition
+                    currentHomeImage = HomePageImages.img1; // Set next image as current
+                    break;
+                default:
+                    break;
+            }    
+
             //backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeOut);
-            if (currentImage == 2)
-            {
-                currentImage = 0;
-            }
-            else
-            {
-                currentImage++;
-            }
+            //if (currentImage == 2)
+            //{
+            //    currentImage = 0;
+            //}
+            //else
+            //{
+            //    currentImage++;
+            //}
 
             //fadeOut.Completed += delegate(object sender1, EventArgs e1) {
             //    //once the fadeout is complete set the new back ground and fade back in. 
@@ -573,30 +619,66 @@ namespace CCF_app
             //    bgBrush.BeginAnimation(Brush.OpacityProperty, fadeInAnimation);
             //};
 
-            fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
-            backgrounds[currentImage].Opacity = 0;
-            ImageGrid.Background.Opacity = 0;
-            ImageGrid.Background = backgrounds[currentImage];
-            Debug.WriteLine(backgrounds[currentImage].Opacity);
-            backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
+            //fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
+            //backgrounds[currentImage].Opacity = 0;
+            //ImageGrid.Background.Opacity = 0;
+            //ImageGrid.Background = backgrounds[currentImage];
+            //Debug.WriteLine(backgrounds[currentImage].Opacity);
+            //backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
         }
 
         private void PreviousImage_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Debug.WriteLine("Changing image backwards");
-            if (currentImage == 0)
+
+            SlideTransition transition = Resources["SlideTransitioner"] as SlideTransition;
+            transition.Direction = Direction.RightToLeft;
+            TransitionPresenter.Transition = transition;
+
+            switch (currentHomeImage)
             {
-                currentImage = 2;
+                case HomePageImages.img1:
+                    // Retrieve image elements
+                    _currentImage = (FrameworkElement)FindName("img1");
+                    _nextImage = (FrameworkElement)FindName("img3");
+
+                    AddTransition(_currentImage, _nextImage); // Begin transition
+                    currentHomeImage = HomePageImages.img3; // Set next image as current
+                    break;
+                case HomePageImages.img2:
+                    // Retrieve image elements
+                    _currentImage = (FrameworkElement)FindName("img2");
+                    _nextImage = (FrameworkElement)FindName("img1");
+
+                    AddTransition(_currentImage, _nextImage); // Begin transition
+                    currentHomeImage = HomePageImages.img1; // Set next image as current
+                    break;
+                case HomePageImages.img3:
+                    // Retrieve image elements
+                    _currentImage = (FrameworkElement)FindName("img3");
+                    _nextImage = (FrameworkElement)FindName("img2");
+
+                    AddTransition(_currentImage, _nextImage); // Begin transition
+                    currentHomeImage = HomePageImages.img2; // Set next image as current
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                currentImage--;
-            }
-            fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
-            backgrounds[currentImage].Opacity = 0;
-            ImageGrid.Background = backgrounds[currentImage];
-            Debug.WriteLine(backgrounds[currentImage].Opacity);
-            backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
+
+            //if (currentImage == 0)
+            //{
+            //    currentImage = 2;
+            //}
+            //else
+            //{
+            //    currentImage--;
+            //}
+
+            //fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
+            //backgrounds[currentImage].Opacity = 0;
+            //ImageGrid.Background = backgrounds[currentImage];
+            //Debug.WriteLine(backgrounds[currentImage].Opacity);
+            //backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
         }
 
         /// <summary>
