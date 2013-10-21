@@ -54,6 +54,8 @@ namespace CCF_app
             "There are a variety of local and regional child, parent, grandparent, sibling and bereaved support programmes and events that aim to inform, reduce isolation and support your family through the experiences and challenges of child cancer." +
             " Parent events, children’s holiday programmes and sibling days are among many that are well attended. ";
 
+        private const int DonateDaysToGo = 15;
+
         private readonly string[] _backgroundImages =
         {
             "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg",
@@ -66,7 +68,6 @@ namespace CCF_app
         private readonly DoubleAnimation _da2 = new DoubleAnimation(40, TimeSpan.FromMilliseconds(70));
         private readonly DoubleAnimation _da3 = new DoubleAnimation(1, TimeSpan.FromMilliseconds(400));
         private readonly DoubleAnimation _da4 = new DoubleAnimation(0, TimeSpan.FromMilliseconds(400));
-        private const int DonateDaysToGo = 15;
 
         //used in screen saver
         private readonly DispatcherTimer _timer;
@@ -77,7 +78,6 @@ namespace CCF_app
         private HomePageImages _currentHomeImage = HomePageImages.Img3;
         private FrameworkElement _currentImage;
         private Pages _currentPage = Pages.Home;
-// ReSharper disable once ConvertToConstant.Local
 
         //donation bar variables
         private int _donatePercentFunded = 60;
