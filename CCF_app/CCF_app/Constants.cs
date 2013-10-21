@@ -56,9 +56,9 @@ namespace CCF_app
 
         public const int DonateDaysToGo = 15;
 
-        public const string YoutubeVideo_About = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed/JCq-k3BBn68" + "?showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
-        public const string YoutubeVideo_Help = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed/rvQi43wwR_4" + "?showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
-        public const string YoutubeVideo_Support = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed/SF4Umzs1wWU" + "?showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
+        public const string YoutubeVideo_About = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed/JCq-k3BBn68" + "?html5=1&controls=2&showinfo=0&showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
+        public const string YoutubeVideo_Help = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed/rvQi43wwR_4" + "?html5=1&controls=2&showinfo=0&showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
+        public const string YoutubeVideo_Support = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed/SF4Umzs1wWU" + "?html5=1&controls=2&showinfo=0&showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
 
         public Constants()
         {
