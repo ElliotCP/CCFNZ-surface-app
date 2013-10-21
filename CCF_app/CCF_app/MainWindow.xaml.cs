@@ -554,7 +554,7 @@ namespace CCF_app
         public void AddTransition(FrameworkElement imageOneElement, FrameworkElement imageTwoElement)
         {
             if (imageOneElement == null) throw new ArgumentNullException("imageOneElement");
-            TransitionPresenter.ApplyTransition(Img1, Img2);
+            TransitionPresenter.ApplyTransition(imageOneElement, imageTwoElement);
         }
 
         private void NextImage_MouseDown(object sender, MouseButtonEventArgs e)
@@ -563,7 +563,7 @@ namespace CCF_app
             var transition = Resources["SlideTransitioner"] as SlideTransition;
             if (transition != null)
             {
-                transition.Direction = Direction.LeftToRight;
+                transition.Direction = Direction.RightToLeft;
                 TransitionPresenter.Transition = transition;
             }
 
@@ -572,22 +572,22 @@ namespace CCF_app
             {
                 case HomePageImages.Img1:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("img1");
-                    _nextImage = (FrameworkElement) FindName("img2");
+                    _currentImage = (FrameworkElement) FindName("Img1");
+                    _nextImage = (FrameworkElement) FindName("Img2");
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     _currentHomeImage = HomePageImages.Img2; // Set next image as current
                     break;
                 case HomePageImages.Img2:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("img2");
-                    _nextImage = (FrameworkElement) FindName("img3");
+                    _currentImage = (FrameworkElement) FindName("Img2");
+                    _nextImage = (FrameworkElement) FindName("Img3");
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     _currentHomeImage = HomePageImages.Img3; // Set next image as current
                     break;
                 case HomePageImages.Img3:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("img3");
-                    _nextImage = (FrameworkElement) FindName("img1");
+                    _currentImage = (FrameworkElement) FindName("Img3");
+                    _nextImage = (FrameworkElement) FindName("Img1");
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     _currentHomeImage = HomePageImages.Img1; // Set next image as current
                     break;
@@ -630,7 +630,7 @@ namespace CCF_app
             var transition = Resources["SlideTransitioner"] as SlideTransition;
             if (transition != null)
             {
-                transition.Direction = Direction.RightToLeft;
+                transition.Direction = Direction.LeftToRight;
                 TransitionPresenter.Transition = transition;
             }
 
@@ -638,24 +638,24 @@ namespace CCF_app
             {
                 case HomePageImages.Img1:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("img1");
-                    _nextImage = (FrameworkElement) FindName("img3");
+                    _currentImage = (FrameworkElement) FindName("Img1");
+                    _nextImage = (FrameworkElement) FindName("Img3");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     _currentHomeImage = HomePageImages.Img3; // Set next image as current
                     break;
                 case HomePageImages.Img2:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("img2");
-                    _nextImage = (FrameworkElement) FindName("img1");
+                    _currentImage = (FrameworkElement) FindName("Img2");
+                    _nextImage = (FrameworkElement) FindName("Img1");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     _currentHomeImage = HomePageImages.Img1; // Set next image as current
                     break;
                 case HomePageImages.Img3:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("img3");
-                    _nextImage = (FrameworkElement) FindName("img2");
+                    _currentImage = (FrameworkElement) FindName("Img3");
+                    _nextImage = (FrameworkElement) FindName("Img2");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     _currentHomeImage = HomePageImages.Img2; // Set next image as current
