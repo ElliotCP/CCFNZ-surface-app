@@ -799,6 +799,8 @@ namespace CCF_app
             }
         }
 
+        string prev_donation_text = "";
+        double donation_amount = 0;
         /// <summary>
         ///     When text is entered into the custom donation textbox, update the donation 
         ///     QRCode or the call number depending on current payment selected.
@@ -819,17 +821,31 @@ namespace CCF_app
                 Txt_Donation.Visibility = Visibility.Visible;
             }
 
-            const string donationServer = "223.27.24.159:8080";
-            // Set initial amount to zero. 
-            String qrCodeContent = donationServer + "/?amount=" + Donation_CustomAmount.Text;
-            Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image.
+            try // Try and convert custom donation amount to integer
+            {
+                prev_donation_text = Donation_CustomAmount.Text;
+                donation_amount = Convert.ToInt32(Donation_CustomAmount.Text);
+            }
+            catch (FormatException) // Donation amount entered is not a number so resolve the issue.
+            {
+                // Remove invalid characters by setting textbox to an empty string.
+                Donation_CustomAmount.Text = "";
+                // Prevent further (potentially incorrect) processing by breaking out of the method.
+                return;
+            }
 
-            if (Donation_CustomAmount.Text != "" && Convert.ToInt32(Donation_CustomAmount.Text) < 999)
+            // String together information that will be stored into the QRCode.
+            const string donationServer = "223.27.24.159:8080";
+            String qrCodeContent = donationServer + "/?amount=" + Donation_CustomAmount.Text;
+            Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image with the given information.
+
+            if (Convert.ToInt32(Donation_CustomAmount.Text) < 999)
             {
                 Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
             }
-            else if (Donation_CustomAmount.Text != "" && Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
+            else if (Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
             {
+                // Redirect user to use the QRCode for their own privacy.
                 Txt_Donation.Text = "Please use a QR Code";
             }
             else
@@ -843,50 +859,6 @@ namespace CCF_app
             CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
         }
 
-        private void Donation_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                // Toggle visibility of QRCode image and txt number depending on the payment type.
-                if (_donationMethod == "QR" && _donationMethod != null)
-                {
-                    QrCodeDonation.Visibility = Visibility.Visible;
-                    Txt_Donation.Visibility = Visibility.Collapsed;
-                }
-                else if (_donationMethod == "Txt" && _donationMethod != null)
-                {
-                    QrCodeDonation.Visibility = Visibility.Collapsed;
-                    Txt_Donation.Visibility = Visibility.Visible;
-                }
-
-                const string donationServer = "223.27.24.159:8080";
-                // Set initial amount to zero. 
-                String qrCodeContent = donationServer + "/?amount=" + Donation_CustomAmount.Text;
-                Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image.
-                if (Convert.ToInt32(Donation_CustomAmount.Text) < 999 && Donation_CustomAmount.Text != "")
-                {
-                    Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
-                }
-                else if (Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
-                {
-                    Txt_Donation.Text = "Please use a QR Code";
-                }
-                else
-                {
-                    Txt_Donation.Text = "3032 02";
-                }
-                _donationMethod = null;
-                Donation_Help.Visibility = Visibility.Collapsed;
-                CustomAmount.Visibility = Visibility.Visible;
-                CustomAmount.Opacity = 0;
-                CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
-                Donations_Instructions.Visibility = Visibility.Visible;
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Can't close");
-            }
-        }
         // Provide the carousel images with an identifier for easy reference.
         public enum HomePageImages
         {
