@@ -163,7 +163,7 @@
                                                           HorizontalContentAlignment="Stretch"
                                                           HorizontalAlignment="Left"
                                                           d:LayoutOverrides="VerticalAlignment, GridBox"
-                                                          KeyDown="GotFocux" TextChanged="GotFocux" Height="30" />
+                                                          KeyDown="Donation_KeyDown" TextChanged="Donation_TextChanged" Height="30" />
                                     </Grid>
                                 </Grid>
                                 <TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="100,20,50,0"

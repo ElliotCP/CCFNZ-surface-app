@@ -818,28 +818,7 @@ namespace CCF_app
             }
         }
 
-        /// <summary>
-        ///     when user pauses/unpauses a video
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void VideoClicked_Event(object sender, MouseButtonEventArgs e)
-        {
-            var m = sender as MediaElement;
-            if (Constants.Playing)
-            {
-                if (m != null) m.Pause();
-                Constants.Playing = false;
-            }
-            else
-            {
-                if (m != null) m.Play();
-                Constants.Playing = true;
-            }
-        }
-
-
-        private void GotFocux(object sender, KeyEventArgs e)
+        private void Donation_KeyDown(object sender, KeyEventArgs e)
         {
             Donations_Instructions.Visibility = Visibility.Visible;
 
@@ -885,7 +864,7 @@ namespace CCF_app
             CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
         }
 
-        private void GotFocux(object sender, TextChangedEventArgs e)
+        private void Donation_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
