@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 
 namespace CCF_app
 {
@@ -14,7 +12,6 @@ namespace CCF_app
             "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg"
         };
 
-        public readonly ImageBrush[] Backgrounds = new ImageBrush[3];
         public static readonly DoubleAnimation Da = new DoubleAnimation(0, TimeSpan.FromMilliseconds(70));
         public static readonly DoubleAnimation Da2 = new DoubleAnimation(40, TimeSpan.FromMilliseconds(70));
         public static readonly DoubleAnimation Da3 = new DoubleAnimation(1, TimeSpan.FromMilliseconds(400));
@@ -60,20 +57,5 @@ namespace CCF_app
         public const string YoutubeVideo_Help = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed/rvQi43wwR_4" + "?showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
         public const string YoutubeVideo_Support = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed/SF4Umzs1wWU" + "?showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
 
-        public Constants()
-        {
-            foreach (string s in BackgroundImages)
-            {
-                var ib = new ImageBrush
-                {
-                    Stretch = Stretch.UniformToFill,
-                    ImageSource = new 
-                        BitmapImage(new Uri(@s, UriKind.RelativeOrAbsolute))
-                };
-                int i = 0;
-                Backgrounds[i] = ib;
-                i++;
-            }
-        }
     }
 }

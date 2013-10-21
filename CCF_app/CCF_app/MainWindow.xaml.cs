@@ -175,8 +175,8 @@ namespace CCF_app
             Unanimate();
             CollapseAllPages();
 
-            this.HomePage.Visibility = Visibility.Visible;
-            this.Home_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
+            HomePage.Visibility = Visibility.Visible;
+            Home_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             _currentPage = Pages.Home;
         }
@@ -193,11 +193,11 @@ namespace CCF_app
             CollapseAllPages();
 
             //loading and playing video            
-            this.MyVideo1.NavigateToString(Constants.YoutubeVideo_Help);
-            this.MyVideo1.Visibility = System.Windows.Visibility.Visible;
+            MyVideo1.NavigateToString(Constants.YoutubeVideo_Help);
+            MyVideo1.Visibility = Visibility.Visible;
 
-            this.InformationPage.Visibility = Visibility.Visible;
-            this.Help_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
+            InformationPage.Visibility = Visibility.Visible;
+            Help_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPageTitle.Text = "How Can I Help?";
 
@@ -219,11 +219,11 @@ namespace CCF_app
             Unanimate();
             CollapseAllPages();
 
-            this.MyVideo2.NavigateToString(Constants.YoutubeVideo_Support);
-            this.MyVideo2.Visibility = System.Windows.Visibility.Visible;
+            MyVideo2.NavigateToString(Constants.YoutubeVideo_Support);
+            MyVideo2.Visibility = Visibility.Visible;
 
-            this.InformationPage.Visibility = System.Windows.Visibility.Visible;
-            this.Support_BtnRec.BeginAnimation(Rectangle.HeightProperty, Constants.Da);
+            InformationPage.Visibility = Visibility.Visible;
+            Support_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPageTitle.Text = "How Can I Get Support?";
 
@@ -243,11 +243,11 @@ namespace CCF_app
             Unanimate();
             CollapseAllPages();
 
-            this.MyVideo3.NavigateToString(Constants.YoutubeVideo_About);
-            this.MyVideo3.Visibility = System.Windows.Visibility.Visible;
+            MyVideo3.NavigateToString(Constants.YoutubeVideo_About);
+            MyVideo3.Visibility = Visibility.Visible;
 
-            this.InformationPage.Visibility = Visibility.Visible;
-            this.AboutUs_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
+            InformationPage.Visibility = Visibility.Visible;
+            AboutUs_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPageTitle.Text = "What Is CCFNZ?";
 
@@ -268,11 +268,11 @@ namespace CCF_app
             Unanimate();
             CollapseAllPages();
 
-            this.DonatePage_Pointer.Source =
+            DonatePage_Pointer.Source =
                 new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
 
-            this.DonatePage.Visibility = Visibility.Visible;
-            this.Donate_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
+            DonatePage.Visibility = Visibility.Visible;
+            Donate_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             UpdateProgressBarAndText(0);
 
@@ -466,14 +466,14 @@ namespace CCF_app
             Support_BtnRec.Visibility = Visibility.Visible;
             Donate_BtnRec.Visibility = Visibility.Visible;
 
-            this.MyVideo1.Visibility = System.Windows.Visibility.Collapsed;
-            this.MyVideo1.NavigateToString("about:blank");
+            MyVideo1.Visibility = Visibility.Collapsed;
+            MyVideo1.NavigateToString("about:blank");
          
-            this.MyVideo2.Visibility = System.Windows.Visibility.Collapsed;
-            this.MyVideo2.NavigateToString("about:blank");
+            MyVideo2.Visibility = Visibility.Collapsed;
+            MyVideo2.NavigateToString("about:blank");
 
-            this.MyVideo3.Visibility = System.Windows.Visibility.Collapsed;
-            this.MyVideo3.NavigateToString("about:blank");
+            MyVideo3.Visibility = Visibility.Collapsed;
+            MyVideo3.NavigateToString("about:blank");
         }
 
 

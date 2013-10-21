@@ -37,13 +37,13 @@
                                                                Transition="{StaticResource SlideTransitioner}">
                                 <Image x:Name="Img1"
                                        Source="Assets/Images/HomePage_Pic1.jpg"
-                                       Stretch="Fill" />
+                                       Stretch="UniformToFill" />
                                 <Image x:Name="Img2"
                                        Source="Assets/Images/HomePage_Pic2.jpg"
-                                       Stretch="Fill" />
+                                       Stretch="UniformToFill" />
                                 <Image x:Name="Img3"
                                        Source="Assets/Images/HomePage_Pic3.jpg"
-                                       Stretch="Fill" />
+                                       Stretch="UniformToFill" />
                             </fluidControls:TransitionPresenter>
                             <Image x:Name="Image" Source="Assets/Images/blurredGrid.png" Stretch="UniformToFill" />
                             <ed:BlockArrow x:Name="PreviousImage" Fill="#4CFFFFFF" Margin="10,0,0,0" Orientation="Left"
@@ -188,7 +188,7 @@
                                 <Border x:Name="QrCodeDonation" BorderBrush="Black" BorderThickness="5" Grid.Row="1"
                                         Grid.Column="1" Height="300" Margin="50,0,0,0" HorizontalAlignment="Left"
                                         Visibility="Collapsed">
-                                    <Image x:Name="QrCodeImg" Margin="0" Source="Assets/QRCodes/what_we_do.png" />
+                                    <Image x:Name="QrCodeImg" Margin="0" />
                                 </Border>
                             </Grid>
                             <s:SurfaceButton x:Name="QrDonate_Button" Content="" Margin="-82.667,0,417.333,0"
@@ -255,8 +255,10 @@
                                     <ColumnDefinition Width="800" />
                                 </Grid.ColumnDefinitions>
                                 <WebBrowser x:Name="MyVideo1" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
-                                <WebBrowser x:Name="MyVideo2" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
-                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>                                    
+                                <WebBrowser x:Name="MyVideo2" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.Column="0"
+                                            Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
+                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.Column="0"
+                                            Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>                                    
                                 <TextBlock x:Name="TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
                                            d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
                                     <InlineUIContainer>
@@ -340,7 +342,9 @@
                     <TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Bottom" Width="0" />                    
                     <Grid x:Name="ScreenSaver" d:IsHidden="True">
-                        <Image Source="Assets/Images/ScreenSaver.png" Stretch="Fill" MaxHeight="1080" />
+                        <Image Stretch="Fill" MaxHeight="1080">
+                            <Image.Source>Assets/Images/ScreenSaver.png</Image.Source>
+                        </Image>
                     </Grid>
                 </Grid>
             </Viewbox>
