@@ -36,20 +36,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluidKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalLibraries\FluidKit.dll</HintPath>
+    </Reference>
     <Reference Include="MessagingToolkit.QRCode">
-      <HintPath>..\..\..\..\qr_gen\MessagingToolkit.QRCode.dll</HintPath>
+      <HintPath>ExternalLibraries\MessagingToolkit.QRCode.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
-    <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -58,7 +56,6 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="Microsoft.Surface" />
     <Reference Include="Microsoft.Surface.Presentation" />
-    <Reference Include="Microsoft.Surface.Presentation.Generic" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -75,6 +72,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -103,6 +101,30 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Background.scale-100.png" />
+    <Resource Include="Assets\Icons\MetroBack.png" />
+    <Resource Include="Assets\Icons\pointer_blue.png" />
+    <Resource Include="Assets\Icons\pointer_green.png" />
+    <Resource Include="Assets\Icons\pointer_orange.png" />
+    <Resource Include="Assets\Icons\pointer_original.png" />
+    <Resource Include="Assets\Icons\pointer_purple.png" />
+    <Resource Include="Assets\Icons\pointer_red.png" />
+    <Resource Include="Assets\Images\SAFEANDGENTLE BANNER8.png" />
+    <Resource Include="Assets\Images\blurredGrid.png" />
+    <Resource Include="Assets\Images\HomePage_Pic1.jpg" />
+    <Resource Include="Assets\Images\aboutUs1.png" />
+    <Resource Include="Assets\Images\help2.png" />
+    <Resource Include="Assets\Images\support1.png" />
+    <Resource Include="Assets\Images\support2.png" />
+    <Resource Include="Assets\Images\aboutUs3.png" />
+    <Resource Include="Assets\Images\aboutUs2.jpg" />
+    <Resource Include="Assets\Images\SAFEANDGENTLE BANNER82.png" />
+    <Resource Include="Assets\Images\help1.jpg" />
+    <Resource Include="Assets\Images\HomePage_Pic2.jpg" />
+    <Resource Include="Assets\Images\HomePage_Pic3.jpg" />
+    <Resource Include="Assets\Icons\mobile_donate.png" />
+    <Resource Include="Assets\Icons\qr_donate.png" />
+    <Resource Include="Assets\Images\ScreenSaver.png" />
+    <Resource Include="Assets\Images\VideoPlaceHolder.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
