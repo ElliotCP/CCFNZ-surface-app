@@ -45,7 +45,7 @@
                                        Source="Assets/Images/HomePage_Pic3.jpg"
                                        Stretch="Fill" />
                             </fluidControls:TransitionPresenter>
-                            <Image x:Name="Image" Source="Assets/Images/blurredGrid.png" Stretch="Fill" />
+                            <Image x:Name="Image" Source="Assets/Images/blurredGrid.png" Stretch="UniformToFill" />
                             <ed:BlockArrow x:Name="PreviousImage" Fill="#4CFFFFFF" Margin="10,0,0,0" Orientation="Left"
                                            Stroke="#4C000000" Height="50" VerticalAlignment="Center"
                                            d:LayoutOverrides="Height" Width="50" HorizontalAlignment="Left"

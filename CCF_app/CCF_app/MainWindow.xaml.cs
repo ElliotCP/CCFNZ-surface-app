@@ -6,8 +6,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using FluidKit.Controls;
@@ -24,87 +22,26 @@ namespace CCF_app
     /// </summary>
     public partial class MainWindow
     {
-        private const int ScreenSaverWaitTime = 5;
-
-        private const string AboutUsText1 =
-            "Child Cancer Foundation New Zealand's mission is that every child and their family walking the child cancer journey will never feel alone." +
-            "\nEvery week in New Zealand three families are told their child has cancer. We support these families from the very beginning. By doing this we reduce isolation and the impact of cancer. We aim to reduce the impact of cancer by offering services to ensure children and their families are supported, informed and well cared for on their journey with cancer.";
-
-        private const string AboutUsText2 =
-            "This assistance is delivered throughout New Zealand by our Family Support team working in conjunction with the foundation's branch members (parents and volunteers) in the local community." +
-            "\nEach year we need at least $6 million to continue our services. This is raised through the generosity of individuals, grants, donations and sponsorships." +
-            "\nThe Foundation's work with children with cancer and their families is unique and receives no direct government funding or support from other cancer agencies.";
-
-        private const int DonateTarget = 10000;
-
-        private const string HelpText1 =
-            "We rely on the generosity of big-hearted New Zealander's to help us continue what we do. There are a variety of ways you can support children with cancer and their families." +
-            "\nOur Beads of Courage ?presents children with a bead representing an Act of Courage. Ideally (and sadly) this year, we expect that we will need approximately 5000 handmaid beads donated. We are currently reaching only 1800 and we need all the help we can get to help our kids.";
-
-        private const string HelpText2 =
-            "We rely on donations to continue our services. You can make a one-off donation through your credit card; it is simple, secure and super rewarding." +
-            "\nYou can become a regular supporter of Child Cancer Foundation by setting up a regular donation from your credit card or bank account. More information on donations can be found on our website." +
-            "\nEvery donation, no matter how big or small, helps us continue to support our children and families affected by this traumatic disease.";
-
-        private const string SupportText1 =
-            "Our Family Support team work in conjunction with the foundation’s branch members (parents, caregivers, and volunteers) to deliver a range of support services to ensure every child and their family walking the child cancer journey will never feel alone." +
-            " They offer individual and group support, information, financial assistance, and advocacy. Our Coordinators also offer support for bereaved families. They connect similar families and provide a link to other agencies and community support groups.";
-
-        private const string SupportText2 =
-            "There are a variety of local and regional child, parent, grandparent, sibling and bereaved support programmes and events that aim to inform, reduce isolation and support your family through the experiences and challenges of child cancer." +
-            " Parent events, children’s holiday programmes and sibling days are among many that are well attended. ";
-
-        private const int DonateDaysToGo = 15;
-
-        private readonly string[] _backgroundImages =
-        {
-            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg",
-            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg",
-            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg"
-        };
-
-        private readonly ImageBrush[] _backgrounds = new ImageBrush[3];
-        private readonly DoubleAnimation _da = new DoubleAnimation(0, TimeSpan.FromMilliseconds(70));
-        private readonly DoubleAnimation _da2 = new DoubleAnimation(40, TimeSpan.FromMilliseconds(70));
-        private readonly DoubleAnimation _da3 = new DoubleAnimation(1, TimeSpan.FromMilliseconds(400));
-        private readonly DoubleAnimation _da4 = new DoubleAnimation(0, TimeSpan.FromMilliseconds(400));
-
         //used in screen saver
         private readonly DispatcherTimer _timer;
 
         private bool _alreadySwiped;
 
         private RadioButton _ck; //used to check which radio button has been checked
-        private HomePageImages _currentHomeImage = HomePageImages.Img3;
         private FrameworkElement _currentImage;
         private Pages _currentPage = Pages.Home;
 
         //donation bar variables
-        private int _donatePercentFunded = 60;
-        private int _donateTotalDonated = 6000;
         private string _donationMethod = "";
 
         // Provide pages with an identifier for easy reference.
 
         private Point _initialTouchPoint;
         private FrameworkElement _nextImage;
-        private Boolean _playing = true;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            int i = 0;
-            foreach (string s in _backgroundImages)
-            {
-                var ib = new ImageBrush
-                {
-                    Stretch = Stretch.UniformToFill,
-                    ImageSource = new BitmapImage(new Uri(@s, UriKind.RelativeOrAbsolute))
-                };
-                _backgrounds[i] = ib;
-                i++;
-            }
 
             Home_BtnRec.Visibility = Visibility.Collapsed;
 
@@ -114,7 +51,7 @@ namespace CCF_app
             //creating timer and binding event handler to keep track of timer
             _timer = new DispatcherTimer();
             _timer.Tick += Timer_Tick;
-            _timer.Interval = new TimeSpan(0, 0, ScreenSaverWaitTime);
+            _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
             _timer.Start();
 
             //when user touches screen wen screen saver is up
@@ -129,6 +66,8 @@ namespace CCF_app
             };
             Touch.FrameReported += Touch_FrameReported;
         }
+
+      
 
         /// <summary>
         ///     Showing home page and hiding the screen saver when screen is touched
@@ -146,7 +85,7 @@ namespace CCF_app
         /// </summary>
         private void GlobalClickEventHandler()
         {
-            _timer.Interval = new TimeSpan(0, 0, ScreenSaverWaitTime);
+            _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
         }
 
         /// <summary>
@@ -234,7 +173,7 @@ namespace CCF_app
 
             HomePage.Visibility = Visibility.Visible;
 
-            Home_BtnRec.BeginAnimation(HeightProperty, _da);
+            Home_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
             _currentPage = Pages.Home;
         }
 
@@ -255,15 +194,15 @@ namespace CCF_app
 
             InformationPage.Visibility = Visibility.Visible;
 
-            Help_BtnRec.BeginAnimation(HeightProperty, _da);
+            Help_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPageTitle.Text = "How Can I Help?";
 
             Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_green.png", UriKind.RelativeOrAbsolute));
 
             //setting the text on the page
-            Text1.Text = HelpText1;
-            Text2.Text = HelpText2;
+            Text1.Text = Constants.HelpText1;
+            Text2.Text = Constants.HelpText2;
             _currentPage = Pages.Help;
             //this.Image1.Source = new BitmapImage(new Uri("Assets/Images/help1.jpg", UriKind.RelativeOrAbsolute));
             //this.Image2.Source = new BitmapImage(new Uri("Assets/Images/help2.png", UriKind.RelativeOrAbsolute));
@@ -283,12 +222,12 @@ namespace CCF_app
             MyVideo2.Play();
 
             InformationPage.Visibility = Visibility.Visible;
-            Support_BtnRec.BeginAnimation(HeightProperty, _da);
+            Support_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPageTitle.Text = "How Can I Get Support?";
 
-            Text1.Text = SupportText1;
-            Text2.Text = SupportText2;
+            Text1.Text = Constants.SupportText1;
+            Text2.Text = Constants.SupportText2;
             Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.Support;
         }
@@ -307,12 +246,12 @@ namespace CCF_app
             MyVideo3.Play();
 
             InformationPage.Visibility = Visibility.Visible;
-            AboutUs_BtnRec.BeginAnimation(HeightProperty, _da);
+            AboutUs_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPageTitle.Text = "What Is CCFNZ?";
 
-            Text1.Text = AboutUsText1;
-            Text2.Text = AboutUsText2;
+            Text1.Text = Constants.AboutUsText1;
+            Text2.Text = Constants.AboutUsText2;
 
             Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.AboutUs;
@@ -332,7 +271,7 @@ namespace CCF_app
                 new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
 
             DonatePage.Visibility = Visibility.Visible;
-            Donate_BtnRec.BeginAnimation(HeightProperty, _da);
+            Donate_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             UpdateProgressBarAndText(0);
 
@@ -368,7 +307,7 @@ namespace CCF_app
             if (Viewbox != null)
             {
                 // Reset screensaver timer on touch interation as it previously only resetted on mouse interaction.
-                _timer.Interval = new TimeSpan(0, 0, ScreenSaverWaitTime);
+                _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
 
                 // Interact with each of the finger touches.
                 foreach (TouchPoint touchPoint in e.GetTouchPoints(Viewbox))
@@ -505,11 +444,10 @@ namespace CCF_app
 
         private void UpdateProgressBarAndText(int amount)
         {
-            _donateTotalDonated += amount;
-            _donatePercentFunded = _donateTotalDonated*100/DonateTarget;
-            DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go", _donatePercentFunded,
-                _donateTotalDonated, DonateDaysToGo);
-            DonationProgress_Bar.Value = _donatePercentFunded;
+            Constants.DonateTotalDonated += amount;
+            Constants.DonatePercentFunded = Constants.DonateTotalDonated*100/Constants.DonateTarget;
+            DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go", Constants.DonatePercentFunded, Constants.DonateTotalDonated, Constants.DonateDaysToGo);
+            DonationProgress_Bar.Value = Constants.DonatePercentFunded;
         }
 
         /// <summary>
@@ -536,16 +474,17 @@ namespace CCF_app
             MyVideo3.Visibility = Visibility.Collapsed;
         }
 
+
         /// <summary>
         ///     animation to reset the button style to how it was when it was unclicked
         /// </summary>
         private void Unanimate()
         {
-            AboutUs_BtnRec.BeginAnimation(HeightProperty, _da2);
-            Home_BtnRec.BeginAnimation(HeightProperty, _da2);
-            Help_BtnRec.BeginAnimation(HeightProperty, _da2);
-            Support_BtnRec.BeginAnimation(HeightProperty, _da2);
-            Donate_BtnRec.BeginAnimation(HeightProperty, _da2);
+            AboutUs_BtnRec.BeginAnimation(HeightProperty, Constants.Da2);
+            Home_BtnRec.BeginAnimation(HeightProperty, Constants.Da2);
+            Help_BtnRec.BeginAnimation(HeightProperty, Constants.Da2);
+            Support_BtnRec.BeginAnimation(HeightProperty, Constants.Da2);
+            Donate_BtnRec.BeginAnimation(HeightProperty, Constants.Da2);
         }
 
         /// <summary>
@@ -568,28 +507,28 @@ namespace CCF_app
             }
 
             // Move image transition to the right.
-            switch (_currentHomeImage)
+            switch (Constants.CurrentHomeImage)
             {
                 case HomePageImages.Img1:
                     // Retrieve image elements
                     _currentImage = (FrameworkElement) FindName("Img1");
                     _nextImage = (FrameworkElement) FindName("Img2");
                     AddTransition(_currentImage, _nextImage); // Begin transition
-                    _currentHomeImage = HomePageImages.Img2; // Set next image as current
+                    Constants.CurrentHomeImage = HomePageImages.Img2; // Set next image as current
                     break;
                 case HomePageImages.Img2:
                     // Retrieve image elements
                     _currentImage = (FrameworkElement) FindName("Img2");
                     _nextImage = (FrameworkElement) FindName("Img3");
                     AddTransition(_currentImage, _nextImage); // Begin transition
-                    _currentHomeImage = HomePageImages.Img3; // Set next image as current
+                    Constants.CurrentHomeImage = HomePageImages.Img3; // Set next image as current
                     break;
                 case HomePageImages.Img3:
                     // Retrieve image elements
                     _currentImage = (FrameworkElement) FindName("Img3");
                     _nextImage = (FrameworkElement) FindName("Img1");
                     AddTransition(_currentImage, _nextImage); // Begin transition
-                    _currentHomeImage = HomePageImages.Img1; // Set next image as current
+                    Constants.CurrentHomeImage = HomePageImages.Img1; // Set next image as current
                     break;
             }
         }
@@ -605,7 +544,7 @@ namespace CCF_app
                 TransitionPresenter.Transition = transition;
             }
 
-            switch (_currentHomeImage)
+            switch (Constants.CurrentHomeImage)
             {
                 case HomePageImages.Img1:
                     // Retrieve image elements
@@ -613,7 +552,7 @@ namespace CCF_app
                     _nextImage = (FrameworkElement) FindName("Img3");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
-                    _currentHomeImage = HomePageImages.Img3; // Set next image as current
+                    Constants.CurrentHomeImage = HomePageImages.Img3; // Set next image as current
                     break;
                 case HomePageImages.Img2:
                     // Retrieve image elements
@@ -621,7 +560,7 @@ namespace CCF_app
                     _nextImage = (FrameworkElement) FindName("Img1");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
-                    _currentHomeImage = HomePageImages.Img1; // Set next image as current
+                    Constants.CurrentHomeImage = HomePageImages.Img1; // Set next image as current
                     break;
                 case HomePageImages.Img3:
                     // Retrieve image elements
@@ -629,7 +568,7 @@ namespace CCF_app
                     _nextImage = (FrameworkElement) FindName("Img2");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
-                    _currentHomeImage = HomePageImages.Img2; // Set next image as current
+                    Constants.CurrentHomeImage = HomePageImages.Img2; // Set next image as current
                     break;
             }
         }
@@ -722,11 +661,11 @@ namespace CCF_app
             {
                 CustomAmount.Visibility = Visibility.Visible;
                 CustomAmount.Opacity = 0;
-                CustomAmount.BeginAnimation(OpacityProperty, _da3);
+                CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
             }
             else
             {
-                CustomAmount.BeginAnimation(OpacityProperty, _da4);
+                CustomAmount.BeginAnimation(OpacityProperty, Constants.Da4);
                 CustomAmount.Visibility = Visibility.Collapsed;
             }
         }
@@ -885,15 +824,15 @@ namespace CCF_app
         private void VideoClicked_Event(object sender, MouseButtonEventArgs e)
         {
             var m = sender as MediaElement;
-            if (_playing)
+            if (Constants.Playing)
             {
                 if (m != null) m.Pause();
-                _playing = false;
+                Constants.Playing = false;
             }
             else
             {
                 if (m != null) m.Play();
-                _playing = true;
+                Constants.Playing = true;
             }
         }
 
@@ -941,7 +880,7 @@ namespace CCF_app
 
             CustomAmount.Visibility = Visibility.Visible;
             CustomAmount.Opacity = 0;
-            CustomAmount.BeginAnimation(OpacityProperty, _da3);
+            CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
         }
 
         private void GotFocux(object sender, TextChangedEventArgs e)
@@ -984,7 +923,7 @@ namespace CCF_app
 
                 CustomAmount.Visibility = Visibility.Visible;
                 CustomAmount.Opacity = 0;
-                CustomAmount.BeginAnimation(OpacityProperty, _da3);
+                CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
 
 
                 Donations_Instructions.Visibility = Visibility.Visible;
@@ -995,7 +934,7 @@ namespace CCF_app
             }
         }
 
-        private enum HomePageImages
+        public enum HomePageImages
         {
             Img1 = 1,
             Img2,
