@@ -77,15 +77,18 @@
                                     <ImageBrush ImageSource="Assets/Icons/pointer_red.png" />
                                 </Image.OpacityMask>
                             </Image>
-                            <TextBlock Grid.Row="0" Grid.Column="0" x:Name="DonatePage_Title" TextWrapping="Wrap" Text="Donate" FontSize="48"
+                            <TextBlock Grid.Row="0" Grid.Column="0" x:Name="DonatePage_Title" TextWrapping="Wrap"
+                                       Text="Donate" FontSize="48"
                                        HorizontalAlignment="Left" Margin="90,40.195,0,16.195"
                                        FontFamily="Segoe UI Light" FontWeight="Bold" d:LayoutOverrides="Height" />
                             <TextBlock TextWrapping="Wrap"
                                        Text="Play a part in the fight against child cancer and help us to continue to care for children with cancer."
                                        Margin="40,0,0,0" FontSize="29.333" FontFamily="Segoe UI Light"
-                                       Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                       Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
                                        Grid.Row="1" />
-                            <Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
+                            <Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0"
+                                  Grid.RowSpan="3"
                                   Visibility="Collapsed">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="1*" />
@@ -164,7 +167,8 @@
                                     </Grid>
                                 </Grid>
                                 <TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="100,20,50,0"
-                                           Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" FontSize="30" VerticalAlignment="Top"
+                                           Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" FontSize="30"
+                                           VerticalAlignment="Top"
                                            FontFamily="Segoe UI Light">
                                     <Run Text="Text" />
                                 </TextBlock>
@@ -190,7 +194,8 @@
                             <s:SurfaceButton x:Name="QrDonate_Button" Content="" Margin="-82.667,0,417.333,0"
                                              Click="QRDonate_Clicked" FontFamily="Segoe UI Light"
                                              VerticalAlignment="Center" HorizontalAlignment="Center"
-                                             Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" FontSize="26.667" Width="300"
+                                             Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
+                                             FontSize="26.667" Width="300"
                                              Height="300" Foreground="Black">
                                 <s:SurfaceButton.Background>
                                     <ImageBrush ImageSource="Assets/Icons/qr_donate.png" Stretch="Uniform" />
@@ -199,7 +204,8 @@
                             <s:SurfaceButton x:Name="TxtDonate_Button" Content="" Margin="417.333,0,-82.667,0"
                                              Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light"
                                              VerticalAlignment="Center" HorizontalAlignment="Center"
-                                             Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" FontSize="26.667" Width="300"
+                                             Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
+                                             FontSize="26.667" Width="300"
                                              Height="300">
                                 <s:SurfaceButton.Background>
                                     <ImageBrush ImageSource="Assets/Icons/mobile_donate.png" Stretch="Uniform" />
@@ -255,10 +261,12 @@
                                               Grid.ColumnSpan="2" MouseUp="VideoClicked_Event" Visibility="Collapsed" />
                                 <MediaElement x:Name="MyVideo2" LoadedBehavior="Manual" VerticalAlignment="Top"
                                               Source="\CCF_app\Assets\Videos\vid2.mp4"
-                                              Grid.ColumnSpan="2" Grid.Column="0" MouseUp="VideoClicked_Event" Visibility="Collapsed" />
+                                              Grid.ColumnSpan="2" Grid.Column="0" MouseUp="VideoClicked_Event"
+                                              Visibility="Collapsed" />
                                 <MediaElement x:Name="MyVideo3" LoadedBehavior="Manual" VerticalAlignment="Top"
                                               Source="\CCF_app\Assets\Videos\vid3.mp4"
-                                              Grid.ColumnSpan="2" Grid.Column="0" MouseUp="VideoClicked_Event" Visibility="Collapsed" />
+                                              Grid.ColumnSpan="2" Grid.Column="0" MouseUp="VideoClicked_Event"
+                                              Visibility="Collapsed" />
                                 <TextBlock x:Name="TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
                                            d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
                                     <InlineUIContainer>
@@ -276,14 +284,16 @@
                                 </TextBlock>
                             </Grid>
                         </ScrollViewer>
-                        <Image Grid.Row="0" x:Name="Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left" Stretch="Fill"
+                        <Image Grid.Row="0" x:Name="Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                               Stretch="Fill"
                                Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
                                d:LayoutOverrides="Height">
                             <Image.OpacityMask>
                                 <ImageBrush ImageSource="Assets/Icons/pointer_original.png" />
                             </Image.OpacityMask>
                         </Image>
-                        <TextBlock Grid.Row="0" x:Name="InformationPageTitle" TextWrapping="Wrap" Text="TextBlock" FontSize="48"
+                        <TextBlock Grid.Row="0" x:Name="InformationPageTitle" TextWrapping="Wrap" Text="TextBlock"
+                                   FontSize="48"
                                    HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
                                    FontFamily="Segoe UI Light" FontWeight="Bold" />
                     </Grid>
@@ -303,7 +313,8 @@
                                          VerticalContentAlignment="Center" BorderThickness="0"
                                          FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20"
                                          Click="OnHomePageClick" Background="#FF33B5E5" Height="140" Foreground="Black" />
-                        <Rectangle Grid.Column="0" x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40" Margin="2.5,0,2.5,40"
+                        <Rectangle Grid.Column="0" x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40"
+                                   Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" MouseLeftButtonUp="BtnRec_MouseUp" />
                         <s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
