@@ -592,35 +592,6 @@ namespace CCF_app
                     _currentHomeImage = HomePageImages.Img1; // Set next image as current
                     break;
             }
-
-            //backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeOut);
-            //if (currentImage == 2)
-            //{
-            //    currentImage = 0;
-            //}
-            //else
-            //{
-            //    currentImage++;
-            //}
-
-            //fadeOut.Completed += delegate(object sender1, EventArgs e1) {
-            //    //once the fadeout is complete set the new back ground and fade back in. 
-            //    //Create a new background brush. 
-            //    ImageBrush bgBrush = backgrounds[currentImage];
-
-            //    //Set the grid background to the new brush. 
-            //    ImageGrid.Background = bgBrush;
-
-            //    //Set the brush...(not the background property) with the animation.
-            //    bgBrush.BeginAnimation(Brush.OpacityProperty, fadeInAnimation);
-            //};
-
-            //fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
-            //backgrounds[currentImage].Opacity = 0;
-            //ImageGrid.Background.Opacity = 0;
-            //ImageGrid.Background = backgrounds[currentImage];
-            //Debug.WriteLine(backgrounds[currentImage].Opacity);
-            //backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
         }
 
         private void PreviousImage_MouseDown(object sender, MouseButtonEventArgs e)
@@ -661,21 +632,6 @@ namespace CCF_app
                     _currentHomeImage = HomePageImages.Img2; // Set next image as current
                     break;
             }
-
-            //if (currentImage == 0)
-            //{
-            //    currentImage = 2;
-            //}
-            //else
-            //{
-            //    currentImage--;
-            //}
-
-            //fadeIn = new DoubleAnimation(0.8, TimeSpan.FromMilliseconds(800));
-            //backgrounds[currentImage].Opacity = 0;
-            //ImageGrid.Background = backgrounds[currentImage];
-            //Debug.WriteLine(backgrounds[currentImage].Opacity);
-            //backgrounds[currentImage].BeginAnimation(Brush.OpacityProperty, fadeIn);
         }
 
         /// <summary>
