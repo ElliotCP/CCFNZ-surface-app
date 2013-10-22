@@ -379,6 +379,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding UserName}"
                 Grid.Column="0"  Padding="2" FontWeight="Bold" FontSize="20" Foreground="#4099FF" />
+                                        
                                         <TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="16"  Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2"/>
                                         <TextBlock Grid.Column="2" Name="textBlock_1" Text="{Binding TimeString}" Foreground="LightGray" FontSize="15"/>
                                     </Grid>
