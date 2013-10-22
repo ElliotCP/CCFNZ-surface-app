@@ -14,13 +14,14 @@
     <s:SurfaceWindow.Resources>
         <fluidControls:SlideTransition x:Key="SlideTransitioner" />
         
-        <Storyboard x:Key="SlideIn" >
-            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="1754,104,700,187" To="1754,104,0,187" DecelerationRatio=".9" />
+        <Storyboard x:Key="BoxSlideIn" >
+            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="0,105,0,186" To="0,105,-500,186" DecelerationRatio=".9" />
         </Storyboard>
 
-        <Storyboard x:Key="SlideOut">
-            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" To="1754,104,700,187" AccelerationRatio=".9"/>
+        <Storyboard x:Key="BoxSlideOut">
+            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" From="0,105,-500,186" To="0,105,0,186" AccelerationRatio=".9"/>
         </Storyboard>
+
     </s:SurfaceWindow.Resources>
        
     <Frame>

@@ -916,21 +916,20 @@ namespace CCF_app
 
         private void TwitterButtonClick(object sender, RoutedEventArgs e)
         {
-            if (OpenTwitterFeed.Visibility == System.Windows.Visibility.Collapsed)
-            {
-                CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
-                OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
-                this.TwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
-                //Storyboard storyboard = Resources["SlideOut"] as Storyboard;
-                //storyboard.Begin(OpenTwitterFeed);  
-            }
-            else
+            if (OpenTwitterFeed.Visibility == System.Windows.Visibility.Visible)
             {
                 CloseTwitterFeed.Visibility = System.Windows.Visibility.Visible;
                 OpenTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
                 this.TwitterFeed.Visibility = System.Windows.Visibility.Visible;
-                //Storyboard storyboard = Resources["SlideIn"] as Storyboard;
-                //storyboard.Begin(CloseTwitterFeed); 
+                Storyboard storyboard = Resources["BoxSlideOut"] as Storyboard;
+                storyboard.Begin(TweetList);
+            }
+            else
+            {
+                CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
+                OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
+                Storyboard storyboard = Resources["BoxSlideIn"] as Storyboard;
+                storyboard.Begin(TweetList); 
             }
         }
        
