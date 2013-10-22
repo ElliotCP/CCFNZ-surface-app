@@ -286,7 +286,7 @@ namespace CCF_app
                 // Interact with each of the finger touches.
                 foreach (TouchPoint touchPoint in e.GetTouchPoints(Viewbox))
                 {
-                    TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox);
+                    TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox); // First touch point on the ViewBox
                     if (touchPoint.Action == TouchAction.Down)
                     {
                         // Make sure the touches are captured from the viewbox.
@@ -366,6 +366,7 @@ namespace CCF_app
                         {
                             Viewbox.ReleaseTouchCapture(touchPoint.TouchDevice);
                         }
+                        // Release ImageGrid (Carousel) touch capture.
                         else if ((Equals(touchPoint.TouchDevice.Captured, ImageGrid)))
                         {
                             ImageGrid.ReleaseTouchCapture(touchPoint.TouchDevice);
