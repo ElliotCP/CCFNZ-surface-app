@@ -19,17 +19,30 @@ using TweetSharp;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace Twitter
 {
     /// <summary>
     /// Interaction logic for SurfaceWindow1.xaml
     /// </summary>
+    ///         
     public partial class SurfaceWindow1 : SurfaceWindow
     {
         /// <summary>
         /// Default constructor.
         /// </summary>
+        /// 
+        System.Windows.Threading.DispatcherTimer twitterTimer;
+        int TwitterRefreshRate = 10; 
+
+
+        private void twitterTimer_Tick(object sender, EventArgs e)
+        {
+         // Reload Twitter
+            GetTweets_Click();
+        }
+
         public SurfaceWindow1()
         {
             InitializeComponent();
@@ -41,6 +54,11 @@ namespace Twitter
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             TweetList.ItemsSource = _tweets;
+            // DispatcherTimer setup
+            twitterTimer = new System.Windows.Threading.DispatcherTimer();
+            twitterTimer.Tick += new EventHandler(twitterTimer_Tick);
+            twitterTimer.Interval = new TimeSpan(0, 0, this.TwitterRefreshRate);
+            twitterTimer.Start();
         }
 
         /// <summary>
@@ -110,8 +128,12 @@ namespace Twitter
         }
 
         private ObservableCollection<Tweet> _tweets = new ObservableCollection<Tweet>();
+        private void Set_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Hello");
+        }
 
-        private void GetTweets_Click(object sender, RoutedEventArgs e)
+        private void GetTweets_Click()
         {
             _tweets.Clear();
 
@@ -154,7 +176,6 @@ namespace Twitter
                         timeString = timeInt.ToString("N1") + " days ago";
                     }
 
-                    base.OnInitialized(e);
                     DataContext = this;
                     _tweets.Add(new Tweet("@" + name, status, image, timeString.Replace(".0", "")));
                     twitterCount++;
