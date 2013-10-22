@@ -15,6 +15,11 @@ using Image = System.Drawing.Image;
 using Point = System.Windows.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
 
+using System.Windows.Media.Animation;
+using System.Windows.Media.Media3D;
+using System.Windows.Media;
+using System.Collections.Generic;
+
 namespace CCF_app
 {
     /// <summary>
@@ -44,6 +49,22 @@ namespace CCF_app
 
         //Used to keep track of scrollviewer position, and to reset it when page switches
         private double _scrollViewerOffset = 0;
+
+        private double _angleBuffer = 0d;
+
+        // Globe texture image size
+        private static int _imageWidth = 1920;
+        private static int _imageHeight = 1200;
+
+        // Store data that will be displayed on the globe.
+        private List<DonatingPlace> _DonatingCities;
+
+        // Use these variables if the mouse is used to interact with the globe.
+        private bool _isMouseDown;
+        private Point _startPoint;
+
+        // Keeps track of the state of the globe.
+        bool isGlobeOpen = false;
 
         public MainWindow()
         {
@@ -77,6 +98,17 @@ namespace CCF_app
                     GlobalClickEventHandler();
             };
             Touch.FrameReported += Touch_FrameReported;
+
+            _DonatingCities = new List<DonatingPlace>(9);
+            _DonatingCities.Add(new DonatingPlace() { Name = "Auckland", AmountOfDonaters=200, Bound = new Rect(1893, 844.5, 30, 30) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Queenstown", AmountOfDonaters = 200, Bound = new Rect(1867.5, 892.5, 30, 30) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Malaysia", AmountOfDonaters = 200, Bound = new Rect(1506, 607.5, 30, 30) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Russia", AmountOfDonaters = 200, Bound = new Rect(1632, 192, 30, 30) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "France", AmountOfDonaters = 200, Bound = new Rect(984, 392.5, 30, 30) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Germany", AmountOfDonaters = 200, Bound = new Rect(1020, 261, 30, 30) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "United Kingdom", AmountOfDonaters = 200, Bound = new Rect(960, 250.5, 30, 30) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Indiana", AmountOfDonaters = 200, Bound = new Rect(541.5, 270, 30, 30) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Missouri", AmountOfDonaters = 200, Bound = new Rect(466.5, 321, 30, 30) });
         }
 
         /// <summary>
@@ -109,6 +141,7 @@ namespace CCF_app
 
             //screen saver
             ScreenSaver.Visibility = Visibility.Visible;
+            HideGlobe(); // Hide the globe when screensaver is activated.
         }
 
         /// <summary>
@@ -173,6 +206,7 @@ namespace CCF_app
             Home_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             _currentPage = Pages.Home;
+            HideGlobe(); // Hide globe if HomePage button is clicked
         }
 
         /// <summary>
@@ -201,6 +235,7 @@ namespace CCF_app
             Text1.Text = Constants.HelpText1;
             Text2.Text = Constants.HelpText2;
             _currentPage = Pages.Help;
+            HideGlobe(); // Hide globe if HelpPage button is clicked
         }
 
         /// <summary>
@@ -225,6 +260,7 @@ namespace CCF_app
             Text2.Text = Constants.SupportText2;
             Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.Support;
+            HideGlobe(); // Hide globe if SupportPage button is clicked
         }
 
         /// <summary>
@@ -250,6 +286,7 @@ namespace CCF_app
 
             Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.AboutUs;
+            HideGlobe(); // Hide globe if AboutUsPage button is clicked
         }
 
         /// <summary>
@@ -291,6 +328,7 @@ namespace CCF_app
 
             UncheckRadioButtons();
             _currentPage = Pages.Donate;
+            HideGlobe(); // Hide globe if DonatePage button is clicked
         }
 
         /// <summary>
@@ -299,28 +337,29 @@ namespace CCF_app
         /// </summary>
         private void Touch_FrameReported(object sender, TouchFrameEventArgs e)
         {
-            if (Viewbox != null)
+            if (isGlobeOpen)
             {
-                // Reset screensaver timer on touch interation as it previously only resetted on mouse interaction.
-                _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
-
-                // Interact with each of the finger touches.
-                foreach (TouchPoint touchPoint in e.GetTouchPoints(Viewbox))
+                var touchPoints = e.GetTouchPoints(viewport_globe);
+                if (touchPoints.Count >= 2 && touchPoints[0].Action == TouchAction.Up)
                 {
-                    TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox); // First touch point on the ViewBox
-                    if (touchPoint.Action == TouchAction.Down)
+                    this.TouchLine.X1 = touchPoints[0].Position.X;
+                    this.TouchLine.X2 = touchPoints[1].Position.X;
+                    this.TouchLine.Y1 = touchPoints[0].Position.Y;
+                    this.TouchLine.Y2 = touchPoints[1].Position.Y;
+                }
+            }
+            else
+            {
+                if (Viewbox != null)
+                {
+                    // Reset screensaver timer on touch interation as it previously only resetted on mouse interaction.
+                    _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
+
+                    // Interact with each of the finger touches.
+                    foreach (TouchPoint touchPoint in e.GetTouchPoints(Viewbox))
                     {
-                        // Make sure the touches are captured from the viewbox.
-                        // Might need to adjust depending on components that might affected by swipe gestures. - ASA
-                        touchPoint.TouchDevice.Capture(Viewbox);
-                        _initialTouchPoint.X = touchPoint.Position.X;
-                    }
-                    // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
-                    else if (touchPoint.Action == TouchAction.Move && e.GetPrimaryTouchPoint(Viewbox) != null)
-                    {
-                        // First finger touch.
-                        TouchPoint point = e.GetPrimaryTouchPoint(Viewbox);
-                        if (primaryTouchPoint != null && touchPoint.TouchDevice.Id == primaryTouchPoint.TouchDevice.Id)
+                        TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox); // First touch point on the ViewBox
+                        if (touchPoint.Action == TouchAction.Down)
                         {
                             if (_currentPage == Pages.Home)
                             {
@@ -346,53 +385,97 @@ namespace CCF_app
                                 PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
 
                             }
+                            // Make sure the touches are captured from the viewbox.
+                            // Might need to adjust depending on components that might affected by swipe gestures. - ASA
+                            touchPoint.TouchDevice.Capture(Viewbox);
+                            _initialTouchPoint.X = touchPoint.Position.X;
                         }
-                        // Perform second finger touch point.
-                        else
+                        // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
+                        else if (touchPoint.Action == TouchAction.Move && e.GetPrimaryTouchPoint(Viewbox) != null)
                         {
-                            if (point != null && touchPoint.TouchDevice.Id != point.TouchDevice.Id)
+                            // First finger touch.
+                            TouchPoint point = e.GetPrimaryTouchPoint(Viewbox);
+                            if (primaryTouchPoint != null && touchPoint.TouchDevice.Id == primaryTouchPoint.TouchDevice.Id)
                             {
-                                // _touchPoint is now the object of the second finger.
-                                if (!_alreadySwiped)
+                                if (_currentPage == Pages.Home)
                                 {
+                                    ReleaseAllTouchCaptures();
+                                    touchPoint.TouchDevice.Capture(ImageGrid);
                                     // Swipe Left with 50px threshold.
-                                    if (touchPoint.Position.X > (_initialTouchPoint.X + 50))
+                                    if (touchPoint.Position.X > (_initialTouchPoint.X - 100))
                                     {
-                                        SwitchPage(true); // Switch Pages
+                                        NextImage_MouseDown(null, null); // Transition to the next carousel image.
                                         _alreadySwiped = true;
                                     }
 
                                     // Swipe Right with 50px threshold.
-                                    if (touchPoint.Position.X < (_initialTouchPoint.X - 50))
+                                    if (touchPoint.Position.X < (_initialTouchPoint.X + 100))
                                     {
-                                        SwitchPage(false); // Switch pages.
+                                        PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
                                         _alreadySwiped = true;
+                                    }
+                                }
+                                else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
+                                {
+                                    ReleaseAllTouchCaptures();
+                                    // Offset the current position of scrollviewer
+                                    // HorizontalOffset is divided by 2.3 to keep the movement ratio 1:1
+                                    // with single finger touch. This value was calculated emperically.
+
+                                    PageDataScrollViewer.ScrollToHorizontalOffset((_initialTouchPoint.X - touchPoint.Position.X) * 1.72);
+                                    //PageDataScrollViewer.ScrollToHorizontalOffset(PageDataScrollViewer.HorizontalOffset + _initialTouchPoint.X - touchPoint.Position.X);
+
+                                }
+                            }
+                            // Perform second finger touch point.
+                            else
+                            {
+                                if (point != null && touchPoint.TouchDevice.Id != point.TouchDevice.Id)
+                                {
+                                    // _touchPoint is now the object of the second finger.
+                                    if (!_alreadySwiped)
+                                    {
+                                        // Swipe Left with 50px threshold.
+                                        if (touchPoint.Position.X > (_initialTouchPoint.X + 50))
+                                        {
+                                            SwitchPage(true); // Switch Pages
+                                            _alreadySwiped = true;
+                                        }
+
+                                        // Swipe Right with 50px threshold.
+                                        if (touchPoint.Position.X < (_initialTouchPoint.X - 50))
+                                        {
+                                            SwitchPage(false); // Switch pages.
+                                            _alreadySwiped = true;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    else if (touchPoint.Action == TouchAction.Up)
-                    {
-                        _alreadySwiped = false;
-                        // Release viewbox touch capture.
-                        if (Equals(touchPoint.TouchDevice.Captured, Viewbox))
+                        else if (touchPoint.Action == TouchAction.Up)
                         {
-                            Viewbox.ReleaseTouchCapture(touchPoint.TouchDevice);
-                        }
-                        // Release ImageGrid (Carousel) touch capture.
-                        else if ((Equals(touchPoint.TouchDevice.Captured, ImageGrid)))
-                        {
-                            ImageGrid.ReleaseTouchCapture(touchPoint.TouchDevice);
-                        }
-                        else if ((Equals(touchPoint.TouchDevice.Captured, PageDataScrollViewer)))
-                        {
-                            PageDataScrollViewer.ReleaseTouchCapture(touchPoint.TouchDevice);
-                        }
+                            _alreadySwiped = false;
+                            // Release viewbox touch capture.
+                            if (Equals(touchPoint.TouchDevice.Captured, Viewbox))
+                            {
+                                Viewbox.ReleaseTouchCapture(touchPoint.TouchDevice);
+                            }
+                            // Release ImageGrid (Carousel) touch capture.
+                            else if ((Equals(touchPoint.TouchDevice.Captured, ImageGrid)))
+                            {
+                                ImageGrid.ReleaseTouchCapture(touchPoint.TouchDevice);
+                            }
+                            else if ((Equals(touchPoint.TouchDevice.Captured, PageDataScrollViewer)))
+                            {
+                                PageDataScrollViewer.ReleaseTouchCapture(touchPoint.TouchDevice);
+                            }
 
                         // Update current position of scrollviewer
                         PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
                         _scrollViewerOffset = PageDataScrollViewer.HorizontalOffset;
+                            // Update current position of scrollviewer
+                            PageDataScrollViewer.UpdateLayout();
+                        }
                     }
                 }
             }
@@ -404,7 +487,6 @@ namespace CCF_app
         /// <param name="isSwipeLeft">When "true" swipe is left. When "false" swipe is right.</param>
         private void SwitchPage(bool isSwipeLeft)
         {
-            Debug.WriteLine(_currentPage);
             // Switch pages to the right.
             if (!isSwipeLeft)
             {
@@ -425,6 +507,7 @@ namespace CCF_app
                     case Pages.Donate:
                         // Comment this for non-cyclic page transition (i.e. back-and-forth) - ASA
                         OnHomePageClick(null, null);
+                        HideGlobe();
                         break;
                 }
             }
@@ -447,6 +530,7 @@ namespace CCF_app
                         OnHelpPageClick(null, null);
                         break;
                     case Pages.Donate:
+                        HideGlobe();
                         OnSupportPageClick(null, null);
                         break;
                 }
@@ -505,7 +589,7 @@ namespace CCF_app
         /// </summary>
         private void NextImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Changing image forwards");
+            //Debug.WriteLine("Changing image forwards");
             var transition = Resources["SlideTransitioner"] as SlideTransition;
             if (transition != null)
             {
@@ -547,7 +631,7 @@ namespace CCF_app
         /// </summary>
         private void PreviousImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Changing image backwards");
+            //Debug.WriteLine("Changing image backwards");
 
             var transition = Resources["SlideTransitioner"] as SlideTransition;
             if (transition != null)
@@ -908,6 +992,182 @@ namespace CCF_app
             CustomAmount.Visibility = Visibility.Visible;
             CustomAmount.Opacity = 0;
             CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
+        }
+
+        private void OnManipulationDelta(object sender, ManipulationDeltaEventArgs e)
+        {
+            scaleTransform.ScaleX *= e.DeltaManipulation.Scale.X;
+            scaleTransform.ScaleY *= e.DeltaManipulation.Scale.Y;
+            scaleTransform.ScaleZ *= e.DeltaManipulation.Scale.X;
+
+            this._angleBuffer++;
+            // To avoid screen slash and to save a few CPU resource, do not rotate the scene whenever a maniputation event occurs.
+            // Only rotate the scene if the angle cumulated enough.
+            if (_angleBuffer >= 0)
+            {
+                Vector delta = e.DeltaManipulation.Translation;
+                this.RotateGlobe(delta);
+            }
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// Rotate the global. Given 'delta' the distance the finger/mouse has moved. 
+        /// </summary>
+        private void RotateGlobe(Vector delta)
+        {
+            if (delta.X != 0 || delta.Y != 0)
+            {
+                // Convert delta to a 3D vector.
+                Vector3D vOriginal = new Vector3D(-delta.X, delta.Y, 0d);
+                Vector3D vZ = new Vector3D(0, 0, 1);
+                // Find a vector that is perpendicular with the delta vector on the XY surface. This will be the rotation axis.
+                Vector3D perpendicular = Vector3D.CrossProduct(vOriginal, vZ);
+                RotateTransform3D rotate = new RotateTransform3D();
+                // The QuaternionRotation3D allows you to easily specify a rotation axis.
+                QuaternionRotation3D quatenion = new QuaternionRotation3D();
+                quatenion.Quaternion = new Quaternion(perpendicular, 3);
+                rotate.Rotation = quatenion;
+                transformGroup.Children.Add(rotate);
+                _angleBuffer = 0;
+            }
+        }
+
+        /// <summary>
+        ///     On touch up. Check to see if the touch point matches the point of interest
+        ///     on the globe.
+        /// </summary>
+        private void OnTouchUp(object sender, TouchEventArgs e)
+        {
+            DoHitTest(e.GetTouchPoint(GlobeGrid).Position);
+        }
+
+        /// <summary>
+        ///     Check if a given point on the globe matches a point of interest.
+        /// </summary>
+        private void DoHitTest(Point point)
+        {
+            VisualTreeHelper.HitTest(GlobeGrid, null, new HitTestResultCallback(target =>
+            {
+                RayMeshGeometry3DHitTestResult result = target as RayMeshGeometry3DHitTestResult;
+                if (result != null)
+                {
+                    // Calculate the hit point using barycentric coordinates formula:
+                    // p = p1 * w1 + p2 * w2 + p3 * w3.
+                    // For more information, please refer to http://en.wikipedia.org/wiki/Barycentric_coordinates_%28mathematics%29.
+                    Point p1 = result.MeshHit.TextureCoordinates[result.VertexIndex1];
+                    Point p2 = result.MeshHit.TextureCoordinates[result.VertexIndex2];
+                    Point p3 = result.MeshHit.TextureCoordinates[result.VertexIndex3];
+                    double hitX = p1.X * result.VertexWeight1 + p2.X * result.VertexWeight2 + p3.X * result.VertexWeight3;
+                    double hitY = p1.Y * result.VertexWeight1 + p2.Y * result.VertexWeight2 + p3.Y * result.VertexWeight3;
+                    Point pointHit = new Point(hitX * _imageWidth, hitY * _imageHeight);
+                    //// If a data center circle is hit, display the information.
+                    foreach (DonatingPlace dc in this._DonatingCities)
+                    {
+                        if (dc.Bound.Contains(pointHit))
+                        {
+                            this.InfoTextBox.Text = "Number of donaters in " + dc.Name + " are "+dc.AmountOfDonaters;
+                            Storyboard sb = this.Resources["sb"] as Storyboard;
+                            if (sb != null)
+                            {
+                                sb.Begin();
+                            }
+                            return HitTestResultBehavior.Stop;
+                        }
+                    }
+                }
+                return HitTestResultBehavior.Continue;
+            }), new PointHitTestParameters(point));
+        }
+
+        // The following are event handlers for mouse simulation.
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _isMouseDown = true;
+            _startPoint = e.GetPosition(GlobeGrid);
+        }
+
+        /// <summary>
+        ///     If mouse is being used. Rotate globe on drag.
+        /// </summary>
+        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isMouseDown && MouseSimulationCheckBox.IsChecked.Value)
+            {
+                _angleBuffer++;
+                if (_angleBuffer >= 0)
+                {
+                    Point currentPoint = e.GetPosition(GlobeGrid);
+                    Vector delta = new Vector(currentPoint.X - _startPoint.X, currentPoint.Y - _startPoint.Y);
+                    RotateGlobe(delta);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     When the mouse button is clicked. Call method that checks if a point of interest
+        ///     on the globe is clicked.
+        /// </summary>
+        private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            this._isMouseDown = false;
+            if (MouseSimulationCheckBox.IsChecked.Value)
+            {
+                DoHitTest(e.GetPosition(GlobeGrid));
+            }
+        }
+
+        /// <summary>
+        ///     Zoom on Scroll if mouse is being used.
+        /// </summary>
+        private void Grid_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (MouseSimulationCheckBox.IsChecked.Value)
+            {
+                double delta = e.Delta > 0 ? 1.2 : 0.8;
+                scaleTransform.ScaleX *= delta;
+                scaleTransform.ScaleY *= delta;
+                scaleTransform.ScaleZ *= delta;
+            }
+        }
+
+        private void GlobeViewButton_Click(object sender, RoutedEventArgs e)
+        {
+        	DisplayGlobe();
+        }
+		
+        /// <summary>
+        ///     Call this method to display the globe and hide donate page elements.
+        /// </summary>
+		private void DisplayGlobe()
+		{
+            // Collapse Donation Page elements when the globe is displayed.
+            QrDonate_Button.Visibility = Visibility.Collapsed;
+			TxtDonate_Button.Visibility = Visibility.Collapsed;
+			ProgressGrid.Visibility = Visibility.Collapsed;
+            Donate_Grid.Visibility = Visibility.Collapsed;
+            Donation_Help.Visibility = Visibility.Collapsed;
+
+            GlobeGrid.Visibility = Visibility.Visible;
+            isGlobeOpen = true;
+		}
+
+        /// <summary>
+        ///     Call this method to hide the globe.
+        /// </summary>
+        private void HideGlobe()
+        {
+            GlobeGrid.Visibility = Visibility.Collapsed;
+            isGlobeOpen = false;
+        }
+
+		/// <summary>
+		/// 	Hide the globe and go back to the start of donate page.
+		/// </summary>
+        private void CloseGlobeButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	HideGlobe();
+			OnDonatePageClick(null, null);
         }
 
         // Provide the carousel images with an identifier for easy reference.

@@ -66,6 +66,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Sphere.cs" />
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -73,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DonatingPlace.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -126,6 +128,9 @@
     <Resource Include="Assets\Images\ScreenSaver.png" />
     <Resource Include="Assets\Images\VideoPlaceHolder.png" />
     <Resource Include="Assets\Icons\progressbar_foreground.jpg" />
+    <Resource Include="Map.png" />
+    <Resource Include="Assets\Images\worldmap_ori.jpg" />
+    <Resource Include="Assets\Images\worldmap.jpg" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
