@@ -245,8 +245,8 @@
                         <Grid.Background>
                             <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
                         </Grid.Background>
-                        <ScrollViewer Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
-                                      HorizontalScrollBarVisibility="Auto">
+                        <s:SurfaceScrollViewer x:Name="PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                      HorizontalScrollBarVisibility="Auto" PanningRatio="2" PanningDeceleration="10">
                             <Grid Background="#00000000" Margin="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
@@ -275,7 +275,7 @@
                                     </InlineUIContainer>
                                 </TextBlock>
                             </Grid>
-                        </ScrollViewer>
+                        </s:SurfaceScrollViewer>
                         <Image Grid.Row="0" x:Name="Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
                                Stretch="Fill"
                                Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"

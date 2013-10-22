@@ -286,7 +286,7 @@ namespace CCF_app
                 // Interact with each of the finger touches.
                 foreach (TouchPoint touchPoint in e.GetTouchPoints(Viewbox))
                 {
-                    TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox); // First touch point on the ViewBox
+                    TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox);
                     if (touchPoint.Action == TouchAction.Down)
                     {
                         // Make sure the touches are captured from the viewbox.
@@ -294,7 +294,7 @@ namespace CCF_app
                         touchPoint.TouchDevice.Capture(Viewbox);
                         _initialTouchPoint.X = touchPoint.Position.X;
                     }
-                        // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
+                    // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
                     else if (touchPoint.Action == TouchAction.Move && e.GetPrimaryTouchPoint(Viewbox) != null)
                     {
                         // First finger touch.
@@ -306,21 +306,34 @@ namespace CCF_app
                                 ReleaseAllTouchCaptures();
                                 touchPoint.TouchDevice.Capture(ImageGrid);
                                 // Swipe Left with 50px threshold.
-                                if (touchPoint.Position.X > (_initialTouchPoint.X + 50))
+                                if (touchPoint.Position.X > (_initialTouchPoint.X - 100))
                                 {
                                     NextImage_MouseDown(null, null); // Transition to the next carousel image.
                                     _alreadySwiped = true;
                                 }
 
                                 // Swipe Right with 50px threshold.
-                                if (touchPoint.Position.X < (_initialTouchPoint.X - 50))
+                                if (touchPoint.Position.X < (_initialTouchPoint.X + 100))
                                 {
                                     PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
                                     _alreadySwiped = true;
                                 }
                             }
+                            else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
+                            {
+                                ReleaseAllTouchCaptures();
+                                // Offset the current position of scrollviewer
+                                // HorizontalOffset is divided by 2.3 to keep the movement ratio 1:1
+                                // with single finger touch. This value was calculated emperically.
+
+                                Debug.WriteLine(PageDataScrollViewer.HorizontalOffset);
+
+                                PageDataScrollViewer.ScrollToHorizontalOffset((_initialTouchPoint.X - touchPoint.Position.X) * 1.72);
+                                //PageDataScrollViewer.ScrollToHorizontalOffset(PageDataScrollViewer.HorizontalOffset + _initialTouchPoint.X - touchPoint.Position.X);
+
+                            }
                         }
-                            // Perform second finger touch point.
+                        // Perform second finger touch point.
                         else
                         {
                             if (point != null && touchPoint.TouchDevice.Id != point.TouchDevice.Id)
@@ -353,11 +366,17 @@ namespace CCF_app
                         {
                             Viewbox.ReleaseTouchCapture(touchPoint.TouchDevice);
                         }
-                            // Release ImageGrid (Carousel) touch capture.
                         else if ((Equals(touchPoint.TouchDevice.Captured, ImageGrid)))
                         {
                             ImageGrid.ReleaseTouchCapture(touchPoint.TouchDevice);
                         }
+                        else if ((Equals(touchPoint.TouchDevice.Captured, PageDataScrollViewer)))
+                        {
+                            PageDataScrollViewer.ReleaseTouchCapture(touchPoint.TouchDevice);
+                        }
+
+                        // Update current position of scrollviewer
+                        PageDataScrollViewer.UpdateLayout();
                     }
                 }
             }
