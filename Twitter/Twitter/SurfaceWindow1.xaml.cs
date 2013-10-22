@@ -113,41 +113,52 @@ namespace Twitter
 
         private void GetTweets_Click(object sender, RoutedEventArgs e)
         {
+            _tweets.Clear();
+
+            int twitterCount =0; 
             var service = new TwitterService("gdszkrjT9BXALsntZI3BxQ", "ltpb4xzjzxRf1w9Sq6wqhwOBfDNCKpWDcUkQyth5MeE");
             service.AuthenticateWith("1966078789-R92gYWO9THXuYJ5uE6DkifcQ9mDLEZFT6dgUcuH", "g3Jb0b8BSt4CgSDrWJMatw6DaXwtocPk4kMhX52jnq4");
 
             var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
+
+
             foreach (var tweet in tweets)
             {
-                //Console.WriteLine("{0} says '{1}'", tweet.User.ScreenName, tweet.Text);
-                //TextStatus = tweet.User.ScreenName;
-                //Profileimage = tweet.User.ProfileImageUrl;
+                
+                if (twitterCount < 6)
+                {
+                    String name = tweet.User.ScreenName;
+                    String status = tweet.Text;
+                    String timeString;
+                    Uri image = new Uri(tweet.User.ProfileImageUrl);
+                    DateTime time = tweet.CreatedDate.ToLocalTime();
+                    TimeSpan timePassed = DateTime.Now.Subtract(time);
+                    if (timePassed.TotalSeconds < 60)
+                    {
+                        int timeInt = (int)(Math.Floor(timePassed.TotalSeconds));
+                        timeString = timeInt.ToString("N0") + " seconds ago";
+                    }
+                    else if (timePassed.TotalMinutes < 60)
+                    {
+                        int timeInt = (int)(Math.Floor(timePassed.TotalMinutes));
+                        timeString = timeInt.ToString("N0") + " minutes ago";
+                    }
+                    else if (timePassed.TotalHours < 24)
+                    {
+                        int timeInt = (int)Math.Floor(timePassed.TotalHours);
+                        timeString = timeInt.ToString("N1") + " hours ago";
+                    }
+                    else
+                    {
+                        int timeInt = (int)(Math.Floor(timePassed.TotalDays));
+                        timeString = timeInt.ToString("N1") + " days ago";
+                    }
 
-                //_tweets.Add(new Tweet(tweet.User.ScreenName, tweet.Text, tweet.User.ProfileImageUrl));
-                //Uri image = GetPicture(tweet.User.ProfileImageUrl);
-
-                String name = tweet.User.ScreenName;
-                String status = tweet.Text;
-                String timeString;
-                Uri image = new Uri(tweet.User.ProfileImageUrl);
-                DateTime time = tweet.CreatedDate.ToLocalTime();
-                TimeSpan timePassed = DateTime.Now.Subtract(time);
-                if (timePassed.TotalSeconds < 60){
-                   int timeInt=(int)(Math.Floor(timePassed.TotalSeconds));
-                    timeString = timeInt.ToString("N0") + " seconds ago";}
-                else if (timePassed.TotalMinutes < 60){
-                    int timeInt = (int)(Math.Floor(timePassed.TotalMinutes));
-                    timeString = timeInt.ToString("N0") + " minutes ago";}
-                else if (timePassed.TotalHours < 24) {
-                    int timeInt = (int)Math.Floor(timePassed.TotalHours);
-                    timeString = timeInt.ToString("N1") + " hours ago";}
-                else {
-                    int timeInt = (int)(Math.Floor(timePassed.TotalDays));
-                    timeString = timeInt.ToString("N1") + " days ago";}
-
-                base.OnInitialized(e);
-                DataContext = this;
-                _tweets.Add(new Tweet("@"+name, status, image, timeString.Replace(".0","")));
+                    base.OnInitialized(e);
+                    DataContext = this;
+                    _tweets.Add(new Tweet("@" + name, status, image, timeString.Replace(".0", "")));
+                    twitterCount++;
+                }
             }
         }
     }
