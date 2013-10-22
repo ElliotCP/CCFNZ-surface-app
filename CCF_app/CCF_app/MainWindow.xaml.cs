@@ -42,6 +42,9 @@ namespace CCF_app
         // Used to prevent a long swipe from being processed as multiple smaller swipes.
         private bool _alreadySwiped;
 
+        //Used to keep track of scrollviewer position, and to reset it when page switches
+        private double _scrollViewerOffset = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -164,6 +167,8 @@ namespace CCF_app
             Unanimate();
             CollapseAllPages();
 
+            ResetScrollViewerPosition(); //reset scrollviewer back to original position
+
             HomePage.Visibility = Visibility.Visible;
             Home_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
@@ -178,6 +183,8 @@ namespace CCF_app
             //transition effects
             Unanimate();
             CollapseAllPages();
+
+            ResetScrollViewerPosition(); //reset scrollviewer back to original position
 
             //loading and playing video            
             MyVideo1.NavigateToString(Constants.YoutubeVideo_Help);
@@ -204,6 +211,8 @@ namespace CCF_app
             Unanimate();
             CollapseAllPages();
 
+            ResetScrollViewerPosition(); //reset scrollviewer back to original position
+
             MyVideo2.NavigateToString(Constants.YoutubeVideo_Support);
             MyVideo2.Visibility = Visibility.Visible;
 
@@ -225,6 +234,8 @@ namespace CCF_app
         {
             Unanimate();
             CollapseAllPages();
+
+            ResetScrollViewerPosition(); //reset scrollviewer back to original position
 
             MyVideo3.NavigateToString(Constants.YoutubeVideo_About);
             MyVideo3.Visibility = Visibility.Visible;
@@ -248,6 +259,8 @@ namespace CCF_app
         {
             Unanimate();
             CollapseAllPages();
+
+            ResetScrollViewerPosition(); //reset scrollviewer back to original position
 
             DonatePage_Pointer.Source =
                 new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
@@ -330,14 +343,7 @@ namespace CCF_app
                             else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
                             {
                                 ReleaseAllTouchCaptures();
-                                // Offset the current position of scrollviewer
-                                // HorizontalOffset is divided by 2.3 to keep the movement ratio 1:1
-                                // with single finger touch. This value was calculated emperically.
-
-                                Debug.WriteLine(PageDataScrollViewer.HorizontalOffset);
-
-                                PageDataScrollViewer.ScrollToHorizontalOffset((_initialTouchPoint.X - touchPoint.Position.X) * 1.72);
-                                //PageDataScrollViewer.ScrollToHorizontalOffset(PageDataScrollViewer.HorizontalOffset + _initialTouchPoint.X - touchPoint.Position.X);
+                                PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
 
                             }
                         }
@@ -385,7 +391,8 @@ namespace CCF_app
                         }
 
                         // Update current position of scrollviewer
-                        PageDataScrollViewer.UpdateLayout();
+                        PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
+                        _scrollViewerOffset = PageDataScrollViewer.HorizontalOffset;
                     }
                 }
             }
@@ -732,6 +739,15 @@ namespace CCF_app
         private void ProgressBarTimer_Tick(object sender, EventArgs e)
         {
             UpdateProgressBarAndText(_currentDonationAmount);
+        }
+
+        /// <summary>
+        /// Resets the scrollviewer to original position (far left)
+        /// </summary>
+        private void ResetScrollViewerPosition()
+        {
+            _scrollViewerOffset = 0;
+            PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset);
         }
 
         /// <summary>
