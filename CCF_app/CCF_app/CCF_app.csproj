@@ -125,6 +125,7 @@
     <Resource Include="Assets\Icons\qr_donate.png" />
     <Resource Include="Assets\Images\ScreenSaver.png" />
     <Resource Include="Assets\Images\VideoPlaceHolder.png" />
+    <Resource Include="Assets\Icons\progressbar_foreground.jpg" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

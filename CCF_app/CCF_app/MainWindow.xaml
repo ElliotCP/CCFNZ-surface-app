@@ -18,7 +18,7 @@
         <Frame.Content>
             <Viewbox x:Name="Viewbox">
                 <Grid Height="1041" Width="1904">
-                    <Grid x:Name="HomePage" Margin="0">
+                    <Grid x:Name="HomePage" Margin="0" d:IsHidden="True">
                         <Grid.Background>
                             <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
                         </Grid.Background>
@@ -56,7 +56,7 @@
                             <!-- Add following tags for auto image rotation after x:Name. RestDuration="0:0:5" for image switch every 5 seconds and IsLooped=true  -->
                         </Grid>
                     </Grid>
-                    <Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
+                    <Grid x:Name="DonatePage" Margin="0">
                         <Grid.Background>
                             <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
                         </Grid.Background>
@@ -225,7 +225,26 @@
                                     </StatusBarItem.Resources>
                                     <ProgressBar x:Name="DonationProgress_Bar" Height="40" Margin="8,0,8,46"
                                                  Minimum="0" Maximum="100" Value="60" Width="602.667"
-                                                 Background="White" VerticalAlignment="Bottom" Foreground="#FFCC0000" />
+                                                 Background="#FFCCC7C7" VerticalAlignment="Bottom" Foreground="#FF99CC00">
+                                    	<ProgressBar.Template>
+							                <ControlTemplate>
+							                    <Grid Background="{TemplateBinding Background}">
+							                        <Rectangle Name="PART_Track"/>
+							                        <Rectangle Name="PART_Indicator" HorizontalAlignment="Left" Fill="{TemplateBinding Foreground}">
+							                        	<!--
+														To change to image, uncomment the Rectangle.Fill tag and remove
+														Fill="{TemplateBinding Foreground} from Rectangle properties
+														-->
+														<!--
+							                        	<Rectangle.Fill>
+							                        		<ImageBrush ImageSource="Assets/Icons/progressbar_foreground.jpg"/>
+														</Rectangle.Fill>
+														-->
+							                        </Rectangle>
+							                    </Grid>
+							                </ControlTemplate>
+							            </ProgressBar.Template>
+                                    </ProgressBar>
                                 </StatusBarItem>
 
                                 <TextBlock x:Name="DonateProgressText" TextWrapping="Wrap" FontSize="24" Height="40"
