@@ -14,6 +14,7 @@ using Microsoft.Surface;
 using Image = System.Drawing.Image;
 using Point = System.Windows.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
+using System.Windows.Media.Animation;
 
 namespace CCF_app
 {
@@ -919,11 +920,15 @@ namespace CCF_app
             {
                 CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
                 OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
+                Storyboard storyboard = Resources["SlideOut"] as Storyboard;
+                storyboard.Begin(OpenTwitterFeed);  
             }
             else
             {
                 CloseTwitterFeed.Visibility = System.Windows.Visibility.Visible;
                 OpenTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
+                Storyboard storyboard = Resources["SlideIn"] as Storyboard;
+                storyboard.Begin(CloseTwitterFeed); 
             }
         }
        

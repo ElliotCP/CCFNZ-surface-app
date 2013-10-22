@@ -13,7 +13,16 @@
     Height="1080">
     <s:SurfaceWindow.Resources>
         <fluidControls:SlideTransition x:Key="SlideTransitioner" />
+        
+        <Storyboard x:Key="SlideIn" >
+            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="1754,104,700,187" To="1754,104,0,187" DecelerationRatio=".9" />
+        </Storyboard>
+
+        <Storyboard x:Key="SlideOut">
+            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" To="1754,104,700,187" AccelerationRatio=".9"/>
+        </Storyboard>
     </s:SurfaceWindow.Resources>
+       
     <Frame>
         <Frame.Content>
             <Viewbox x:Name="Viewbox">
@@ -352,8 +361,10 @@
                     <Button x:Name="CloseTwitterFeed" Margin="1754,104,0,187"  Click="TwitterButtonClick" Visibility="Collapsed">
                         <Image Source="Assets/Icons/HideFeed.png" Height="750" Width="150"  />
                     </Button>
+                    
                 </Grid>
             </Viewbox>
+            
         </Frame.Content>
     </Frame>
 </s:SurfaceWindow>
