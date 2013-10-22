@@ -90,8 +90,8 @@ namespace CCF_app
         private const string Prefix = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed";
         private const string Suffix = "?html5=1&controls=2&showinfo=0&showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
         public const string YoutubeVideo_About = Prefix + "/JCq-k3BBn68" + Suffix;
-        public const string YoutubeVideo_Help = Prefix + "rvQi43wwR_4" + Suffix;
-        public const string YoutubeVideo_Support = Prefix + "SF4Umzs1wWU" + Suffix;
+        public const string YoutubeVideo_Help = Prefix + "/rvQi43wwR_4" + Suffix;
+        public const string YoutubeVideo_Support = Prefix + "/SF4Umzs1wWU" + Suffix;
 
     }
 }
