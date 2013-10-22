@@ -346,10 +346,10 @@
                             <Image.Source>Assets/Images/ScreenSaver.png</Image.Source>
                         </Image>
                     </Grid>
-                    <Button x:Name="OpenTwitterFeed" Margin="1754,104,0,187"  Click="TwitterButtonClick" Visibility="Collapsed">
+                    <Button x:Name="OpenTwitterFeed" Margin="1754,104,0,187"  Click="TwitterButtonClick" Visibility="Visible">
                         <Image Source="Assets/Icons/ShowFeed.png" Height="750" Width="150"  />
                     </Button>
-                    <Button x:Name="CloseTwitterFeed" Margin="1754,104,0,187"  Click="TwitterButtonClick" Visibility="Visible">
+                    <Button x:Name="CloseTwitterFeed" Margin="1754,104,0,187"  Click="TwitterButtonClick" Visibility="Collapsed">
                         <Image Source="Assets/Icons/HideFeed.png" Height="750" Width="150"  />
                     </Button>
                 </Grid>
