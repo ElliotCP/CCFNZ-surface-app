@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CCF_app
 {
+    //Create a data item class for the tweet items for TweetList
     public class Tweet
     {
 

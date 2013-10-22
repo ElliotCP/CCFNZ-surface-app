@@ -27,10 +27,10 @@ namespace CCF_app
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-        
+
     public partial class MainWindow
     {
-        
+
         //used in screen saver
         private readonly DispatcherTimer _timer;
 
@@ -174,17 +174,17 @@ namespace CCF_app
         /// <summary>
         ///     This is called when the user can interact with the application's window.
         /// </summary>
-        private void OnWindowInteractive(object sender, EventArgs e) {   }
+        private void OnWindowInteractive(object sender, EventArgs e) { }
 
         /// <summary>
         ///     This is called when the user can see but not interact with the application's window.
         /// </summary>
-        private void OnWindowNoninteractive(object sender, EventArgs e) {   }
+        private void OnWindowNoninteractive(object sender, EventArgs e) { }
 
         /// <summary>
         ///     This is called when the application's window is not visible or interactive.
         /// </summary>
-        private void OnWindowUnavailable(object sender, EventArgs e) {   }
+        private void OnWindowUnavailable(object sender, EventArgs e) { }
 
         /// <summary>
         ///     This is called when the homepage button is clicked
@@ -204,7 +204,7 @@ namespace CCF_app
         ///     displays the "how you I can help" page
         /// </summary>
         private void OnHelpPageClick(object sender, EventArgs e)
-        {            
+        {
             //transition effects
             Unanimate();
             CollapseAllPages();
@@ -420,7 +420,7 @@ namespace CCF_app
                 }
             }
         }
-        
+
         /// <summary>
         ///     Transition page to the next depending on the direction of swipe.
         /// </summary>
@@ -451,7 +451,7 @@ namespace CCF_app
                         break;
                 }
             }
-                // Switch pages to the left.
+            // Switch pages to the left.
             else
             {
                 switch (_currentPage)
@@ -493,7 +493,7 @@ namespace CCF_app
 
             MyVideo1.Visibility = Visibility.Collapsed;
             MyVideo1.NavigateToString("about:blank");
-         
+
             MyVideo2.Visibility = Visibility.Collapsed;
             MyVideo2.NavigateToString("about:blank");
 
@@ -543,22 +543,22 @@ namespace CCF_app
             {
                 case HomePageImages.Img1:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("Img1");
-                    _nextImage = (FrameworkElement) FindName("Img2");
+                    _currentImage = (FrameworkElement)FindName("Img1");
+                    _nextImage = (FrameworkElement)FindName("Img2");
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     Constants.CurrentHomeImage = HomePageImages.Img2; // Set next image as current
                     break;
                 case HomePageImages.Img2:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("Img2");
-                    _nextImage = (FrameworkElement) FindName("Img3");
+                    _currentImage = (FrameworkElement)FindName("Img2");
+                    _nextImage = (FrameworkElement)FindName("Img3");
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     Constants.CurrentHomeImage = HomePageImages.Img3; // Set next image as current
                     break;
                 case HomePageImages.Img3:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("Img3");
-                    _nextImage = (FrameworkElement) FindName("Img1");
+                    _currentImage = (FrameworkElement)FindName("Img3");
+                    _nextImage = (FrameworkElement)FindName("Img1");
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     Constants.CurrentHomeImage = HomePageImages.Img1; // Set next image as current
                     break;
@@ -586,24 +586,24 @@ namespace CCF_app
             {
                 case HomePageImages.Img1:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("Img1");
-                    _nextImage = (FrameworkElement) FindName("Img3");
+                    _currentImage = (FrameworkElement)FindName("Img1");
+                    _nextImage = (FrameworkElement)FindName("Img3");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     Constants.CurrentHomeImage = HomePageImages.Img3; // Set next image as current
                     break;
                 case HomePageImages.Img2:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("Img2");
-                    _nextImage = (FrameworkElement) FindName("Img1");
+                    _currentImage = (FrameworkElement)FindName("Img2");
+                    _nextImage = (FrameworkElement)FindName("Img1");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     Constants.CurrentHomeImage = HomePageImages.Img1; // Set next image as current
                     break;
                 case HomePageImages.Img3:
                     // Retrieve image elements
-                    _currentImage = (FrameworkElement) FindName("Img3");
-                    _nextImage = (FrameworkElement) FindName("Img2");
+                    _currentImage = (FrameworkElement)FindName("Img3");
+                    _nextImage = (FrameworkElement)FindName("Img2");
 
                     AddTransition(_currentImage, _nextImage); // Begin transition
                     Constants.CurrentHomeImage = HomePageImages.Img2; // Set next image as current
@@ -616,7 +616,7 @@ namespace CCF_app
         /// </summary>
         private void BtnRec_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            var rec = (Rectangle) sender;
+            var rec = (Rectangle)sender;
             string x = rec.Name;
             switch (x)
             {
@@ -779,7 +779,7 @@ namespace CCF_app
         private void QRDonate_Clicked(object sender, RoutedEventArgs e)
         {
             if (_donationMethod != null)
-                //changing the visibiltiy of the instructions depending on if a radio button has been pressed before
+            //changing the visibiltiy of the instructions depending on if a radio button has been pressed before
             {
                 Donation_Help.Visibility = Visibility.Visible;
                 _donationMethod = "QR";
@@ -809,7 +809,7 @@ namespace CCF_app
         private void TxtDonate_Clicked(object sender, RoutedEventArgs e)
         {
             if (_donationMethod != null)
-                //changing the visibiltiy of the instructions depending on if a radio button has been pressed before
+            //changing the visibiltiy of the instructions depending on if a radio button has been pressed before
             {
                 Donation_Help.Visibility = Visibility.Visible;
                 _donationMethod = "Txt";
@@ -958,13 +958,15 @@ namespace CCF_app
                 CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
                 OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
                 Storyboard storyboard = Resources["BoxSlideIn"] as Storyboard;
-                storyboard.Begin(TweetList); 
+                storyboard.Begin(TweetList);
             }
         }
 
         private ObservableCollection<Tweet> _tweets = new ObservableCollection<Tweet>();
         private void GetTweets_Click()
         {
+
+
             _tweets.Clear();
             int twitterCount = 0;
             var service = new TwitterService("gdszkrjT9BXALsntZI3BxQ", "ltpb4xzjzxRf1w9Sq6wqhwOBfDNCKpWDcUkQyth5MeE");
@@ -972,44 +974,53 @@ namespace CCF_app
 
             var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
 
-
-            foreach (var tweet in tweets)
+            try
             {
-
-                if (twitterCount < 6)
+                foreach (var tweet in tweets)
                 {
-                    String name = tweet.User.ScreenName;
-                    String status = tweet.Text;
-                    String timeString;
-                    Uri image = new Uri(tweet.User.ProfileImageUrl);
-                    DateTime time = tweet.CreatedDate.ToLocalTime();
-                    TimeSpan timePassed = DateTime.Now.Subtract(time);
-                    if (timePassed.TotalSeconds < 60)
-                    {
-                        int timeInt = (int)(Math.Floor(timePassed.TotalSeconds));
-                        timeString = timeInt.ToString("N0") + " seconds ago";
-                    }
-                    else if (timePassed.TotalMinutes < 60)
-                    {
-                        int timeInt = (int)(Math.Floor(timePassed.TotalMinutes));
-                        timeString = timeInt.ToString("N0") + " minutes ago";
-                    }
-                    else if (timePassed.TotalHours < 24)
-                    {
-                        int timeInt = (int)Math.Floor(timePassed.TotalHours);
-                        timeString = timeInt.ToString("N1") + " hours ago";
-                    }
-                    else
-                    {
-                        int timeInt = (int)(Math.Floor(timePassed.TotalDays));
-                        timeString = timeInt.ToString("N1") + " days ago";
-                    }
 
-                    DataContext = this;
-                    _tweets.Add(new Tweet("@" + name, status, timeString.Replace(".0", "")));
-                    twitterCount++;
+                    if (twitterCount < 6)
+                    {
+                        String name = tweet.User.ScreenName;
+                        String status = tweet.Text;
+                        String timeString;
+                        Uri image = new Uri(tweet.User.ProfileImageUrl);
+                        DateTime time = tweet.CreatedDate.ToLocalTime();
+                        TimeSpan timePassed = DateTime.Now.Subtract(time);
+                        if (timePassed.TotalSeconds < 60)
+                        {
+                            int timeInt = (int)(Math.Floor(timePassed.TotalSeconds));
+                            timeString = timeInt.ToString("N0") + " seconds ago";
+                        }
+                        else if (timePassed.TotalMinutes < 60)
+                        {
+                            int timeInt = (int)(Math.Floor(timePassed.TotalMinutes));
+                            timeString = timeInt.ToString("N0") + " minutes ago";
+                        }
+                        else if (timePassed.TotalHours < 24)
+                        {
+                            int timeInt = (int)Math.Floor(timePassed.TotalHours);
+                            timeString = timeInt.ToString("N1") + " hours ago";
+                        }
+                        else
+                        {
+                            int timeInt = (int)(Math.Floor(timePassed.TotalDays));
+                            timeString = timeInt.ToString("N1") + " days ago";
+                        }
+
+                        DataContext = this;
+                        _tweets.Add(new Tweet("@" + name, status, timeString.Replace(".0", "")));
+                        twitterCount++;
+                    }
                 }
+
+
             }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("NOOOOOOOOOOO");
+            }
+
         }
     }
 }
