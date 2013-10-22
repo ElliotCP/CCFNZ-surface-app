@@ -245,8 +245,7 @@
                         <Grid.Background>
                             <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
                         </Grid.Background>
-                        <ScrollViewer Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
-                                      HorizontalScrollBarVisibility="Auto">
+                        <s:SurfaceScrollViewer Margin="0" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden">
                             <Grid Background="#00000000" Margin="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
@@ -256,24 +255,18 @@
                                 </Grid.ColumnDefinitions>
                                 <WebBrowser x:Name="MyVideo1" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
                                 <WebBrowser x:Name="MyVideo2" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
-                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>                                    
+                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
                                 <TextBlock x:Name="TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
-                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
-                                    <InlineUIContainer>
+                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light"><InlineUIContainer>
                                         <TextBlock x:Name="Text1" TextWrapping="Wrap" Text="TextBlock" />
-                                    </InlineUIContainer>
-                                </TextBlock>
+                                    </InlineUIContainer></TextBlock>
                                 <TextBlock x:Name="TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
-                                           FontFamily="Segoe UI Light" Grid.Column="3">
-                                    <Run Text="" />
-                                    <InlineUIContainer>
-                                        <TextBlock x:Name="Text2" TextWrapping="Wrap">
-                                            <Run Language="en-nz" Text="Text block" />
-                                        </TextBlock>
-                                    </InlineUIContainer>
-                                </TextBlock>
+                                           FontFamily="Segoe UI Light" Grid.Column="3"><Run Text="" /><Run Text=" "/><InlineUIContainer>
+                                        <TextBlock x:Name="Text2" TextWrapping="Wrap"><Run Language="en-nz" Text="Text block" /></TextBlock>
+                                    </InlineUIContainer></TextBlock>
                             </Grid>
-                        </ScrollViewer>
+
+                        </s:SurfaceScrollViewer>                       
                         <Image Grid.Row="0" x:Name="Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
                                Stretch="Fill"
                                Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
