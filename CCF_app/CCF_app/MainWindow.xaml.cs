@@ -938,6 +938,8 @@ namespace CCF_app
             }
         }
 
+        string prev_donation_text = "";
+        double donation_amount = 0;
         /// <summary>
         ///     When text is entered into the custom donation textbox, update the donation 
         ///     QRCode or the call number depending on current payment selected.
@@ -960,6 +962,8 @@ namespace CCF_app
 
             try // Try and convert custom donation amount to integer
             {
+                prev_donation_text = Donation_CustomAmount.Text;
+                donation_amount = Convert.ToInt32(Donation_CustomAmount.Text);
             }
             catch (FormatException) // Donation amount entered is not a number so resolve the issue.
             {
