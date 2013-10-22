@@ -30,7 +30,7 @@ namespace CCF_app
 
         //used for delay in progressbar
         private readonly DispatcherTimer _progressBarTimer;
-        private int currentDonationAmount;
+        private int _currentDonationAmount;
 
         //donation bar variables
         private string _donationMethod = "";
@@ -650,7 +650,7 @@ namespace CCF_app
                 else
                 {
                     // Remove "$" character that gets inherited from retrieving name/value of the donation option selected.
-                    currentDonationAmount = Convert.ToInt32(donationAmount.Replace("$", ""));
+                    _currentDonationAmount = Convert.ToInt32(donationAmount.Replace("$", ""));
                     _progressBarTimer.Interval = new TimeSpan(0, 0, Constants.ProgressBarWaitTime); //just in case we paused last time, reset the timer anyway
                     _progressBarTimer.Start();
                     String qrCodeContent = donationServer + "/?amount=" + donationAmount;
@@ -731,7 +731,7 @@ namespace CCF_app
         /// </summary>
         private void ProgressBarTimer_Tick(object sender, EventArgs e)
         {
-            UpdateProgressBarAndText(currentDonationAmount);
+            UpdateProgressBarAndText(_currentDonationAmount);
         }
 
         /// <summary>
@@ -838,8 +838,6 @@ namespace CCF_app
             }
         }
 
-        string prev_donation_text = "";
-        double donation_amount = 0;
         /// <summary>
         ///     When text is entered into the custom donation textbox, update the donation 
         ///     QRCode or the call number depending on current payment selected.
@@ -862,8 +860,6 @@ namespace CCF_app
 
             try // Try and convert custom donation amount to integer
             {
-                prev_donation_text = Donation_CustomAmount.Text;
-                donation_amount = Convert.ToInt32(Donation_CustomAmount.Text);
             }
             catch (FormatException) // Donation amount entered is not a number so resolve the issue.
             {

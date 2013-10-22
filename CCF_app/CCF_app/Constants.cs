@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.NetworkInformation;
 using System.Windows.Media.Animation;
 
 namespace CCF_app
@@ -43,7 +42,7 @@ namespace CCF_app
         public const int ScreenSaverWaitTime = 50;
 
         // Donation progress bar delay
-        public const int ProgressBarWaitTime = 2;
+        public const int ProgressBarWaitTime = 20;
 
         // Carousel image swipe threshold
         public const int CarouselImageSwipeThreshold = 100;
