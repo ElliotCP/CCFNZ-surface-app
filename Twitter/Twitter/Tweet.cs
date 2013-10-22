@@ -11,6 +11,7 @@ namespace Twitter
         private string userName;
         private string status;
         private Uri image;
+        private string timeString;
 
         public string UserName
         {
@@ -27,11 +28,18 @@ namespace Twitter
             get { return image; }
         }
 
-        public Tweet(string userName, string status, Uri image)
+        public string TimeString
+        {
+            get { return timeString; }
+        }
+
+        public Tweet(string userName, string status, Uri image, string timeString)
         {
             this.userName = userName;
             this.status = status;
             this.image = image;
+            this.timeString = timeString;
         }
+
     }
 }

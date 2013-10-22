@@ -128,13 +128,27 @@ namespace Twitter
 
                 String name = tweet.User.ScreenName;
                 String status = tweet.Text;
+                String timeString;
                 Uri image = new Uri(tweet.User.ProfileImageUrl);
+                DateTime time = tweet.CreatedDate.ToLocalTime();
+                TimeSpan timePassed = DateTime.Now.Subtract(time);
+                if (timePassed.TotalSeconds < 60){
+                   int timeInt=(int)(Math.Floor(timePassed.TotalSeconds));
+                    timeString = timeInt.ToString("N0") + " seconds ago";}
+                else if (timePassed.TotalMinutes < 60){
+                    int timeInt = (int)(Math.Floor(timePassed.TotalMinutes));
+                    timeString = timeInt.ToString("N0") + " minutes ago";}
+                else if (timePassed.TotalHours < 24) {
+                    int timeInt = (int)Math.Floor(timePassed.TotalHours);
+                    timeString = timeInt.ToString("N1") + " hours ago";}
+                else {
+                    int timeInt = (int)(Math.Floor(timePassed.TotalDays));
+                    timeString = timeInt.ToString("N1") + " days ago";}
 
                 base.OnInitialized(e);
                 DataContext = this;
-                _tweets.Add(new Tweet(name, status, image));
+                _tweets.Add(new Tweet("@"+name, status, image, timeString.Replace(".0","")));
             }
-
         }
     }
 }

@@ -4,7 +4,7 @@
     xmlns:s="http://schemas.microsoft.com/surface/2008"
     Title="Twitter"  Height="350" Width="525">
   <Grid>
-        <Button Content="Get Tweets"
+            <Button Content="Get Tweets"
                 Height="23"
                 HorizontalAlignment="Left"
                 Margin="12,12,0,0"
@@ -23,20 +23,19 @@
                             <RowDefinition Height="50*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="68*" />
                             <ColumnDefinition Width="354*" />
                             <ColumnDefinition Width="111*" />
                         </Grid.ColumnDefinitions>
 
-                        <Image Source="{Binding Image}" Grid.RowSpan="2"/>
+                        <!--<Image Source="{Binding Image}" Grid.RowSpan="2"/>-->
 
                         <TextBlock Text="{Binding UserName}"
-                Grid.Column="1"  Padding="2" FontWeight="Bold" />
+                Grid.Column="0"  Padding="2" FontWeight="Bold" />
                         <TextBlock Text="{Binding Status}"
                     TextWrapping="Wrap"
-                Grid.Column="1"
+                Grid.Column="0"
                 Grid.Row="1" TextTrimming="CharacterEllipsis" Grid.ColumnSpan="2"/>
-
+                        <TextBlock Grid.Column="2" Name="textBlock_1" Text="{Binding TimeString}" FontSize="10"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
