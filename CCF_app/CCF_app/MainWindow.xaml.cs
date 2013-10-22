@@ -25,18 +25,22 @@ namespace CCF_app
         //used in screen saver
         private readonly DispatcherTimer _timer;
 
-        private bool _alreadySwiped;
-
         private RadioButton _ck; //used to check which radio button has been checked
-        private FrameworkElement _currentImage;
-        private Pages _currentPage = Pages.Home;
+        private Pages _currentPage = Pages.Home; // Keeps track of the current page that is on focus.
+
+        //used for delay in progressbar
+        private readonly DispatcherTimer _progressBarTimer;
+        private int _currentDonationAmount;
 
         //donation bar variables
         private string _donationMethod = "";
 
-        // Provide pages with an identifier for easy reference.
-        private Point _initialTouchPoint;
-        private FrameworkElement _nextImage;
+        private Point _initialTouchPoint; // Keeps track of the first finger touch.
+        private FrameworkElement _currentImage; // Stores the image element of the image currently being displayed in the carousel.
+        private FrameworkElement _nextImage; // Stores the image element of the image about to be displayed in the carousel.
+
+        // Used to prevent a long swipe from being processed as multiple smaller swipes.
+        private bool _alreadySwiped;
 
         public MainWindow()
         {
@@ -53,6 +57,12 @@ namespace CCF_app
             _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
             _timer.Start();
 
+            //creating timer and binding event handler to keep track of progress bar timer
+            _progressBarTimer = new DispatcherTimer();
+            _progressBarTimer.Tick += ProgressBarTimer_Tick;
+            _progressBarTimer.Interval = new TimeSpan(0, 0, Constants.ProgressBarWaitTime);
+            _progressBarTimer.Start();
+
             //when user touches screen wen screen saver is up
             ScreenSaver.MouseDown += ScreenSaver_MouseDown;
 
@@ -66,13 +76,9 @@ namespace CCF_app
             Touch.FrameReported += Touch_FrameReported;
         }
 
-      
-
         /// <summary>
         ///     Showing home page and hiding the screen saver when screen is touched
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ScreenSaver_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ScreenSaver.Visibility = Visibility.Collapsed;
@@ -90,8 +96,6 @@ namespace CCF_app
         /// <summary>
         ///     shows screen saver when timer has reached a certain value
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
             Unanimate(); //unanimating button transitions
@@ -107,7 +111,6 @@ namespace CCF_app
         /// <summary>
         ///     Occurs when the window is about to close.
         /// </summary>
-        /// <param name="e"></param>
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
@@ -141,35 +144,21 @@ namespace CCF_app
         /// <summary>
         ///     This is called when the user can interact with the application's window.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnWindowInteractive(object sender, EventArgs e)
-        {
-        }
+        private void OnWindowInteractive(object sender, EventArgs e) {   }
 
         /// <summary>
         ///     This is called when the user can see but not interact with the application's window.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnWindowNoninteractive(object sender, EventArgs e)
-        {
-        }
+        private void OnWindowNoninteractive(object sender, EventArgs e) {   }
 
         /// <summary>
         ///     This is called when the application's window is not visible or interactive.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnWindowUnavailable(object sender, EventArgs e)
-        {
-        }
+        private void OnWindowUnavailable(object sender, EventArgs e) {   }
 
         /// <summary>
         ///     This is called when the homepage button is clicked
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnHomePageClick(object sender, EventArgs e)
         {
             Unanimate();
@@ -184,8 +173,6 @@ namespace CCF_app
         /// <summary>
         ///     displays the "how you I can help" page
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnHelpPageClick(object sender, EventArgs e)
         {            
             //transition effects
@@ -212,8 +199,6 @@ namespace CCF_app
         /// <summary>
         ///     displays the "how can i get support" page
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnSupportPageClick(object sender, EventArgs e)
         {
             Unanimate();
@@ -236,8 +221,6 @@ namespace CCF_app
         /// <summary>
         ///     displays the "what we do" page
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnAboutUsPageClick(object sender, EventArgs e)
         {
             Unanimate();
@@ -261,8 +244,6 @@ namespace CCF_app
         /// <summary>
         ///     displays the "donate" page
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnDonatePageClick(object sender, EventArgs e)
         {
             Unanimate();
@@ -313,7 +294,7 @@ namespace CCF_app
                 // Interact with each of the finger touches.
                 foreach (TouchPoint touchPoint in e.GetTouchPoints(Viewbox))
                 {
-                    TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox);
+                    TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox); // First touch point on the ViewBox
                     if (touchPoint.Action == TouchAction.Down)
                     {
                         // Make sure the touches are captured from the viewbox.
@@ -321,7 +302,7 @@ namespace CCF_app
                         touchPoint.TouchDevice.Capture(Viewbox);
                         _initialTouchPoint.X = touchPoint.Position.X;
                     }
-                        // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
+                    // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
                     else if (touchPoint.Action == TouchAction.Move && e.GetPrimaryTouchPoint(Viewbox) != null)
                     {
                         // First finger touch.
@@ -332,22 +313,35 @@ namespace CCF_app
                             {
                                 ReleaseAllTouchCaptures();
                                 touchPoint.TouchDevice.Capture(ImageGrid);
-                                // Swipe Left with 50px threshold.
-                                if (touchPoint.Position.X > (_initialTouchPoint.X + 50))
+                                // Swipe Left
+                                if (touchPoint.Position.X < (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
                                 {
                                     NextImage_MouseDown(null, null); // Transition to the next carousel image.
                                     _alreadySwiped = true;
                                 }
 
-                                // Swipe Right with 50px threshold.
-                                if (touchPoint.Position.X < (_initialTouchPoint.X - 50))
+                                // Swipe Right
+                                if (touchPoint.Position.X > (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
                                 {
                                     PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
                                     _alreadySwiped = true;
                                 }
                             }
+                            else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
+                            {
+                                ReleaseAllTouchCaptures();
+                                // Offset the current position of scrollviewer
+                                // HorizontalOffset is divided by 2.3 to keep the movement ratio 1:1
+                                // with single finger touch. This value was calculated emperically.
+
+                                Debug.WriteLine(PageDataScrollViewer.HorizontalOffset);
+
+                                PageDataScrollViewer.ScrollToHorizontalOffset((_initialTouchPoint.X - touchPoint.Position.X) * 1.72);
+                                //PageDataScrollViewer.ScrollToHorizontalOffset(PageDataScrollViewer.HorizontalOffset + _initialTouchPoint.X - touchPoint.Position.X);
+
+                            }
                         }
-                            // Perform second finger touch point.
+                        // Perform second finger touch point.
                         else
                         {
                             if (point != null && touchPoint.TouchDevice.Id != point.TouchDevice.Id)
@@ -380,18 +374,27 @@ namespace CCF_app
                         {
                             Viewbox.ReleaseTouchCapture(touchPoint.TouchDevice);
                         }
+                        // Release ImageGrid (Carousel) touch capture.
                         else if ((Equals(touchPoint.TouchDevice.Captured, ImageGrid)))
                         {
                             ImageGrid.ReleaseTouchCapture(touchPoint.TouchDevice);
                         }
+                        else if ((Equals(touchPoint.TouchDevice.Captured, PageDataScrollViewer)))
+                        {
+                            PageDataScrollViewer.ReleaseTouchCapture(touchPoint.TouchDevice);
+                        }
+
+                        // Update current position of scrollviewer
+                        PageDataScrollViewer.UpdateLayout();
                     }
                 }
             }
         }
-
+        
         /// <summary>
         ///     Transition page to the next depending on the direction of swipe.
         /// </summary>
+        /// <param name="isSwipeLeft">When "true" swipe is left. When "false" swipe is right.</param>
         private void SwitchPage(bool isSwipeLeft)
         {
             Debug.WriteLine(_currentPage);
@@ -400,8 +403,8 @@ namespace CCF_app
             {
                 switch (_currentPage)
                 {
-                    case Pages.Home:
-                        OnAboutUsPageClick(null, null);
+                    case Pages.Home: // Current Page is Home
+                        OnAboutUsPageClick(null, null); // Switch to AboutUs
                         break;
                     case Pages.AboutUs:
                         OnHelpPageClick(null, null);
@@ -413,8 +416,8 @@ namespace CCF_app
                         OnDonatePageClick(null, null);
                         break;
                     case Pages.Donate:
-                        OnHomePageClick(null, null);
                         // Comment this for non-cyclic page transition (i.e. back-and-forth) - ASA
+                        OnHomePageClick(null, null);
                         break;
                 }
             }
@@ -424,11 +427,11 @@ namespace CCF_app
                 switch (_currentPage)
                 {
                     case Pages.Home:
-                        OnDonatePageClick(null, null);
                         // Comment this for non-cyclic page transition (i.e. back-and-forth) - ASA
+                        OnDonatePageClick(null, null);
                         break;
-                    case Pages.AboutUs:
-                        OnHomePageClick(null, null);
+                    case Pages.AboutUs: // When on AboutUs page
+                        OnHomePageClick(null, null); // Go back left to HomePage.
                         break;
                     case Pages.Help:
                         OnAboutUsPageClick(null, null);
@@ -441,14 +444,6 @@ namespace CCF_app
                         break;
                 }
             }
-        }
-
-        private void UpdateProgressBarAndText(int amount)
-        {
-            Constants.DonateTotalDonated += amount;
-            Constants.DonatePercentFunded = Constants.DonateTotalDonated*100/Constants.DonateTarget;
-            DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go", Constants.DonatePercentFunded, Constants.DonateTotalDonated, Constants.DonateDaysToGo);
-            DonationProgress_Bar.Value = Constants.DonatePercentFunded;
         }
 
         /// <summary>
@@ -498,6 +493,9 @@ namespace CCF_app
             TransitionPresenter.ApplyTransition(imageOneElement, imageTwoElement);
         }
 
+        /// <summary>
+        ///     When the 'next' arrow on the homepage is pressed, make the carousel transition to the right.
+        /// </summary>
         private void NextImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Debug.WriteLine("Changing image forwards");
@@ -508,7 +506,9 @@ namespace CCF_app
                 TransitionPresenter.Transition = transition;
             }
 
-            // Move image transition to the right.
+            // Move image transition to the right depending on the
+            // current image on the carousel.
+            // If Img1 show Img2 etc. since 'next' arrow is pressed.
             switch (Constants.CurrentHomeImage)
             {
                 case HomePageImages.Img1:
@@ -535,6 +535,9 @@ namespace CCF_app
             }
         }
 
+        /// <summary>
+        ///     When the 'previous' arrow on the homepage is pressed, make the carousel transition to the left.
+        /// </summary>
         private void PreviousImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Debug.WriteLine("Changing image backwards");
@@ -546,6 +549,9 @@ namespace CCF_app
                 TransitionPresenter.Transition = transition;
             }
 
+            // Move image transition to the left depending on the
+            // current image on the carousel.
+            // If Img3 show Img2 etc. since 'previous' arrow is pressed.
             switch (Constants.CurrentHomeImage)
             {
                 case HomePageImages.Img1:
@@ -578,8 +584,6 @@ namespace CCF_app
         /// <summary>
         ///     added mouse click event for the bottom 1/2 of the buttons (darker part)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void BtnRec_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var rec = (Rectangle) sender;
@@ -607,8 +611,6 @@ namespace CCF_app
         /// <summary>
         ///     functionality for when the radio buttons on donate page is checked
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Donations_Radio_Checked(object sender, RoutedEventArgs e)
         {
             _ck = sender as RadioButton;
@@ -647,18 +649,17 @@ namespace CCF_app
                 }
                 else
                 {
-                    int amountDonated = Convert.ToInt32(donationAmount.Replace("$", ""));
-                    UpdateProgressBarAndText(amountDonated);
+                    // Remove "$" character that gets inherited from retrieving name/value of the donation option selected.
+                    _currentDonationAmount = Convert.ToInt32(donationAmount.Replace("$", ""));
+                    _progressBarTimer.Interval = new TimeSpan(0, 0, Constants.ProgressBarWaitTime); //just in case we paused last time, reset the timer anyway
+                    _progressBarTimer.Start();
                     String qrCodeContent = donationServer + "/?amount=" + donationAmount;
                     Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image.
                     Txt_Donation.Text = "3032 " + donationAmount.Replace("$", "");
                 }
             }
-            _donationMethod = null;
-
-
+            _donationMethod = null; // Reset donation method.
             Donation_Help.Visibility = Visibility.Collapsed;
-
             if (_ck != null && _ck.Content.ToString() == "Custom") //showing custom amount textbox
             {
                 CustomAmount.Visibility = Visibility.Visible;
@@ -676,8 +677,8 @@ namespace CCF_app
         ///     Generates a QRCode with the given string to be encoded and the level (ie size) of the qr code.
         /// </summary>
         /// <param name="encodedString">The string that should be encoded into the QRCode.</param>
-        /// <param name="level">Detail level of QRCode can be changed using this. Higher = more detail.</param>
-        /// <returns></returns>
+        /// <param name="level">Detail level of QRCode can be changed using this. Higher = more detail but less time to process.</param>
+        /// <returns>bitmap of the generated QRCode</returns>
         private Image QRGenerator(string encodedString, int level)
         {
             var qrEncoder = new QRCodeEncoder
@@ -711,6 +712,31 @@ namespace CCF_app
             return bi;
         }
 
+        /// <summary>
+        /// Increase the total Donation amount and refresh Donation progress text.
+        /// We need this method seperate because we need to set initial amount at start up
+        /// </summary>
+        /// <param name="amount"></param>
+        private void UpdateProgressBarAndText(int amount)
+        {
+            Constants.DonateTotalDonated += amount;
+            Constants.DonatePercentFunded = Constants.DonateTotalDonated * 100 / Constants.DonateTarget;
+            DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go", Constants.DonatePercentFunded, Constants.DonateTotalDonated, Constants.DonateDaysToGo);
+            DonationProgress_Bar.Value = Constants.DonatePercentFunded;
+            _progressBarTimer.Stop(); //we've updated the progress bar, don't update until radio buttons are clicked again
+        }
+
+        /// <summary>
+        /// Calls the UpdateProgressBarAndText method when the timer ticks.
+        /// </summary>
+        private void ProgressBarTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateProgressBarAndText(_currentDonationAmount);
+        }
+
+        /// <summary>
+        /// Display QRCode on the donate page by replacing placeholder qr_image.
+        /// </summary>
         private void Display_QRCode(String text, int level)
         {
             Image img = QRGenerator(text, level);
@@ -720,8 +746,6 @@ namespace CCF_app
         /// <summary>
         ///     when user chooses to donate via QR code
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void QRDonate_Clicked(object sender, RoutedEventArgs e)
         {
             if (_donationMethod != null)
@@ -752,8 +776,6 @@ namespace CCF_app
         /// <summary>
         ///     when user chooses to donate via text
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void TxtDonate_Clicked(object sender, RoutedEventArgs e)
         {
             if (_donationMethod != null)
@@ -786,8 +808,6 @@ namespace CCF_app
         /// <summary>
         ///     when user wants to change the donation method
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DonationMethod_Change(object sender, RoutedEventArgs e)
         {
             Donate_Grid.Visibility = Visibility.Collapsed;
@@ -818,6 +838,10 @@ namespace CCF_app
             }
         }
 
+        /// <summary>
+        ///     When text is entered into the custom donation textbox, update the donation 
+        ///     QRCode or the call number depending on current payment selected.
+        /// </summary>
         private void Donation_KeyDown(object sender, KeyEventArgs e)
         {
             Donations_Instructions.Visibility = Visibility.Visible;
@@ -834,87 +858,43 @@ namespace CCF_app
                 Txt_Donation.Visibility = Visibility.Visible;
             }
 
-            const string donationServer = "223.27.24.159:8080";
-            // Set initial amount to zero. 
-            String qrCodeContent = donationServer + "/?amount=" + Donation_CustomAmount.Text;
-            Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image.
+            try // Try and convert custom donation amount to integer
+            {
+            }
+            catch (FormatException) // Donation amount entered is not a number so resolve the issue.
+            {
+                // Remove invalid characters by setting textbox to an empty string.
+                Donation_CustomAmount.Text = "";
+                // Prevent further (potentially incorrect) processing by breaking out of the method.
+                return;
+            }
 
-            if (Donation_CustomAmount.Text != "" && Convert.ToInt32(Donation_CustomAmount.Text) < 999)
+            // String together information that will be stored into the QRCode.
+            const string donationServer = "223.27.24.159:8080";
+            String qrCodeContent = donationServer + "/?amount=" + Donation_CustomAmount.Text;
+            Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image with the given information.
+
+            if (Convert.ToInt32(Donation_CustomAmount.Text) < 999)
             {
                 Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
             }
-            else if (Donation_CustomAmount.Text != "" && Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
+            else if (Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
             {
+                // Redirect user to use the QRCode for their own privacy.
                 Txt_Donation.Text = "Please use a QR Code";
             }
             else
             {
                 Txt_Donation.Text = "3032 02";
             }
-
-
             _donationMethod = null;
-
-
             Donation_Help.Visibility = Visibility.Collapsed;
-
-
             CustomAmount.Visibility = Visibility.Visible;
             CustomAmount.Opacity = 0;
             CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
         }
 
-        private void Donation_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                // Toggle visibility of QRCode image and txt number depending on the payment type.
-                if (_donationMethod == "QR" && _donationMethod != null)
-                {
-                    QrCodeDonation.Visibility = Visibility.Visible;
-                    Txt_Donation.Visibility = Visibility.Collapsed;
-                }
-                else if (_donationMethod == "Txt" && _donationMethod != null)
-                {
-                    QrCodeDonation.Visibility = Visibility.Collapsed;
-                    Txt_Donation.Visibility = Visibility.Visible;
-                }
-
-                const string donationServer = "223.27.24.159:8080";
-                // Set initial amount to zero. 
-                String qrCodeContent = donationServer + "/?amount=" + Donation_CustomAmount.Text;
-                Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image.
-                if (Convert.ToInt32(Donation_CustomAmount.Text) < 999 && Donation_CustomAmount.Text != "")
-                {
-                    Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
-                }
-                else if (Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
-                {
-                    Txt_Donation.Text = "Please use a QR Code";
-                }
-                else
-                {
-                    Txt_Donation.Text = "3032 02";
-                }
-                _donationMethod = null;
-
-
-                Donation_Help.Visibility = Visibility.Collapsed;
-
-
-                CustomAmount.Visibility = Visibility.Visible;
-                CustomAmount.Opacity = 0;
-                CustomAmount.BeginAnimation(OpacityProperty, Constants.Da3);
-
-
-                Donations_Instructions.Visibility = Visibility.Visible;
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Can't close");
-            }
-        }
-
+        // Provide the carousel images with an identifier for easy reference.
         public enum HomePageImages
         {
             Img1 = 1,
@@ -922,6 +902,7 @@ namespace CCF_app
             Img3
         };
 
+        // Provide pages with an identifier for easy reference.
         private enum Pages
         {
             Home = 1,
