@@ -30,7 +30,7 @@ namespace CCF_app
 
         //used for delay in progressbar
         private readonly DispatcherTimer _progressBarTimer;
-        private int currentDonationAmount;
+        private int _currentDonationAmount;
 
         //donation bar variables
         private string _donationMethod = "";
@@ -650,7 +650,7 @@ namespace CCF_app
                 else
                 {
                     // Remove "$" character that gets inherited from retrieving name/value of the donation option selected.
-                    currentDonationAmount = Convert.ToInt32(donationAmount.Replace("$", ""));
+                    _currentDonationAmount = Convert.ToInt32(donationAmount.Replace("$", ""));
                     _progressBarTimer.Interval = new TimeSpan(0, 0, Constants.ProgressBarWaitTime); //just in case we stopped last time, reset the timer anyway
                     _progressBarTimer.Start(); //start timer for updating progress bar with selected amount
                     String qrCodeContent = donationServer + "/?amount=" + donationAmount;
@@ -731,7 +731,7 @@ namespace CCF_app
         /// </summary>
         private void ProgressBarTimer_Tick(object sender, EventArgs e)
         {
-            UpdateProgressBarAndText(currentDonationAmount);
+            UpdateProgressBarAndText(_currentDonationAmount);
         }
 
         /// <summary>
