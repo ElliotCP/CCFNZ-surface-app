@@ -362,7 +362,7 @@
                     <Button x:Name="CloseTwitterFeed" Margin="1384,105,370,187"  Click="TwitterButtonClick" Visibility="Visible">
                         <Image Source="Assets/Icons/HideFeed.png" Height="750" Width="150"  />
                     </Button>
-                    <Grid x:Name="TwitterFeed" Visibility="Visible">
+                    <Grid x:Name="TwitterFeed" Visibility="Visible" >
                         <ListBox x:Name="TweetList" 
             HorizontalContentAlignment="Stretch"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -371,8 +371,8 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="50*" />
-                                            <RowDefinition Height="70*" />
+                                            <RowDefinition Height="52*" />
+                                            <RowDefinition Height="73*" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="533*" />
@@ -381,10 +381,7 @@
 
                                         <TextBlock Text="{Binding UserName}"
                 Grid.Column="0"  Padding="2" FontWeight="Bold" />
-                                        <TextBlock Text="{Binding Status}"
-                    TextWrapping="Wrap"
-                Grid.Column="0"
-                Grid.Row="1" TextTrimming="CharacterEllipsis" Grid.ColumnSpan="2"/>
+                                        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2"/>
                                         <TextBlock Grid.Column="2" Name="textBlock_1" Text="{Binding TimeString}" FontSize="10"/>
                                     </Grid>
                                 </DataTemplate>

@@ -15,14 +15,22 @@ using Image = System.Drawing.Image;
 using Point = System.Windows.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
 using System.Windows.Media.Animation;
+using TweetSharp;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using Microsoft.Surface.Presentation;
+using Microsoft.Surface.Presentation.Controls;
+using Microsoft.Surface.Presentation.Input;
 
 namespace CCF_app
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
+        
     public partial class MainWindow
     {
+        
         //used in screen saver
         private readonly DispatcherTimer _timer;
 
@@ -43,12 +51,22 @@ namespace CCF_app
         // Used to prevent a long swipe from being processed as multiple smaller swipes.
         private bool _alreadySwiped;
 
+        System.Windows.Threading.DispatcherTimer twitterTimer;
+        int TwitterRefreshRate = 10;
+
+
+        private void twitterTimer_Tick(object sender, EventArgs e)
+        {
+            // Reload Twitter
+            GetTweets_Click();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
 
             Home_BtnRec.Visibility = Visibility.Collapsed;
-
+            Loaded += new RoutedEventHandler(MainWindow_Loaded);
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
@@ -75,6 +93,17 @@ namespace CCF_app
                     GlobalClickEventHandler();
             };
             Touch.FrameReported += Touch_FrameReported;
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            TweetList.ItemsSource = _tweets;
+            GetTweets_Click();
+            // DispatcherTimer setup
+            twitterTimer = new System.Windows.Threading.DispatcherTimer();
+            twitterTimer.Tick += new EventHandler(twitterTimer_Tick);
+            twitterTimer.Interval = new TimeSpan(0, 0, this.TwitterRefreshRate);
+            twitterTimer.Start();
         }
 
         /// <summary>
@@ -932,6 +961,55 @@ namespace CCF_app
                 storyboard.Begin(TweetList); 
             }
         }
-       
+
+        private ObservableCollection<Tweet> _tweets = new ObservableCollection<Tweet>();
+        private void GetTweets_Click()
+        {
+            _tweets.Clear();
+            int twitterCount = 0;
+            var service = new TwitterService("gdszkrjT9BXALsntZI3BxQ", "ltpb4xzjzxRf1w9Sq6wqhwOBfDNCKpWDcUkQyth5MeE");
+            service.AuthenticateWith("1966078789-R92gYWO9THXuYJ5uE6DkifcQ9mDLEZFT6dgUcuH", "g3Jb0b8BSt4CgSDrWJMatw6DaXwtocPk4kMhX52jnq4");
+
+            var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
+
+
+            foreach (var tweet in tweets)
+            {
+
+                if (twitterCount < 6)
+                {
+                    String name = tweet.User.ScreenName;
+                    String status = tweet.Text;
+                    String timeString;
+                    Uri image = new Uri(tweet.User.ProfileImageUrl);
+                    DateTime time = tweet.CreatedDate.ToLocalTime();
+                    TimeSpan timePassed = DateTime.Now.Subtract(time);
+                    if (timePassed.TotalSeconds < 60)
+                    {
+                        int timeInt = (int)(Math.Floor(timePassed.TotalSeconds));
+                        timeString = timeInt.ToString("N0") + " seconds ago";
+                    }
+                    else if (timePassed.TotalMinutes < 60)
+                    {
+                        int timeInt = (int)(Math.Floor(timePassed.TotalMinutes));
+                        timeString = timeInt.ToString("N0") + " minutes ago";
+                    }
+                    else if (timePassed.TotalHours < 24)
+                    {
+                        int timeInt = (int)Math.Floor(timePassed.TotalHours);
+                        timeString = timeInt.ToString("N1") + " hours ago";
+                    }
+                    else
+                    {
+                        int timeInt = (int)(Math.Floor(timePassed.TotalDays));
+                        timeString = timeInt.ToString("N1") + " days ago";
+                    }
+
+                    DataContext = this;
+                    _tweets.Add(new Tweet("@" + name, status, timeString.Replace(".0", "")));
+                    twitterCount++;
+                }
+            }
+        }
     }
 }
