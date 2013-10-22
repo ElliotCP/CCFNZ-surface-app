@@ -42,6 +42,12 @@ namespace CCF_app
         // Screen saver delay
         public const int ScreenSaverWaitTime = 50;
 
+        // Donation progress bar delay
+        public const int ProgressBarWaitTime = 2;
+
+        // Carousel image swipe threshold
+        public const int CarouselImageSwipeThreshold = 100;
+
         // Kept here rather than XML to keep everything all in one place //
         // About us first box
         public const string AboutUsText1 =

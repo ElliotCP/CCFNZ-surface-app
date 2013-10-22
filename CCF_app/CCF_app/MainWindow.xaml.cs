@@ -28,6 +28,10 @@ namespace CCF_app
         private RadioButton _ck; //used to check which radio button has been checked
         private Pages _currentPage = Pages.Home; // Keeps track of the current page that is on focus.
 
+        //used for delay in progressbar
+        private readonly DispatcherTimer _progressBarTimer;
+        private int currentDonationAmount;
+
         //donation bar variables
         private string _donationMethod = "";
 
@@ -53,6 +57,12 @@ namespace CCF_app
             _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
             _timer.Start();
 
+            //creating timer and binding event handler to keep track of progress bar timer
+            _progressBarTimer = new DispatcherTimer();
+            _progressBarTimer.Tick += ProgressBarTimer_Tick;
+            _progressBarTimer.Interval = new TimeSpan(0, 0, Constants.ProgressBarWaitTime);
+            _progressBarTimer.Start();
+
             //when user touches screen wen screen saver is up
             ScreenSaver.MouseDown += ScreenSaver_MouseDown;
 
@@ -65,8 +75,6 @@ namespace CCF_app
             };
             Touch.FrameReported += Touch_FrameReported;
         }
-
-      
 
         /// <summary>
         ///     Showing home page and hiding the screen saver when screen is touched
@@ -305,15 +313,15 @@ namespace CCF_app
                             {
                                 ReleaseAllTouchCaptures();
                                 touchPoint.TouchDevice.Capture(ImageGrid);
-                                // Swipe Left with 50px threshold.
-                                if (touchPoint.Position.X > (_initialTouchPoint.X - 100))
+                                // Swipe Left
+                                if (touchPoint.Position.X < (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
                                 {
                                     NextImage_MouseDown(null, null); // Transition to the next carousel image.
                                     _alreadySwiped = true;
                                 }
 
-                                // Swipe Right with 50px threshold.
-                                if (touchPoint.Position.X < (_initialTouchPoint.X + 100))
+                                // Swipe Right
+                                if (touchPoint.Position.X > (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
                                 {
                                     PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
                                     _alreadySwiped = true;
@@ -436,18 +444,6 @@ namespace CCF_app
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Given a donation amount(int) increase the total Donation amount and refresh Donation progress text.
-        /// </summary>
-        /// <param name="amount"></param>
-        private void UpdateProgressBarAndText(int amount)
-        {
-            Constants.DonateTotalDonated += amount;
-            Constants.DonatePercentFunded = Constants.DonateTotalDonated*100/Constants.DonateTarget;
-            DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go", Constants.DonatePercentFunded, Constants.DonateTotalDonated, Constants.DonateDaysToGo);
-            DonationProgress_Bar.Value = Constants.DonatePercentFunded;
         }
 
         /// <summary>
@@ -654,8 +650,9 @@ namespace CCF_app
                 else
                 {
                     // Remove "$" character that gets inherited from retrieving name/value of the donation option selected.
-                    int amountDonated = Convert.ToInt32(donationAmount.Replace("$", ""));
-                    UpdateProgressBarAndText(amountDonated);
+                    currentDonationAmount = Convert.ToInt32(donationAmount.Replace("$", ""));
+                    _progressBarTimer.Interval = new TimeSpan(0, 0, Constants.ProgressBarWaitTime); //just in case we paused last time, reset the timer anyway
+                    _progressBarTimer.Start();
                     String qrCodeContent = donationServer + "/?amount=" + donationAmount;
                     Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image.
                     Txt_Donation.Text = "3032 " + donationAmount.Replace("$", "");
@@ -713,6 +710,28 @@ namespace CCF_app
             bi.StreamSource = ms;
             bi.EndInit();
             return bi;
+        }
+
+        /// <summary>
+        /// Increase the total Donation amount and refresh Donation progress text.
+        /// We need this method seperate because we need to set initial amount at start up
+        /// </summary>
+        /// <param name="amount"></param>
+        private void UpdateProgressBarAndText(int amount)
+        {
+            Constants.DonateTotalDonated += amount;
+            Constants.DonatePercentFunded = Constants.DonateTotalDonated * 100 / Constants.DonateTarget;
+            DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go", Constants.DonatePercentFunded, Constants.DonateTotalDonated, Constants.DonateDaysToGo);
+            DonationProgress_Bar.Value = Constants.DonatePercentFunded;
+            _progressBarTimer.Stop(); //we've updated the progress bar, don't update until radio buttons are clicked again
+        }
+
+        /// <summary>
+        /// Calls the UpdateProgressBarAndText method when the timer ticks.
+        /// </summary>
+        private void ProgressBarTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateProgressBarAndText(currentDonationAmount);
         }
 
         /// <summary>
