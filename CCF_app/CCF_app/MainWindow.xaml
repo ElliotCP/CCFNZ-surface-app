@@ -56,6 +56,8 @@
                             <!-- Add following tags for auto image rotation after x:Name. RestDuration="0:0:5" for image switch every 5 seconds and IsLooped=true  -->
                         </Grid>
                     </Grid>
+                    
+                    
                     <Grid x:Name="DonatePage" Margin="0" Visibility="Collapsed">
                         <Grid.Background>
                             <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
@@ -236,6 +238,8 @@
                             </Grid>
                         </Grid>
                     </Grid>
+                    
+                    
                     <Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.229*" />
@@ -289,10 +293,13 @@
                                    HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
                                    FontFamily="Segoe UI Light" FontWeight="Bold" />
                     </Grid>
+                    
+                    
                     <Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="100" Margin="0,40,0,0" OpacityMask="White">
                         <Image Margin="0,0,0,20" Source="Assets/Images/SAFEANDGENTLE BANNER8.png"
                                HorizontalAlignment="Center" />
                     </Grid>
+                    
                     <Grid x:Name="BottomNavBar" VerticalAlignment="Bottom" Height="200" d:LayoutOverrides="GridBox">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
