@@ -133,8 +133,6 @@ namespace Twitter
                 base.OnInitialized(e);
                 DataContext = this;
                 _tweets.Add(new Tweet(name, status, image));
-
-                //_statusText.Text= System.String.Format("{0} says '{1}'", tweet.User.ScreenName, tweet.Text);
             }
 
         }
