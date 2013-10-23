@@ -288,16 +288,16 @@ namespace CCF_app
             MyVideo1.NavigateToString(Constants.YoutubeVideo_Help);
             MyVideo1.Visibility = Visibility.Visible;
 
-            InformationPage.Visibility = Visibility.Visible;
+            InformationPage1.Visibility = Visibility.Visible;
             Help_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
-            InformationPageTitle.Text = "How Can I Help?";
+            InformationPage1Title.Text = "How Can I Help?";
 
-            Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_green.png", UriKind.RelativeOrAbsolute));
+            InformationPage1Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_green.png", UriKind.RelativeOrAbsolute));
 
             //setting the text on the page
-            Text1.Text = Constants.HelpText1;
-            Text2.Text = Constants.HelpText2;
+            InformationPage1Text1.Text = Constants.HelpText1;
+            InformationPage1Text2.Text = Constants.HelpText2;
             _currentPage = Pages.Help;
             HideGlobe(); // Hide globe if HelpPage button is clicked
             RunPageAnimation(); //Start screen fade animation
@@ -316,14 +316,14 @@ namespace CCF_app
             MyVideo2.NavigateToString(Constants.YoutubeVideo_Support);
             MyVideo2.Visibility = Visibility.Visible;
 
-            InformationPage.Visibility = Visibility.Visible;
+            InformationPage2.Visibility = Visibility.Visible;
             Support_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
-            InformationPageTitle.Text = "How Can I Get Support?";
+            InformationPage2Title.Text = "How Can I Get Support?";
 
-            Text1.Text = Constants.SupportText1;
-            Text2.Text = Constants.SupportText2;
-            Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
+            InformationPage2Text1.Text = Constants.SupportText1;
+            InformationPage2Text2.Text = Constants.SupportText2;
+            InformationPage2Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.Support;
             HideGlobe(); // Hide globe if SupportPage button is clicked
             RunPageAnimation(); //Start screen fade animation
@@ -342,15 +342,13 @@ namespace CCF_app
             MyVideo3.NavigateToString(Constants.YoutubeVideo_About);
             MyVideo3.Visibility = Visibility.Visible;
 
-            InformationPage.Visibility = Visibility.Visible;
+            InformationPage3.Visibility = Visibility.Visible;
             AboutUs_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
-            InformationPageTitle.Text = "What Is CCFNZ?";
+            InformationPage3Title.Text = "What Is CCFNZ?";
 
-            Text1.Text = Constants.AboutUsText1;
-            Text2.Text = Constants.AboutUsText2;
-
-            Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
+            InformationPage3Text1.Text = Constants.AboutUsText1;
+            InformationPage3Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.AboutUs;
             HideGlobe(); // Hide globe if AboutUsPage button is clicked
             RunPageAnimation(); //Start screen fade animation
@@ -581,7 +579,9 @@ namespace CCF_app
         private void CollapseAllPages()
         {
             HomePage.Visibility = Visibility.Collapsed;
-            InformationPage.Visibility = Visibility.Collapsed;
+            InformationPage1.Visibility = Visibility.Collapsed;
+            InformationPage2.Visibility = Visibility.Collapsed;
+            InformationPage3.Visibility = Visibility.Collapsed;
             DonatePage.Visibility = Visibility.Collapsed;
 
             AboutUs_BtnRec.Visibility = Visibility.Visible;
@@ -1358,7 +1358,9 @@ namespace CCF_app
         public void MakeAllPagesOpacityZero()
         {
             HomePage.Opacity = 0;
-            InformationPage.Opacity = 0;
+            InformationPage1.Opacity = 0;
+            InformationPage2.Opacity = 0;
+            InformationPage3.Opacity = 0;
             DonatePage.Opacity = 0;
         }
         /// <summary>
@@ -1367,7 +1369,9 @@ namespace CCF_app
         public void MakeAllPagesInvisible()
         {
             HomePage.Visibility = Visibility.Hidden;
-            InformationPage.Visibility = Visibility.Hidden;
+            InformationPage1.Visibility = Visibility.Hidden;
+            InformationPage2.Visibility = Visibility.Hidden;
+            InformationPage3.Visibility = Visibility.Hidden;
             DonatePage.Visibility = Visibility.Hidden;
 
         }
@@ -1378,7 +1382,9 @@ namespace CCF_app
         public void UnAnimatePages()
         {
             HomePage.BeginAnimation(Grid.OpacityProperty, unanimation);
-            InformationPage.BeginAnimation(Grid.OpacityProperty, unanimation);
+            InformationPage1.BeginAnimation(Grid.OpacityProperty, unanimation);
+            InformationPage2.BeginAnimation(Grid.OpacityProperty, unanimation);
+            InformationPage3.BeginAnimation(Grid.OpacityProperty, unanimation);
             DonatePage.BeginAnimation(Grid.OpacityProperty, unanimation);
         }
 
@@ -1399,15 +1405,15 @@ namespace CCF_app
                     break;
                 case Pages.AboutUs:
                     //begins animation if the page is about us page
-                    InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+                    InformationPage3.BeginAnimation(Grid.OpacityProperty, animation);
                     break;
                 case Pages.Help:
                     //begins animation if the page is help page
-                    InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+                    InformationPage1.BeginAnimation(Grid.OpacityProperty, animation);
                     break;
                 case Pages.Support:
                     //begins animation if the page is support page
-                    InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+                    InformationPage2.BeginAnimation(Grid.OpacityProperty, animation);
                     break;
                 case Pages.Donate:
                     //begins animation if the page is donate page
