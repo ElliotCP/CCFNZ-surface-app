@@ -271,7 +271,10 @@
                                              Grid.Column="1" Grid.Row="2" Click="GlobeViewButton_Click"/>
                         </Grid>
                     </Grid>
-                    <Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
+                    
+                    
+                    
+                    <!--<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.229*" />
                             <RowDefinition Height="0.566*" />
@@ -323,7 +326,181 @@
                                    FontSize="48"
                                    HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
                                    FontFamily="Segoe UI Light" FontWeight="Bold" />
+                    </Grid>-->
+
+
+
+
+
+
+
+
+
+
+                    <Grid x:Name="InformationPage1" Margin="0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.229*" />
+                            <RowDefinition Height="0.566*" />
+                            <RowDefinition Height="0.205*" />
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
+                        </Grid.Background>
+                        <s:SurfaceScrollViewer x:Name="InformationPage1PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                            <Grid Background="#00000000" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="600" />
+                                    <ColumnDefinition Width="800" />
+                                    <ColumnDefinition Width="800" />
+                                </Grid.ColumnDefinitions>
+                                <WebBrowser x:Name="MyVideo1" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+
+                                <TextBlock x:Name="InformationPage1TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage1Text1" TextWrapping="Wrap" Text="TextBlock" />
+                                    </InlineUIContainer>
+                                </TextBlock>
+                                <TextBlock x:Name="InformationPage1TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                           FontFamily="Segoe UI Light" Grid.Column="3">
+                                    <Run Text="" />
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage1Text2" TextWrapping="Wrap">
+                                            <Run Language="en-nz" Text="Text block" />
+                                        </TextBlock>
+                                    </InlineUIContainer>
+                                </TextBlock>
+                            </Grid>
+                        </s:SurfaceScrollViewer>
+                        <Image Grid.Row="0" x:Name="InformationPage1Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                               Stretch="Fill"
+                               Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
+                               d:LayoutOverrides="Height">
+                            <Image.OpacityMask>
+                                <ImageBrush ImageSource="Assets/Icons/pointer_original.png" />
+                            </Image.OpacityMask>
+                        </Image>
+                        <TextBlock Grid.Row="0" x:Name="InformationPage1Title" TextWrapping="Wrap" Text="TextBlock"
+                                   FontSize="48"
+                                   HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
+                                   FontFamily="Segoe UI Light" FontWeight="Bold" />
                     </Grid>
+
+
+                    <Grid x:Name="InformationPage2" Margin="0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.229*" />
+                            <RowDefinition Height="0.566*" />
+                            <RowDefinition Height="0.205*" />
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
+                        </Grid.Background>
+                        <s:SurfaceScrollViewer x:Name="InformationPage2PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                            <Grid Background="#00000000" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="600" />
+                                    <ColumnDefinition Width="800" />
+                                    <ColumnDefinition Width="800" />
+                                </Grid.ColumnDefinitions>
+                                <WebBrowser x:Name="MyVideo2" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+
+                                <TextBlock x:Name="InformationPage2TextBlockOuter" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage2Text1" TextWrapping="Wrap" Text="TextBlock" />
+                                    </InlineUIContainer>
+                                </TextBlock>
+                                <TextBlock x:Name="InformationPage2TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                           FontFamily="Segoe UI Light" Grid.Column="3">
+                                    <Run Text="" />
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage2Text2" TextWrapping="Wrap">
+                                            <Run Language="en-nz" Text="Text block" />
+                                        </TextBlock>
+                                    </InlineUIContainer>
+                                </TextBlock>
+                            </Grid>
+                        </s:SurfaceScrollViewer>
+                        <Image Grid.Row="0" x:Name="InformationPage2Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                               Stretch="Fill"
+                               Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
+                               d:LayoutOverrides="Height">
+                            <Image.OpacityMask>
+                                <ImageBrush ImageSource="Assets/Icons/pointer_original.png" />
+                            </Image.OpacityMask>
+                        </Image>
+                        <TextBlock Grid.Row="0" x:Name="InformationPage2Title" TextWrapping="Wrap" Text="TextBlock"
+                                   FontSize="48"
+                                   HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
+                                   FontFamily="Segoe UI Light" FontWeight="Bold" />
+                    </Grid>
+
+
+
+
+
+
+
+                    <Grid x:Name="InformationPage3" Margin="0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.229*" />
+                            <RowDefinition Height="0.566*" />
+                            <RowDefinition Height="0.205*" />
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
+                        </Grid.Background>
+                        <s:SurfaceScrollViewer x:Name="PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                            <Grid Background="#00000000" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="600" />
+                                    <ColumnDefinition Width="800" />
+                                    <ColumnDefinition Width="800" />
+                                </Grid.ColumnDefinitions>
+                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+
+                                <TextBlock x:Name="InformationPage3TextBlockOuter" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage3Text1" TextWrapping="Wrap" Text="TextBlock" />
+                                    </InlineUIContainer>
+                                </TextBlock>
+                                <TextBlock x:Name="InformationPage3TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                           FontFamily="Segoe UI Light" Grid.Column="3">
+                                    <Run Text="" />
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage3Text2" TextWrapping="Wrap">
+                                            <Run Language="en-nz" Text="Text block" />
+                                        </TextBlock>
+                                    </InlineUIContainer>
+                                </TextBlock>
+                            </Grid>
+                        </s:SurfaceScrollViewer>
+                        <Image Grid.Row="0" x:Name="InformationPage3Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                               Stretch="Fill"
+                               Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
+                               d:LayoutOverrides="Height">
+                            <Image.OpacityMask>
+                                <ImageBrush ImageSource="Assets/Icons/pointer_original.png" />
+                            </Image.OpacityMask>
+                        </Image>
+                        <TextBlock Grid.Row="0" x:Name="InformationPage3Title" TextWrapping="Wrap" Text="TextBlock"
+                                   FontSize="48"
+                                   HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
+                                   FontFamily="Segoe UI Light" FontWeight="Bold" />
+                    </Grid>
+
+
+
+
+
                     <Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="100" Margin="0,40,0,0" OpacityMask="White">
                         <Image Margin="0,0,0,20" Source="Assets/Images/SAFEANDGENTLE BANNER8.png"
                                HorizontalAlignment="Center" />
