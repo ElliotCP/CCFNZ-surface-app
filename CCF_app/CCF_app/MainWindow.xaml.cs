@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -19,6 +19,13 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Media3D;
 using System.Windows.Media;
 using System.Collections.Generic;
+
+using TweetSharp;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using Microsoft.Surface.Presentation;
+using Microsoft.Surface.Presentation.Controls;
+using Microsoft.Surface.Presentation.Input;
 
 namespace CCF_app
 {
@@ -72,17 +79,24 @@ namespace CCF_app
 
         // Keeps track of the state of the globe.
         bool isGlobeOpen = false;
+        
+		// Initialises a twitter refresh timer and the refresh rate 
+		System.Windows.Threading.DispatcherTimer twitterTimer;
+        int TwitterRefreshRate = 180;
 
         public MainWindow()
         {
             InitializeComponent();
 
             Home_BtnRec.Visibility = Visibility.Collapsed;
-
+            
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
-
-            //creating timer and binding event handler to keep track of timer
+            
+			//load event to MainWindow_Loaded
+			Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            
+			//creating timer and binding event handler to keep track of timer
             _timer = new DispatcherTimer();
             _timer.Tick += Timer_Tick;
             _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
@@ -118,12 +132,37 @@ namespace CCF_app
             _DonatingCities.Add(new DonatingPlace() { Name = "Missouri", AmountOfDonaters = 200, Bound = new Rect(466.5, 321, 30, 30) });
         }
 
+        // Twitter refresh timer activates this 
+        private void twitterTimer_Tick(object sender, EventArgs e)
+        {
+            // Reload Twitter
+            GetTweets_Click();
+        }
+
+		//Initialises the twitter feed and pulls the latest tweets
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            TweetList.ItemsSource = _tweets;
+            GetTweets_Click();
+            // DispatcherTimer setup for the twitter timer 
+            twitterTimer = new System.Windows.Threading.DispatcherTimer();
+            twitterTimer.Tick += new EventHandler(twitterTimer_Tick);
+            twitterTimer.Interval = new TimeSpan(0, 0, this.TwitterRefreshRate);
+            twitterTimer.Start();
+        }
+		
         /// <summary>
         ///     Showing home page and hiding the screen saver when screen is touched
         /// </summary>
         private void ScreenSaver_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ScreenSaver.Visibility = Visibility.Collapsed;
+			
+			//Displays twitter feed when screensaver is disrupted
+			TwitterButtonClick(sender, e);
+            Storyboard storyboard = Resources["BoxSlideOut"] as Storyboard;
+            storyboard.Begin(TweetList);
+			
             OnHomePageClick(sender, e);
         }
 
@@ -145,7 +184,17 @@ namespace CCF_app
             //displaying hompage to go behind screen saver
             CollapseAllPages();
             HomePage.Visibility = Visibility.Visible;
-
+			
+			//If the twitter feed is visible than it is hidden with the screensaver
+            if (CloseTwitterFeed.IsVisible)
+            {
+                CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
+                OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
+                Storyboard storyboard = Resources["BoxSlideIn"] as Storyboard;
+                storyboard.Begin(TweetList);
+            }
+			
+			
             //screen saver
             ScreenSaver.Visibility = Visibility.Visible;
             HideGlobe(); // Hide the globe when screensaver is activated.
@@ -1207,6 +1256,86 @@ namespace CCF_app
                 //reset for next mouse click
                 _isMouseDownOnCarousel = false;
                 _alreadySwipedCarousel = false;
+            }
+
+        }
+		
+	    private void TwitterButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (OpenTwitterFeed.Visibility == System.Windows.Visibility.Visible)
+            {
+                CloseTwitterFeed.Visibility = System.Windows.Visibility.Visible;
+                OpenTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
+                this.TwitterFeed.Visibility = System.Windows.Visibility.Visible;
+                Storyboard storyboard = Resources["BoxSlideOut"] as Storyboard;
+                storyboard.Begin(TweetList);
+            }
+            else
+            {
+                CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
+                OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
+                Storyboard storyboard = Resources["BoxSlideIn"] as Storyboard;
+                storyboard.Begin(TweetList);
+            }
+        }
+
+        private ObservableCollection<Tweet> _tweets = new ObservableCollection<Tweet>();
+        private void GetTweets_Click()
+        {
+
+
+            _tweets.Clear();
+            int twitterCount = 0;
+            var service = new TwitterService("gdszkrjT9BXALsntZI3BxQ", "ltpb4xzjzxRf1w9Sq6wqhwOBfDNCKpWDcUkQyth5MeE");
+            service.AuthenticateWith("1966078789-R92gYWO9THXuYJ5uE6DkifcQ9mDLEZFT6dgUcuH", "g3Jb0b8BSt4CgSDrWJMatw6DaXwtocPk4kMhX52jnq4");
+
+            var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
+
+            try
+            {
+                foreach (var tweet in tweets)
+                {
+
+                    if (twitterCount < 6)
+                    {
+                        String name = tweet.User.ScreenName;
+                        String status = tweet.Text;
+                        String timeString;
+                        Uri image = new Uri(tweet.User.ProfileImageUrl);
+                        DateTime time = tweet.CreatedDate.ToLocalTime();
+                        TimeSpan timePassed = DateTime.Now.Subtract(time);
+                        if (timePassed.TotalSeconds < 60)
+                        {
+                            int timeInt = (int)(Math.Floor(timePassed.TotalSeconds));
+                            timeString = timeInt.ToString("N0") + " seconds ago";
+                        }
+                        else if (timePassed.TotalMinutes < 60)
+                        {
+                            int timeInt = (int)(Math.Floor(timePassed.TotalMinutes));
+                            timeString = timeInt.ToString("N0") + " minutes ago";
+                        }
+                        else if (timePassed.TotalHours < 24)
+                        {
+                            int timeInt = (int)Math.Floor(timePassed.TotalHours);
+                            timeString = timeInt.ToString("N1") + " hours ago";
+                        }
+                        else
+                        {
+                            int timeInt = (int)(Math.Floor(timePassed.TotalDays));
+                            timeString = timeInt.ToString("N1") + " days ago";
+                        }
+
+                        DataContext = this;
+                        _tweets.Add(new Tweet("@" + name, status, timeString.Replace(".0", "")));
+                        twitterCount++;
+                    }
+                }
+
+
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("NOOOOOOOOOOO");
             }
 
         }
