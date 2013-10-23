@@ -790,7 +790,7 @@ namespace CCF_app
                     }
                     else
                     {
-                        Txt_Donation.Text = "Please use a QR Code to donate more than $1000.";
+                        Txt_Donation.Text = "Please use a QR Code";
                     }
                 }
                 else
@@ -924,7 +924,7 @@ namespace CCF_app
 
             DonationMethodSwitch_Button.Visibility = Visibility.Visible;
 
-            Donations_Instructions.Margin = new Thickness(0, 0, 0, 350);
+            Donations_Instructions.Margin = new Thickness(0, 0, 0, 420);
             Donations_Instructions.Text = "Scan The Following QR Code To Donate:";
         }
 
@@ -956,7 +956,7 @@ namespace CCF_app
 
             DonationMethodSwitch_Button.Visibility = Visibility.Visible;
 
-            Donations_Instructions.Margin = new Thickness(0, 0, 0, 100);
+            Donations_Instructions.Margin = new Thickness(0, 0, 0, 200);
             Donations_Instructions.Text = "Text The Following Number To Donate:";
         }
 
