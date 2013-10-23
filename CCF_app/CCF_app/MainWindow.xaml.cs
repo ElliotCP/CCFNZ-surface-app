@@ -45,12 +45,13 @@ namespace CCF_app
         private bool _alreadySwiped;
 
         DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.5));
-        DoubleAnimation unanimation = new DoubleAnimation(0.5, TimeSpan.FromSeconds(0.5));
-
+        DoubleAnimation unanimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5));
+        DoubleAnimation animationForInformationPage = new DoubleAnimation(0.8, TimeSpan.FromSeconds(1));
         public MainWindow()
         {
             InitializeComponent();
 
+            ScreenTransitionMask.Visibility = Visibility.Collapsed;
             Home_BtnRec.Visibility = Visibility.Collapsed;
 
             // Add handlers for window availability events
@@ -79,6 +80,7 @@ namespace CCF_app
                     GlobalClickEventHandler();
             };
             Touch.FrameReported += Touch_FrameReported;
+            //unanimation.Completed += OnAnimationCompleted;
         }
 
         /// <summary>
@@ -168,15 +170,26 @@ namespace CCF_app
         {
             
             Unanimate();
-            UnAnimatePages();
+            //UnAnimatePages();
             CollapseAllPages();
-            MakeAllPagesOpacityZero();
-            MakeAllPagesInvisible();
-
-
+            //MakeAllPagesOpacityZero();
+            //MakeAllPagesInvisible();
+            
             HomePage.Visibility = Visibility.Visible;
-            HomePage.Opacity = 0;
-            HomePage.BeginAnimation(Grid.OpacityProperty, animation);
+            //HomePage.Opacity = 1;
+
+            ScreenTransitionMask.Visibility = Visibility.Visible;
+            //ScreenSaver.Visibility = Visibility.Visible;
+            //ScreenTransitionMask.BeginAnimation(Grid.OpacityProperty, unanimation);
+            
+
+                //if (ScreenTransitionMask.Opacity == 0){
+                //    ScreenTransitionMask.Visibility = Visibility.Collapsed;
+                
+                //}
+                //ScreenTransitionMask.Visibility = Visibility.Collapsed;  
+ 
+           
             Home_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             _currentPage = Pages.Home;
@@ -187,20 +200,19 @@ namespace CCF_app
         /// </summary>
         private void OnHelpPageClick(object sender, EventArgs e)
         {
-            
+            //OnDonatePageClick(sender, e);
+
+
             //transition effects
+            //UnAnimatePages();
             Unanimate();
-            
+            //MakeAllPagesOpacityZero();
             CollapseAllPages();
-            MakeAllPagesOpacityZero();
-            MakeAllPagesInvisible();
             
-            InformationPage.Visibility = Visibility.Visible;
-            
-            InformationPage.Opacity = 0;
-            UnAnimatePages();
-            InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
-            
+            //MakeAllPagesInvisible();
+
+
+            //InformationPage.Opacity = 0.5;
             //loading and playing video            
             MyVideo1.NavigateToString(Constants.YoutubeVideo_Help);
             MyVideo1.Visibility = Visibility.Visible;
@@ -217,6 +229,26 @@ namespace CCF_app
             Text1.Text = Constants.HelpText1;
             Text2.Text = Constants.HelpText2;
             _currentPage = Pages.Help;
+
+            //Text1.Visibility = Visibility.Visible;
+
+            //InformationPage.Visibility = Visibility.Hidden;
+            InformationPage.Visibility = Visibility.Visible;
+            //InformationPage.Opacity = 0.5;
+            ScreenTransitionMask.Visibility = Visibility.Visible;
+            //InformationPage.Visibility = Visibility.Visible;
+            //InformationPage.Opacity = 0.1;
+            //InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+          
+
+   
+
+
+            
+            //UnAnimatePages();
+
+            //InformationPage.BeginAnimation(Grid.OpacityProperty, animationForInformationPage);
+            //InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
             
         }
 
@@ -225,19 +257,21 @@ namespace CCF_app
         /// </summary>
         private void OnSupportPageClick(object sender, EventArgs e)
         {
-            MakeAllPagesOpacityZero();
+            //MakeAllPagesOpacityZero();
             Unanimate();
-            UnAnimatePages();
+            //UnAnimatePages();
             CollapseAllPages();
-            MakeAllPagesOpacityZero();
-            MakeAllPagesInvisible();
+            //MakeAllPagesOpacityZero();
+            //MakeAllPagesInvisible();
 
             MyVideo2.NavigateToString(Constants.YoutubeVideo_Support);
             MyVideo2.Visibility = Visibility.Visible;
 
             InformationPage.Visibility = Visibility.Visible;
-            InformationPage.Opacity = 0;
-            InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+            //InformationPage.Opacity = 0;
+
+            //begins transition animation on the InformationPage
+            //InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
             Support_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPageTitle.Text = "How Can I Get Support?";
@@ -254,17 +288,17 @@ namespace CCF_app
         private void OnAboutUsPageClick(object sender, EventArgs e)
         {
             Unanimate();
-            UnAnimatePages();
+            //UnAnimatePages();
             CollapseAllPages();
-            MakeAllPagesOpacityZero();
-            MakeAllPagesInvisible();
+            //MakeAllPagesOpacityZero();
+            //MakeAllPagesInvisible();
 
             MyVideo3.NavigateToString(Constants.YoutubeVideo_About);
             MyVideo3.Visibility = Visibility.Visible;
 
             InformationPage.Visibility = Visibility.Visible;
-            InformationPage.Opacity = 0;
-            InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+            //InformationPage.Opacity = 0;
+            //InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
             AboutUs_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPageTitle.Text = "What Is CCFNZ?";
@@ -276,23 +310,34 @@ namespace CCF_app
             _currentPage = Pages.AboutUs;
         }
 
+
+        /*
+        private void OnAnimationCompleted(object sender, EventArgs e)
+        {
+            //ScreenTransitionMask.Visibility = Visibility.Collapsed;
+            //HomePage.Visibility = Visibility.Visible;
+            //HomePage.Opacity = 1;
+
+
+        }
+        */
         /// <summary>
         ///     displays the "donate" page
         /// </summary>
         private void OnDonatePageClick(object sender, EventArgs e)
         {
             Unanimate();
-            UnAnimatePages();
+            //UnAnimatePages();
             CollapseAllPages();
-            MakeAllPagesOpacityZero();
-            MakeAllPagesInvisible();
+            //MakeAllPagesOpacityZero();
+            //MakeAllPagesInvisible();
 
             DonatePage_Pointer.Source =
                 new BitmapImage(new Uri("Assets/Icons/pointer_red.png", UriKind.RelativeOrAbsolute));
 
             DonatePage.Visibility = Visibility.Visible;
-            DonatePage.Opacity = 0;
-            DonatePage.BeginAnimation(Grid.OpacityProperty, animation);
+            //DonatePage.Opacity = 0;
+            //DonatePage.BeginAnimation(Grid.OpacityProperty, animation);
             Donate_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             UpdateProgressBarAndText(0);
@@ -957,6 +1002,39 @@ namespace CCF_app
         }
 
 
+        public void StrawberryCurry()
+        {
+            switch (_currentPage)
+            {
+                case Pages.Home:
+
+                    break;
+
+                case Pages.AboutUs:
+
+                    
+                    break;
+
+                case Pages.Help:
+                    break;
+
+                case Pages.Support:
+                    break;
+
+                case Pages.Donate:
+                    break;
+
+
+                
+            }
+
+
+           
+
+
+        }
+
+
         // Provide the carousel images with an identifier for easy reference.
         public enum HomePageImages
         {
@@ -974,5 +1052,8 @@ namespace CCF_app
             Support,
             Donate
         };
+
+
+
     }
 }
