@@ -76,6 +76,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tweet.cs" />
+    <Compile Include="Sphere.cs" />
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DonatingPlace.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -103,7 +105,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -136,8 +137,13 @@
     <Resource Include="Assets\Icons\qr_donate.png" />
     <Resource Include="Assets\Images\ScreenSaver.png" />
     <Resource Include="Assets\Images\VideoPlaceHolder.png" />
-    <Resource Include="Assets\Icons\ShowFeed.png" />
+    <Resource Include="Assets\Icons\progressbar_foreground.jpg" />
+    <Resource Include="Map.png" />
+    <Resource Include="Assets\Images\worldmap_ori.jpg" />
+    <Resource Include="Assets\Images\worldmap.jpg" />
     <Resource Include="Assets\Icons\HideFeed.png" />
+    <Resource Include="Assets\Icons\ShowFeed.png" />
+    <Resource Include="Assets\Images\TwitterFeedBg.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -15,11 +15,11 @@
         <fluidControls:SlideTransition x:Key="SlideTransitioner" />
         
         <Storyboard x:Key="BoxSlideIn" >
-            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="0,105,0,186" To="0,105,-500,186" DecelerationRatio=".9" />
+            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="0,140,0,180.666" To="0,140,-500,180.666" DecelerationRatio=".9" />
         </Storyboard>
 
         <Storyboard x:Key="BoxSlideOut">
-            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" From="0,105,-500,186" To="0,105,0,186" AccelerationRatio=".9"/>
+            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" From="0,140,-500,180.666" To="0,140,0,180.666" AccelerationRatio=".9"/>
         </Storyboard>
 
     </s:SurfaceWindow.Resources>
@@ -350,42 +350,45 @@
                     <TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Bottom" Width="12" />
                     <TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap"
-                               Text="TextBlock" VerticalAlignment="Bottom" Width="0" />                    
-                    <Grid x:Name="ScreenSaver" d:IsHidden="True">
-                        <Image Stretch="Fill" MaxHeight="1080">
-                            <Image.Source>Assets/Images/ScreenSaver.png</Image.Source>
-                        </Image>
-                    </Grid>
-                    <Button x:Name="OpenTwitterFeed" Margin="1754,105,0,187"  Click="TwitterButtonClick" Visibility="Collapsed">
-                        <Image Source="Assets/Icons/ShowFeed.png" Height="750" Width="150"  />
+                               Text="TextBlock" VerticalAlignment="Bottom" Width="0" />
+                    <Button x:Name="OpenTwitterFeed" Margin="1766,10,8,0"  Click="TwitterButtonClick" Visibility="Visible" Width="130" Height="130" VerticalAlignment="Top" d:LayoutOverrides="Height">
+                        <Image Source="Assets/Icons/ShowFeed.png" Height="130" Width="130"  />
                     </Button>
-                    <Button x:Name="CloseTwitterFeed" Margin="1384,105,370,187"  Click="TwitterButtonClick" Visibility="Visible">
-                        <Image Source="Assets/Icons/HideFeed.png" Height="750" Width="150"  />
+                    <Button x:Name="CloseTwitterFeed" Margin="1766,10,8,0"  Click="TwitterButtonClick" Visibility="Collapsed" Height="130" VerticalAlignment="Top" Width="130">
+                        <Image Source="Assets/Icons/HideFeed.png" Height="130" Width="130"  />
                     </Button>
-                    <Grid x:Name="TwitterFeed" Visibility="Visible" >
+                    
+                    <Grid x:Name="TwitterFeed" Visibility="Collapsed" >
+                        
                         <ListBox x:Name="TweetList" 
             HorizontalContentAlignment="Stretch"
-            Margin="0,105,0,186" HorizontalAlignment="Right" Width="370" Height="750">
+            Margin="0,140,0,180.666" HorizontalAlignment="Right" Width="370" Height="720"  >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="30" />
-                                            <RowDefinition Height="94" />
+                                            <RowDefinition Height="88" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="230" />
                                             <ColumnDefinition Width="115" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding UserName}"
-                Grid.Column="0"  Padding="2" FontWeight="Bold" FontSize="20" Foreground="#4099FF" />
-                                        
-                                        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="16"  Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2"/>
-                                        <TextBlock Grid.Column="2" Name="textBlock_1" Text="{Binding TimeString}" Foreground="LightGray" FontSize="15"/>
+                Grid.Column="0"  Padding="2" FontWeight="Bold" FontFamily="Segoe UI"  FontSize="20" Foreground="#FFAA66CC" />
+                                        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="17" FontFamily="Segoe UI Light" Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2"/>
+                                        <TextBlock Grid.Column="2" Name="textBlock_1" Text="{Binding TimeString}" FontFamily="Segoe UI Light" Foreground="LightGray" FontSize="16"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+                    </Grid>
+                    <Grid x:Name="ScreenSaver" d:IsHidden="True">
+                    	<Image Stretch="Fill" MaxHeight="1080">
+                    		<Image.Source>
+                    			<ImageSource>Assets/Images/ScreenSaver.png</ImageSource>
+                    		</Image.Source>
+                    	</Image>
                     </Grid>
                 </Grid>
             </Viewbox>

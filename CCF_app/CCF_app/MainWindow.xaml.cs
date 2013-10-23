@@ -52,7 +52,7 @@ namespace CCF_app
         private bool _alreadySwiped;
 
         System.Windows.Threading.DispatcherTimer twitterTimer;
-        int TwitterRefreshRate = 10;
+        int TwitterRefreshRate = 180;
 
 
         private void twitterTimer_Tick(object sender, EventArgs e)
@@ -112,6 +112,9 @@ namespace CCF_app
         private void ScreenSaver_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ScreenSaver.Visibility = Visibility.Collapsed;
+            TwitterButtonClick(sender, e);
+            Storyboard storyboard = Resources["BoxSlideOut"] as Storyboard;
+            storyboard.Begin(TweetList);
             OnHomePageClick(sender, e);
         }
 
@@ -132,6 +135,14 @@ namespace CCF_app
 
             //displaying hompage to go behind screen saver
             CollapseAllPages();
+            if (CloseTwitterFeed.IsVisible)
+            {
+                CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
+                OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
+                Storyboard storyboard = Resources["BoxSlideIn"] as Storyboard;
+                storyboard.Begin(TweetList);
+            }
+
             HomePage.Visibility = Visibility.Visible;
 
             //screen saver
