@@ -1129,6 +1129,7 @@ namespace CCF_app
         private void HideGlobe()
         {
             GlobeGrid.Visibility = Visibility.Collapsed;
+            ProgressGrid.Visibility = Visibility.Visible;
             isGlobeOpen = false;
         }
 
