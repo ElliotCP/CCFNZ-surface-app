@@ -38,7 +38,7 @@
 
 
                         <!-- Carousel Image Grid -->
-                        <Grid x:Name="ImageGrid" Margin="0,150,0,200" Opacity="0.8">
+                        <Grid x:Name="ImageGrid" Margin="0,150,0,200" Opacity="0.8" MouseMove="ImageGrid_MouseMove">
                             <!--<Grid.Background>
     							<ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
     						</Grid.Background>-->

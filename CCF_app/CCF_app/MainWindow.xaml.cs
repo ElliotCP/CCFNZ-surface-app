@@ -48,6 +48,12 @@ namespace CCF_app
         private bool _alreadySwiped = false;
         private bool _alreadySwipedCarousel = false;
 
+        // Used to prevent multiple image movements with one mouse click
+        bool _isMouseDownOnCarousel = false;
+
+        // Initial mouse click on carousel image
+        Point _initialMouseClick;
+
         //Used to keep track of scrollviewer position, and to reset it when page switches
         private double _scrollViewerOffset = 0;
 
@@ -383,14 +389,12 @@ namespace CCF_app
                                         // Swipe Left with 50px threshold.
                                         if (touchPoint.Position.X < (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
                                         {
-                                            Debug.WriteLine("Current Image: " + Constants.CurrentHomeImage);
                                             NextImage_MouseDown(null, null); // Transition to the next carousel image.
                                             _alreadySwipedCarousel = true;
                                         }
                                         // Swipe Right with 50px threshold.
                                         if (touchPoint.Position.X > (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
                                         {
-                                            Debug.WriteLine("Current Image: " + Constants.CurrentHomeImage);
                                             PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
                                             _alreadySwipedCarousel = true;
                                         }
@@ -1165,5 +1169,46 @@ namespace CCF_app
             Support,
             Donate
         };
+
+        /// <summary>
+        /// 	Provides mouse support for moving carousel images left and right
+        /// </summary>
+        private void ImageGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                if (!_isMouseDownOnCarousel)
+                {
+                    _isMouseDownOnCarousel = true;
+                    // Initial point where mouse is clicked on carousel
+                    _initialMouseClick = PointToScreen(Mouse.GetPosition(Application.Current.MainWindow));
+                }
+                else
+                {
+                    Point currentPosition = PointToScreen(Mouse.GetPosition(Application.Current.MainWindow));
+                    double deltaX = currentPosition.X - _initialMouseClick.X; //change in mouse from initial click position
+                    if (!_alreadySwipedCarousel) //if carousel hasn't been swiped yet
+                    {
+                        if (deltaX > Constants.CarouselImageSwipeThreshold) //if change in X position is greater than threshold value
+                        {
+                            PreviousImage_MouseDown(null, null); // Transition to the next carousel image.
+                            _alreadySwipedCarousel = true;
+                        }
+                        else if (deltaX < -Constants.CarouselImageSwipeThreshold) //if change in X position is less than threshold value
+                        {
+                            NextImage_MouseDown(null, null); // Transition to the next carousel image.
+                            _alreadySwipedCarousel = true;
+                        }
+                    }
+                }
+            }
+            else if (Mouse.LeftButton == MouseButtonState.Released)
+            {
+                //reset for next mouse click
+                _isMouseDownOnCarousel = false;
+                _alreadySwipedCarousel = false;
+            }
+
+        }
     }
 }
