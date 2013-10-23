@@ -1,4 +1,4 @@
-<s:SurfaceWindow
+﻿<s:SurfaceWindow
     x:Class="CCF_app.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -344,9 +344,11 @@
                                          VerticalContentAlignment="Center" BorderThickness="0"
                                          FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20"
                                          Click="OnHomePageClick" Background="#FF33B5E5" Height="140" Foreground="Black" />
-                        <Rectangle Grid.Column="0" x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40"
-                                   Margin="2.5,0,2.5,40"
-                                   VerticalAlignment="Bottom" MouseLeftButtonUp="BtnRec_MouseUp" />
+                        <Rectangle Grid.Column="0" x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40" Margin="2.5,0,2.5,40"
+                                   VerticalAlignment="Bottom"/>
+                        <Rectangle Grid.Column="0" x:Name="Home_BtnRec_Gesture" Fill="#FF0099CC"
+                    		       Margin="2.5,20,2.5,40" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+                        
                         <s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                          Grid.Column="1" BorderThickness="0" Foreground="Black"
@@ -354,6 +356,8 @@
                                          Background="#FFAA66CC" Height="140" Click="OnAboutUsPageClick" />
                         <Rectangle x:Name="AboutUs_BtnRec" Fill="#FF9933CC" Height="40" Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" Grid.Column="1" MouseLeftButtonUp="BtnRec_MouseUp" />
+                        <Rectangle x:Name="AboutUs_BtnRec_Gesture" Fill="#FF9933CC" Margin="2.5,20,2.5,40" Grid.Column="1" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0"/>
+                        
                         <s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                          Grid.Column="2" BorderThickness="0" Foreground="Black"
@@ -361,6 +365,8 @@
                                          Click="OnHelpPageClick" Background="#FF99CC00" Height="140" />
                         <Rectangle x:Name="Help_BtnRec" Fill="#FF669900" Height="40" Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" Grid.Column="2" MouseLeftButtonUp="BtnRec_MouseUp" />
+                        <Rectangle x:Name="Help_BtnRec_Gesture" Fill="#FF669900" Margin="2.5,20,2.5,40" Grid.Column="2" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+                        
                         <s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                          Grid.Column="3" BorderThickness="0" Foreground="Black"
@@ -368,6 +374,8 @@
                                          Click="OnSupportPageClick" Background="#FFFFBB33" Height="140" />
                         <Rectangle x:Name="Support_BtnRec" Fill="#FFFF8800" Height="40" Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" Grid.Column="3" MouseLeftButtonUp="BtnRec_MouseUp" />
+                        <Rectangle x:Name="Support_BtnRec_Gesture" Fill="#FFFF8800" Margin="2.5,20,2.5,40" Grid.Column="3" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+                        
                         <s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center"
                                          VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0"
                                          Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333"
@@ -375,6 +383,8 @@
                                          Click="OnDonatePageClick" />
                         <Rectangle x:Name="Donate_BtnRec" Fill="#FFCC0000" Height="40" Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" Grid.Column="4" MouseLeftButtonUp="BtnRec_MouseUp" />
+                        <Rectangle x:Name="Donate_BtnRec_Gesture" Fill="#FFCC0000" Margin="2.5,20,2.5,40" Grid.Column="4" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+                        
                     </Grid>
                     <TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Bottom" Width="12" />
@@ -398,13 +408,13 @@
                                 </ModelVisual3D.Content>
                             </ModelVisual3D>
                                     <shapes:Sphere x:Name="earth">
-                                        <shapes:Sphere.Material>
+                                        <!--<shapes:Sphere.Material>
                                             <DiffuseMaterial>
                                                 <DiffuseMaterial.Brush>
                                             <ImageBrush ImageSource="Assets/Images/worldmap.jpg"/>
                                                 </DiffuseMaterial.Brush>
                                             </DiffuseMaterial>
-                                        </shapes:Sphere.Material>
+                                        </shapes:Sphere.Material>-->
                                     <shapes:Sphere.Transform>
                                     <Transform3DGroup x:Name="transformGroup">
                                         <ScaleTransform3D x:Name="scaleTransform"/>

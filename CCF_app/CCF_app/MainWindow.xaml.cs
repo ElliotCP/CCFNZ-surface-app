@@ -429,6 +429,9 @@ namespace CCF_app
                         TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox); // First touch point on the ViewBox
                         if (touchPoint.Action == TouchAction.Down)
                         {
+
+                            Debug.WriteLine("Home Button Touched. " + Home_BtnRec.AreAnyTouchesCaptured);
+
                             // Make sure the touches are captured from the viewbox.
                             // Might need to adjust depending on components that might affected by swipe gestures. - ASA
                             touchPoint.TouchDevice.Capture(Viewbox);
@@ -464,7 +467,7 @@ namespace CCF_app
                                 else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
                                 {
                                     ReleaseAllTouchCaptures();
-                                    PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X); 
+                                    PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
                                 }
                             }
                             // Perform second finger touch point.
@@ -711,7 +714,7 @@ namespace CCF_app
         }
 
         /// <summary>
-        ///     added mouse click event for the bottom 1/2 of the buttons (darker part)
+        ///     added mouse click event for the page navigation buttons using an invisible rectangle.
         /// </summary>
         private void BtnRec_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -719,19 +722,19 @@ namespace CCF_app
             string x = rec.Name;
             switch (x)
             {
-                case "AboutUs_BtnRec":
+                case "AboutUs_BtnRec_Gesture":
                     OnAboutUsPageClick(sender, e);
                     break;
-                case "Home_BtnRec":
+                case "Home_BtnRec_Gesture":
                     OnHomePageClick(sender, e);
                     break;
-                case "Help_BtnRec":
+                case "Help_BtnRec_Gesture":
                     OnHelpPageClick(sender, e);
                     break;
-                case "Support_BtnRec":
+                case "Support_BtnRec_Gesture":
                     OnSupportPageClick(sender, e);
                     break;
-                case "Donate_BtnRec":
+                case "Donate_BtnRec_Gesture":
                     OnDonatePageClick(sender, e);
                     break;
             }
