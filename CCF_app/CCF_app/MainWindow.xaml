@@ -216,6 +216,8 @@
                                     <ImageBrush ImageSource="Assets/Icons/qr_donate.png" Stretch="Uniform" />
                                 </s:SurfaceButton.Background>
                             </s:SurfaceButton>
+                            <Rectangle Grid.Column="1" x:Name="QrDonate_Button_Gesture" Fill="#FF0099CC"
+                            	Margin="-94.417,73.516,0,-124.585" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" HorizontalAlignment="Left" Grid.Row="1" Width="323.5" />
                             <s:SurfaceButton x:Name="TxtDonate_Button" Content="" Margin="417.333,73.516,-82.667,-126.835"
                                              Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" HorizontalAlignment="Center"
                                              Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1"
@@ -224,6 +226,8 @@
                                     <ImageBrush ImageSource="Assets/Icons/mobile_donate.png" Stretch="Uniform" />
                                 </s:SurfaceButton.Background>
                             </s:SurfaceButton>
+                            <Rectangle Grid.Column="1" x:Name="TxtDonate_Button_Gesture" Fill="#FF0099CC"
+                            	Margin="0,77.516,-94.417,-128.585" MouseLeftButtonUp="BtnRec_MouseUp" HorizontalAlignment="Right" Grid.Row="1" Width="323.5" Opacity="0" />
                             <TextBlock x:Name="Donation_Help" TextWrapping="Wrap"
                                        Text="Choose An Amount You Would Like To Donate From The Left..."
                                        VerticalAlignment="Bottom" FontFamily="Segoe UI Light" FontSize="26.667"
@@ -269,6 +273,12 @@
                                              Margin="53.333,0,54.229,-20" VerticalAlignment="Bottom" Height="56"
                                              Background="#FFC73737" Foreground="White" FontSize="26.667" 
                                              Grid.Column="1" Grid.Row="2" Click="GlobeViewButton_Click"/>
+                            <Rectangle x:Name="GlobeViewButton_Gesture" Grid.Column="1" Fill="#FF0099CC" Height="56" Margin="53.333,0,54.229,-20" Grid.Row="2" VerticalAlignment="Bottom" Opacity="0" MouseLeftButtonUp="BtnRec_MouseUp"/>
+                            <s:SurfaceButton x:Name="GlobeCloseButton" Content="Close Globe" 
+                            	Margin="53.333,0,54.229,-20" VerticalAlignment="Bottom" Height="56"
+                            	Background="#FFC73737" Foreground="White" FontSize="26.667" 
+                            	Grid.Column="1" Grid.Row="2" Click="GlobeCloseButton_Click"/>
+                            <Rectangle x:Name="GlobeCloseButton_Gesture" Grid.Column="1" Fill="#FF0099CC" Height="56" Margin="53.333,0,54.229,-20" Grid.Row="2" VerticalAlignment="Bottom" Opacity="0" MouseLeftButtonUp="BtnRec_MouseUp"/>
                         </Grid>
                     </Grid>
                     
@@ -564,11 +574,16 @@
                     <TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Bottom" Width="0" />                    
 
-                    <Grid x:Name="GlobeGrid" HorizontalAlignment="Left" Margin="678.5,299.5,0,202" Width="539.5"
+                    <Grid x:Name="GlobeGrid" HorizontalAlignment="Left" Margin="678.5,299.5,0,266" Width="539.5"
                           IsManipulationEnabled="True" ManipulationDelta="OnManipulationDelta" 
                           MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeftButtonUp="Grid_MouseLeftButtonUp"
                           MouseMove="Grid_MouseMove" MouseWheel="Grid_MouseWheel" Background="Transparent" Visibility="Collapsed">
-                        <Viewport3D x:Name="viewport_globe">
+                    	<Grid.ColumnDefinitions>
+                    		<ColumnDefinition Width="Auto" MinWidth="17.5"/>
+                    		<ColumnDefinition Width="Auto" MinWidth="35.911"/>
+                    		<ColumnDefinition/>
+                    	</Grid.ColumnDefinitions>
+                        <Viewport3D x:Name="viewport_globe" Grid.ColumnSpan="3" Margin="0,0,0,64">
                             <Viewport3D.Camera>
                                 <PerspectiveCamera Position="0,0,5"/>
                             </Viewport3D.Camera>
@@ -581,13 +596,13 @@
                                 </ModelVisual3D.Content>
                             </ModelVisual3D>
                                     <shapes:Sphere x:Name="earth">
-                                        <!--<shapes:Sphere.Material>
+                                        <shapes:Sphere.Material>
                                             <DiffuseMaterial>
                                                 <DiffuseMaterial.Brush>
                                             <ImageBrush ImageSource="Assets/Images/worldmap.jpg"/>
                                                 </DiffuseMaterial.Brush>
                                             </DiffuseMaterial>
-                                        </shapes:Sphere.Material>-->
+                                        </shapes:Sphere.Material>
                                     <shapes:Sphere.Transform>
                                     <Transform3DGroup x:Name="transformGroup">
                                         <ScaleTransform3D x:Name="scaleTransform"/>
@@ -596,15 +611,14 @@
                             </shapes:Sphere>
                         </Viewport3D>
 
-                        <Rectangle Fill="#00000000"/>
-                        <CheckBox x:Name="MouseSimulationCheckBox" Content="Use Mouse" VerticalAlignment="Bottom" Margin="233.916,0,233,114.54" d:LayoutOverrides="Width"/>
+                        <Rectangle Fill="#00000000" Grid.ColumnSpan="3" Margin="0,0,0,64"/>
+                        <CheckBox x:Name="MouseSimulationCheckBox" Content="Use Mouse" VerticalAlignment="Bottom" Margin="180.416,0,233,114.54" d:LayoutOverrides="Width" Grid.Column="2"/>
                         <TextBlock x:Name="InfoTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,55,10,0" FontSize="24" Foreground="Red" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
-            <TextBlock.RenderTransform>
-                <ScaleTransform x:Name="InfoScale"/>
-            </TextBlock.RenderTransform>
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform x:Name="InfoScale"/>
+                        </TextBlock.RenderTransform>
                         </TextBlock>
-                        <Line x:Name="TouchLine" Stroke="Red" StrokeThickness="2"/>
-                        <Button x:Name="CloseGlobeButton" Content="Close" HorizontalAlignment="Left" Margin="8,8,0,0" VerticalAlignment="Top" Width="75" Click="CloseGlobeButton_Click" BorderBrush="{x:Null}" Background="#FFE4DEDE"/>
+                        <Line x:Name="TouchLine" Stroke="Red" StrokeThickness="2" Grid.ColumnSpan="3" Margin="0,0,0,64"/>
                     </Grid>
                     <Button x:Name="OpenTwitterFeed" Margin="1766,10,8,0"  Click="TwitterButtonClick" Visibility="Visible" Width="130" Height="130" VerticalAlignment="Top" d:LayoutOverrides="Height">
                         <Image Source="Assets/Icons/ShowFeed.png" Height="130" Width="130"  />
@@ -612,6 +626,7 @@
                     <Button x:Name="CloseTwitterFeed" Margin="1766,10,8,0"  Click="TwitterButtonClick" Visibility="Collapsed" Height="130" VerticalAlignment="Top" Width="130">
                         <Image Source="Assets/Icons/HideFeed.png" Height="130" Width="130"  />
                     </Button>
+                    <Rectangle x:Name="OpenTwitterFeed_Gesture" Fill="#FF0099CC" HorizontalAlignment="Right" Height="130.833" Margin="0,8,8,0" VerticalAlignment="Top" Width="128.667" Opacity="0" MouseLeftButtonUp="BtnRec_MouseUp"/>
                     
                     <Grid x:Name="TwitterFeed" Visibility="Collapsed" >
                         

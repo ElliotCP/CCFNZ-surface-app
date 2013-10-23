@@ -137,6 +137,9 @@ namespace CCF_app
             _DonatingCities.Add(new DonatingPlace() { Name = "Missouri", AmountOfDonaters = 200, Bound = new Rect(466.5 - offset, 321 - offset, 50, 50) });
             _DonatingCities.Add(new DonatingPlace() { Name = "Sydney", AmountOfDonaters = 200, Bound = new Rect(1758 - offset, 828 - offset, 50, 50) });
 
+            // Closed at startup.
+            GlobeCloseButton.Visibility = Visibility.Collapsed;
+            GlobeCloseButton_Gesture.Visibility = Visibility.Collapsed;
         }
 
         // Twitter refresh timer activates this 
@@ -385,6 +388,8 @@ namespace CCF_app
             Donations_Instructions.Visibility = Visibility.Collapsed;
             QrDonate_Button.Visibility = Visibility.Visible;
             TxtDonate_Button.Visibility = Visibility.Visible;
+            QrDonate_Button_Gesture.Visibility = Visibility.Visible;
+            TxtDonate_Button_Gesture.Visibility = Visibility.Visible;
 
             //removing the donation help text if it is unnneeded
             if (Donation_Help.Visibility == Visibility.Visible && _donationMethod != null)
@@ -741,10 +746,10 @@ namespace CCF_app
             var rec = (Rectangle) sender;
             string x = rec.Name;
             switch (x)
-            {                case "AboutUs_BtnRec":
+            {   
                 case "AboutUs_BtnRec_Gesture":
                     OnAboutUsPageClick(sender, e);
-                    break;                case "Home_BtnRec":
+                    break;
                 case "Home_BtnRec_Gesture":
                     OnHomePageClick(sender, e);
                     break;
@@ -759,6 +764,30 @@ namespace CCF_app
 
                 case "Donate_BtnRec_Gesture":
                     OnDonatePageClick(sender, e);
+                    break;
+                    
+                case "QrDonate_Button_Gesture":
+                    QRDonate_Clicked(null, null);
+                    break;
+
+                case "TxtDonate_Button_Gesture":
+                    TxtDonate_Clicked(sender, e);
+                    break;
+
+                case "OpenTwitterFeed_Gesture":
+                    TwitterButtonClick(sender, e);
+                    break;
+
+                case "GlobeViewButton_Gesture":
+                    GlobeViewButton_Click(sender, e);
+                    break;
+
+                case "GlobeCloseButton_Gesture":
+                    GlobeCloseButton_Click(sender, e);
+                    break;
+
+                case "GlobeCloseButton":
+                    GlobeCloseButton_Click(sender, e);
                     break;
             }
         }
@@ -931,6 +960,8 @@ namespace CCF_app
 
             QrDonate_Button.Visibility = Visibility.Collapsed;
             TxtDonate_Button.Visibility = Visibility.Collapsed;
+            QrDonate_Button_Gesture.Visibility = Visibility.Collapsed;
+            TxtDonate_Button_Gesture.Visibility = Visibility.Collapsed;
 
             DonationMethodSwitch_Button.Visibility = Visibility.Visible;
 
@@ -964,6 +995,8 @@ namespace CCF_app
 
             QrDonate_Button.Visibility = Visibility.Collapsed;
             TxtDonate_Button.Visibility = Visibility.Collapsed;
+            QrDonate_Button_Gesture.Visibility = Visibility.Collapsed;
+            TxtDonate_Button_Gesture.Visibility = Visibility.Collapsed;
 
             DonationMethodSwitch_Button.Visibility = Visibility.Visible;
 
@@ -979,9 +1012,11 @@ namespace CCF_app
         {
             Donate_Grid.Visibility = Visibility.Collapsed;
             QrDonate_Button.Visibility = Visibility.Visible;
-
+            QrDonate_Button_Gesture.Visibility = Visibility.Visible;
+            
             QrCodeDonation.Visibility = Visibility.Collapsed;
             TxtDonate_Button.Visibility = Visibility.Visible;
+            TxtDonate_Button_Gesture.Visibility = Visibility.Visible;
 
             DonationMethodSwitch_Button.Visibility = Visibility.Collapsed;
 
@@ -1205,6 +1240,11 @@ namespace CCF_app
         private void GlobeViewButton_Click(object sender, RoutedEventArgs e)
         {
         	DisplayGlobe();
+            // Swap view/close globe buttons.
+            GlobeViewButton.Visibility = Visibility.Collapsed;
+            GlobeViewButton_Gesture.Visibility = Visibility.Collapsed;
+            GlobeCloseButton.Visibility = Visibility.Visible;
+            GlobeCloseButton_Gesture.Visibility = Visibility.Visible;
         }
 		
         /// <summary>
@@ -1215,9 +1255,13 @@ namespace CCF_app
             // Collapse Donation Page elements when the globe is displayed.
             QrDonate_Button.Visibility = Visibility.Collapsed;
 			TxtDonate_Button.Visibility = Visibility.Collapsed;
+                        QrDonate_Button_Gesture.Visibility = Visibility.Collapsed;
+            TxtDonate_Button_Gesture.Visibility = Visibility.Collapsed;
+
 			ProgressGrid.Visibility = Visibility.Collapsed;
             Donate_Grid.Visibility = Visibility.Collapsed;
             Donation_Help.Visibility = Visibility.Collapsed;
+
 
             GlobeGrid.Visibility = Visibility.Visible;
             _isGlobeOpen = true;
@@ -1231,12 +1275,18 @@ namespace CCF_app
             GlobeGrid.Visibility = Visibility.Collapsed;
             ProgressGrid.Visibility = Visibility.Visible;
             _isGlobeOpen = false;
+
+            // Swap view/close globe buttons.
+            GlobeViewButton.Visibility = Visibility.Visible;
+            GlobeViewButton_Gesture.Visibility = Visibility.Visible;
+            GlobeCloseButton.Visibility = Visibility.Collapsed;
+            GlobeCloseButton_Gesture.Visibility = Visibility.Collapsed;
         }
 
 		/// <summary>
 		/// 	Hide the globe and go back to the start of donate page.
 		/// </summary>
-        private void CloseGlobeButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void GlobeCloseButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
         	HideGlobe();
 			OnDonatePageClick(null, null);
