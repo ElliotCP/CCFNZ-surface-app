@@ -40,16 +40,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ExternalLibraries\FluidKit.dll</HintPath>
     </Reference>
-	<Reference Include="Hammock.ClientProfile">
+    <Reference Include="Hammock.ClientProfile">
       <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
     </Reference>
     <Reference Include="MessagingToolkit.QRCode">
       <HintPath>ExternalLibraries\MessagingToolkit.QRCode.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
-	<Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -75,8 +72,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-	<Compile Include="Tweet.cs" />
-    <Compile Include="Sphere.cs" />
+    <Compile Include="Twitter\Tweet.cs" />
+    <Compile Include="Globe\Sphere.cs" />
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="DonatingPlace.cs" />
+    <Compile Include="Globe\DonatingPlace.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -123,30 +120,20 @@
     <Resource Include="Assets\Images\SAFEANDGENTLE BANNER8.png" />
     <Resource Include="Assets\Images\blurredGrid.png" />
     <Resource Include="Assets\Images\HomePage_Pic1.jpg" />
-    <Resource Include="Assets\Images\aboutUs1.png" />
-    <Resource Include="Assets\Images\help2.png" />
-    <Resource Include="Assets\Images\support1.png" />
-    <Resource Include="Assets\Images\support2.png" />
-    <Resource Include="Assets\Images\aboutUs3.png" />
-    <Resource Include="Assets\Images\aboutUs2.jpg" />
-    <Resource Include="Assets\Images\SAFEANDGENTLE BANNER82.png" />
-    <Resource Include="Assets\Images\help1.jpg" />
     <Resource Include="Assets\Images\HomePage_Pic2.jpg" />
     <Resource Include="Assets\Images\HomePage_Pic3.jpg" />
     <Resource Include="Assets\Icons\mobile_donate.png" />
     <Resource Include="Assets\Icons\qr_donate.png" />
     <Resource Include="Assets\Images\ScreenSaver.png" />
     <Resource Include="Assets\Images\VideoPlaceHolder.png" />
-    <Resource Include="Assets\Icons\progressbar_foreground.jpg" />
-    <Resource Include="Map.png" />
-    <Resource Include="Assets\Images\worldmap_ori.jpg" />
+    <Resource Include="Assets\Images\Map.png" />
     <Resource Include="Assets\Images\worldmap.jpg" />
-	<Resource Include="Assets\Icons\HideFeed.png" />
+    <Resource Include="Assets\Icons\HideFeed.png" />
     <Resource Include="Assets\Icons\ShowFeed.png" />
     <Resource Include="Assets\Images\TwitterFeedBg.png" />
-    <Content Include="Resources\icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

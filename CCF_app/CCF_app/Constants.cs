@@ -5,29 +5,7 @@ namespace CCF_app
 {
     public class Constants
     {
-        
         // Strings for location of images within app package
-        public readonly string[] BackgroundImages =
-        {
-            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg",
-            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg",
-            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg"
-        };
-
-        // Button animations defined here as they never change 
-        public static readonly DoubleAnimation Da = new DoubleAnimation(0, TimeSpan.FromMilliseconds(70));
-        public static readonly DoubleAnimation Da2 = new DoubleAnimation(40, TimeSpan.FromMilliseconds(70));
-        public static readonly DoubleAnimation Da3 = new DoubleAnimation(1, TimeSpan.FromMilliseconds(400));
-        public static readonly DoubleAnimation Da4 = new DoubleAnimation(0, TimeSpan.FromMilliseconds(400));
-
-        // Sets which image is the image on the home page for the app when it is run
-        public static MainWindow.HomePageImages CurrentHomeImage = MainWindow.HomePageImages.Img3;
-
-        // Set the amount donated when the app is run
-        public static int DonatePercentFunded = 60;
-
-        // Set the cash amount donated at start
-        public static int DonateTotalDonated = 6000;
 
         // Set the donation target
         public const int DonateTarget = 10000;
@@ -36,7 +14,6 @@ namespace CCF_app
         public const int DonateDaysToGo = 15;
 
         // Sets the videos to begin automatically on app start/page change
-        public static Boolean Playing = true;
 
         // Screen saver delay
         public const int ScreenSaverWaitTime = 50;
@@ -50,8 +27,8 @@ namespace CCF_app
         // Kept here rather than XML to keep everything all in one place //
         // About us first box
         public const string AboutUsText1 =
-            "Child Cancer Foundation New Zealand's mission is that every child and their family walking the child cancer journey will never feel alone." + 
-            "\nEvery week in New Zealand three families are told their child has cancer. We support these families from the very beginning. By doing this" + 
+            "Child Cancer Foundation New Zealand's mission is that every child and their family walking the child cancer journey will never feel alone." +
+            "\nEvery week in New Zealand three families are told their child has cancer. We support these families from the very beginning. By doing this" +
             " we reduce isolation and the impact of cancer. We aim to reduce the impact of cancer by offering services to ensure children and their families" +
             " are supported, informed and well cared for on their journey with cancer.";
 
@@ -60,7 +37,7 @@ namespace CCF_app
             "This assistance is delivered throughout New Zealand by our Family Support team working in conjunction with the foundation's branch members (parents and volunteers) in the local community." +
             "\nEach year we need at least $6 million to continue our services. This is raised through the generosity of individuals, grants, donations and sponsorships." +
             "\nThe Foundation's work with children with cancer and their families is unique and receives no direct government funding or support from other cancer agencies.";
-        
+
         // How can I help first box
         public const string HelpText1 =
             "We rely on the generosity of big-hearted New Zealander's to help us continue what we do. There are a variety of ways you can support children with cancer and their families." +
@@ -85,13 +62,45 @@ namespace CCF_app
             " support your family through the experiences and challenges of child cancer." +
             " Parent events, children’s holiday programmes and sibling days are among many that are well attended. ";
 
-       
+
         // Youtube links for the media elements
         private const string Prefix = "<html>" + "<body scroll=no>" + "<iframe src=\"" + "http://www.youtube.com/embed";
-        private const string Suffix = "?html5=1&controls=2&showinfo=0&showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" + "</iframe>" + "</body>" + "</html>";
+
+        private const string Suffix =
+            "?html5=1&controls=2&showinfo=0&showsearch=0&loop=1&fs=0&modestbranding=1&rel=0\"  width=\"100%\" height=\"100%\" frameborder=\"0\"  />" +
+            "</iframe>" + "</body>" + "</html>";
+
         public const string YoutubeVideo_About = Prefix + "/AlddeaxWxcs" + Suffix;
         public const string YoutubeVideo_Help = Prefix + "/c3inKzoQ3UE" + Suffix;
         public const string YoutubeVideo_Support = Prefix + "/oBMd_CKEyIY" + Suffix;
+        public const int TwitterRefreshRate = 180;
+        public static readonly DoubleAnimation Da = new DoubleAnimation(0, TimeSpan.FromMilliseconds(70));
+        public static readonly DoubleAnimation Da2 = new DoubleAnimation(40, TimeSpan.FromMilliseconds(70));
+        public static readonly DoubleAnimation Da3 = new DoubleAnimation(1, TimeSpan.FromMilliseconds(400));
+        public static readonly DoubleAnimation Da4 = new DoubleAnimation(0, TimeSpan.FromMilliseconds(400));
 
+        // Sets which image is the image on the home page for the app when it is run
+        public static MainWindow.HomePageImages CurrentHomeImage = MainWindow.HomePageImages.Img3;
+
+        // Set the amount donated when the app is run
+        public static int DonatePercentFunded = 60;
+
+        // Set the cash amount donated at start
+        public static int DonateTotalDonated = 6000;
+        public static Boolean Playing = true;
+
+        public readonly DoubleAnimation Animation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.3));
+
+        public readonly string[] BackgroundImages =
+        {
+            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic1.jpg",
+            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic2.jpg",
+            "pack://application:,,,/CCF_app;component/Assets/Images/HomePage_Pic3.jpg"
+        };
+
+        public readonly DoubleAnimation Unanimation = new DoubleAnimation(0.5, TimeSpan.FromSeconds(0.3));
+
+        public const int ImageWidth = 1920;
+        public const int ImageHeight = 1200;
     }
 }

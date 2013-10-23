@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -6,26 +8,20 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Threading;
+using CCF_app.Globe;
+using CCF_app.Twitter;
 using FluidKit.Controls;
 using MessagingToolkit.QRCode.Codec;
 using Microsoft.Surface;
+using TweetSharp;
 using Image = System.Drawing.Image;
 using Point = System.Windows.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
-
-using System.Windows.Media.Animation;
-using System.Windows.Media.Media3D;
-using System.Windows.Media;
-using System.Collections.Generic;
-
-using TweetSharp;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-using Microsoft.Surface.Presentation;
-using Microsoft.Surface.Presentation.Controls;
-using Microsoft.Surface.Presentation.Input;
 
 namespace CCF_app
 {
@@ -35,72 +31,81 @@ namespace CCF_app
     public partial class MainWindow
     {
         //used in screen saver
+        public enum HomePageImages
+        {
+            Img1 = 1,
+            Img2,
+            Img3
+        };
+
+        private enum Pages
+        {
+            Home = 1,
+            AboutUs,
+            Help,
+            Support,
+            Donate
+        };
+
+        private readonly Constants _constants;
+        private readonly List<DonatingPlace> _donatingCities;
+        private readonly DispatcherTimer _progressBarTimer;
+
         private readonly DispatcherTimer _timer;
+        private readonly ObservableCollection<Tweet> _tweets = new ObservableCollection<Tweet>();
+        private bool _alreadySwiped;
+        private bool _alreadySwipedCarousel;
+        private double _angleBuffer;
 
         private RadioButton _ck; //used to check which radio button has been checked
-        private Pages _currentPage = Pages.Home; // Keeps track of the current page that is on focus.
-
-        //used for delay in progressbar
-        private readonly DispatcherTimer _progressBarTimer;
         private int _currentDonationAmount;
+
+        private FrameworkElement _currentImage;
+            // Stores the image element of the image currently being displayed in the carousel.
+
+        private Pages _currentPage = Pages.Home; // Keeps track of the current page that is on focus.
 
         //donation bar variables
         private string _donationMethod = "";
+        private Point _initialMouseClick;
 
         private Point _initialTouchPoint; // Keeps track of the first finger touch.
-        private FrameworkElement _currentImage; // Stores the image element of the image currently being displayed in the carousel.
-        private FrameworkElement _nextImage; // Stores the image element of the image about to be displayed in the carousel.
-
-        // Used to prevent a long swipe from being processed as multiple smaller swipes.
-        private bool _alreadySwiped = false;
-        private bool _alreadySwipedCarousel = false;
+        private bool _isGlobeOpen;
+        private bool _isMouseDown;
 
         // Used to prevent multiple image movements with one mouse click
-        bool _isMouseDownOnCarousel = false;
+        private bool _isMouseDownOnCarousel;
+
+        private FrameworkElement _nextImage;
+            // Stores the image element of the image about to be displayed in the carousel.
 
         // Initial mouse click on carousel image
-        Point _initialMouseClick;
 
         //Used to keep track of scrollviewer position, and to reset it when page switches
-        private double _scrollViewerOffset = 0;
+        private double _scrollViewerOffset;
 
-        private double _angleBuffer = 0d;
-
-        // Globe texture image size
-        private static int _imageWidth = 1920;
-        private static int _imageHeight = 1200;
-
-        // Store data that will be displayed on the globe.
-        private List<DonatingPlace> _DonatingCities;
-
-        // Use these variables if the mouse is used to interact with the globe.
-        private bool _isMouseDown;
         private Point _startPoint;
 
         // Keeps track of the state of the globe.
-        private bool _isGlobeOpen = false;
-        
-		// Initialises a twitter refresh timer and the refresh rate 
-		System.Windows.Threading.DispatcherTimer twitterTimer;
-        int TwitterRefreshRate = 180;
+
+        // Initialises a twitter refresh timer and the refresh rate 
+        private DispatcherTimer _twitterTimer;
 
         // creating animation instances for screen transtion. DoubleAnimation(final opacity, duration)
-        DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.3));
-        DoubleAnimation unanimation = new DoubleAnimation(0.5, TimeSpan.FromSeconds(0.3));
 
         public MainWindow()
         {
             InitializeComponent();
 
             Home_BtnRec.Visibility = Visibility.Collapsed;
-            
+
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
-            
-			//load event to MainWindow_Loaded
-			Loaded += new RoutedEventHandler(MainWindow_Loaded);
-            
-			//creating timer and binding event handler to keep track of timer
+
+            //load event to MainWindow_Loaded
+            Loaded += MainWindow_Loaded;
+
+            //creating timer and binding event handler to keep track of timer
             _timer = new DispatcherTimer();
             _timer.Tick += Timer_Tick;
             _timer.Interval = new TimeSpan(0, 0, Constants.ScreenSaverWaitTime);
@@ -124,55 +129,113 @@ namespace CCF_app
             };
             Touch.FrameReported += Touch_FrameReported;
 
-            int offset = 30;
-            _DonatingCities = new List<DonatingPlace>(10);
-            _DonatingCities.Add(new DonatingPlace() { Name = "Auckland", AmountOfDonaters = 200, Bound = new Rect(1893 - offset, 844.5 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Queenstown", AmountOfDonaters = 200, Bound = new Rect(1867.5 - offset, 892.5 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Malaysia", AmountOfDonaters = 200, Bound = new Rect(1506 - offset, 607.5 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Russia", AmountOfDonaters = 200, Bound = new Rect(1632 - offset, 192 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "France", AmountOfDonaters = 200, Bound = new Rect(984 - offset, 294 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Germany", AmountOfDonaters = 200, Bound = new Rect(1020 - offset, 261 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "United Kingdom", AmountOfDonaters = 200, Bound = new Rect(960 - offset, 250.5 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Indiana", AmountOfDonaters = 200, Bound = new Rect(541.5 - offset, 270 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Missouri", AmountOfDonaters = 200, Bound = new Rect(466.5 - offset, 321 - offset, 50, 50) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Sydney", AmountOfDonaters = 200, Bound = new Rect(1758 - offset, 828 - offset, 50, 50) });
+            const int offset = 30;
+            _donatingCities = new List<DonatingPlace>(10)
+            {
+                new DonatingPlace
+                {
+                    Name = "Auckland",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(1893 - offset, 844.5 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "Queenstown",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(1867.5 - offset, 892.5 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "Russia",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(1632 - offset, 192 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "France",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(984 - offset, 294 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "Germany",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(1020 - offset, 261 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "United Kingdom",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(960 - offset, 250.5 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "Indiana",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(541.5 - offset, 270 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "Missouri",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(466.5 - offset, 321 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "Sydney",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(1758 - offset, 828 - offset, 50, 50)
+                },
+                new DonatingPlace
+                {
+                    Name = "Malaysia",
+                    AmountOfDonaters = 200,
+                    Bound = new Rect(1506 - offset, 607.5 - offset, 50, 50)
+                }
+            };
 
             // Closed at startup.
             GlobeCloseButton.Visibility = Visibility.Collapsed;
             GlobeCloseButton_Gesture.Visibility = Visibility.Collapsed;
+            _constants = new Constants();
+        }
+
+        public Constants Constants
+        {
+            get { return _constants; }
         }
 
         // Twitter refresh timer activates this 
         private void twitterTimer_Tick(object sender, EventArgs e)
         {
             // Reload Twitter
-            GetTweets_Click();
+            GetTweets();
         }
 
-		//Initialises the twitter feed and pulls the latest tweets
-        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        //Initialises the twitter feed and pulls the latest tweets
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             TweetList.ItemsSource = _tweets;
-            GetTweets_Click();
+            GetTweets();
             // DispatcherTimer setup for the twitter timer 
-            twitterTimer = new System.Windows.Threading.DispatcherTimer();
-            twitterTimer.Tick += new EventHandler(twitterTimer_Tick);
-            twitterTimer.Interval = new TimeSpan(0, 0, this.TwitterRefreshRate);
-            twitterTimer.Start();
+            _twitterTimer = new DispatcherTimer();
+            _twitterTimer.Tick += twitterTimer_Tick;
+            _twitterTimer.Interval = new TimeSpan(0, 0, Constants.TwitterRefreshRate);
+            _twitterTimer.Start();
         }
-		
+
         /// <summary>
         ///     Showing home page and hiding the screen saver when screen is touched
         /// </summary>
         private void ScreenSaver_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ScreenSaver.Visibility = Visibility.Collapsed;
-			
-			//Displays twitter feed when screensaver is disrupted
-			TwitterButtonClick(sender, e);
-            Storyboard storyboard = Resources["BoxSlideOut"] as Storyboard;
-            storyboard.Begin(TweetList);
-			
+
+            //Displays twitter feed when screensaver is disrupted
+            TwitterButtonClick(sender, e);
+            var storyboard = Resources["BoxSlideOut"] as Storyboard;
+            if (storyboard != null) storyboard.Begin(TweetList);
+
             OnHomePageClick(sender, e);
         }
 
@@ -194,17 +257,17 @@ namespace CCF_app
             //displaying hompage to go behind screen saver
             CollapseAllPages();
             HomePage.Visibility = Visibility.Visible;
-			
-			//If the twitter feed is visible than it is hidden with the screensaver
+
+            //If the twitter feed is visible than it is hidden with the screensaver
             if (CloseTwitterFeed.IsVisible)
             {
-                CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
-                OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
-                Storyboard storyboard = Resources["BoxSlideIn"] as Storyboard;
-                storyboard.Begin(TweetList);
+                CloseTwitterFeed.Visibility = Visibility.Collapsed;
+                OpenTwitterFeed.Visibility = Visibility.Visible;
+                var storyboard = Resources["BoxSlideIn"] as Storyboard;
+                if (storyboard != null) storyboard.Begin(TweetList);
             }
-			
-			
+
+
             //screen saver
             ScreenSaver.Visibility = Visibility.Visible;
             HideGlobe(); // Hide the globe when screensaver is activated.
@@ -246,17 +309,23 @@ namespace CCF_app
         /// <summary>
         ///     This is called when the user can interact with the application's window.
         /// </summary>
-        private void OnWindowInteractive(object sender, EventArgs e) {   }
+        private void OnWindowInteractive(object sender, EventArgs e)
+        {
+        }
 
         /// <summary>
         ///     This is called when the user can see but not interact with the application's window.
         /// </summary>
-        private void OnWindowNoninteractive(object sender, EventArgs e) {   }
+        private void OnWindowNoninteractive(object sender, EventArgs e)
+        {
+        }
 
         /// <summary>
         ///     This is called when the application's window is not visible or interactive.
         /// </summary>
-        private void OnWindowUnavailable(object sender, EventArgs e) {   }
+        private void OnWindowUnavailable(object sender, EventArgs e)
+        {
+        }
 
         /// <summary>
         ///     This is called when the homepage button is clicked
@@ -280,7 +349,7 @@ namespace CCF_app
         ///     displays the "how you I can help" page
         /// </summary>
         private void OnHelpPageClick(object sender, EventArgs e)
-        {            
+        {
             //transition effects
             Unanimate();
             CollapseAllPages();
@@ -296,7 +365,8 @@ namespace CCF_app
 
             InformationPage1Title.Text = "How Can I Help?";
 
-            InformationPage1Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_green.png", UriKind.RelativeOrAbsolute));
+            InformationPage1Pointer.Source =
+                new BitmapImage(new Uri("Assets/Icons/pointer_green.png", UriKind.RelativeOrAbsolute));
 
             //setting the text on the page
             InformationPage1Text1.Text = Constants.HelpText1;
@@ -326,7 +396,8 @@ namespace CCF_app
 
             InformationPage2Text1.Text = Constants.SupportText1;
             InformationPage2Text2.Text = Constants.SupportText2;
-            InformationPage2Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
+            InformationPage2Pointer.Source =
+                new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.Support;
             HideGlobe(); // Hide globe if SupportPage button is clicked
             RunPageAnimation(); //Start screen fade animation
@@ -352,7 +423,8 @@ namespace CCF_app
 
             InformationPage3Text1.Text = Constants.AboutUsText1;
             InformationPage3Text2.Text = Constants.AboutUsText2;
-            InformationPage3Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
+            InformationPage3Pointer.Source =
+                new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.AboutUs;
             HideGlobe(); // Hide globe if AboutUsPage button is clicked
             RunPageAnimation(); //Start screen fade animation
@@ -411,13 +483,13 @@ namespace CCF_app
         {
             if (_isGlobeOpen)
             {
-                var touchPoints = e.GetTouchPoints(viewport_globe);
+                TouchPointCollection touchPoints = e.GetTouchPoints(ViewportGlobe);
                 if (touchPoints.Count >= 2 && touchPoints[0].Action == TouchAction.Up)
                 {
-                    this.TouchLine.X1 = touchPoints[0].Position.X;
-                    this.TouchLine.X2 = touchPoints[1].Position.X;
-                    this.TouchLine.Y1 = touchPoints[0].Position.Y;
-                    this.TouchLine.Y2 = touchPoints[1].Position.Y;
+                    TouchLine.X1 = touchPoints[0].Position.X;
+                    TouchLine.X2 = touchPoints[1].Position.X;
+                    TouchLine.Y1 = touchPoints[0].Position.Y;
+                    TouchLine.Y2 = touchPoints[1].Position.Y;
                 }
             }
             else
@@ -430,10 +502,10 @@ namespace CCF_app
                     // Interact with each of the finger touches.
                     foreach (TouchPoint touchPoint in e.GetTouchPoints(Viewbox))
                     {
-                        TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox); // First touch point on the ViewBox
+                        TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox);
+                            // First touch point on the ViewBox
                         if (touchPoint.Action == TouchAction.Down)
                         {
-
                             Debug.WriteLine("Home Button Touched. " + Home_BtnRec.AreAnyTouchesCaptured);
 
                             // Make sure the touches are captured from the viewbox.
@@ -441,12 +513,13 @@ namespace CCF_app
                             touchPoint.TouchDevice.Capture(Viewbox);
                             _initialTouchPoint.X = touchPoint.Position.X;
                         }
-                        // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
+                            // Compare id of this touch with the original. If the id's are different then this touch belongs to another finger.
                         else if (touchPoint.Action == TouchAction.Move && e.GetPrimaryTouchPoint(Viewbox) != null)
                         {
                             // First finger touch.
                             TouchPoint point = e.GetPrimaryTouchPoint(Viewbox);
-                            if (primaryTouchPoint != null && touchPoint.TouchDevice.Id == primaryTouchPoint.TouchDevice.Id)
+                            if (primaryTouchPoint != null &&
+                                touchPoint.TouchDevice.Id == primaryTouchPoint.TouchDevice.Id)
                             {
                                 if (_currentPage == Pages.Home)
                                 {
@@ -455,29 +528,37 @@ namespace CCF_app
                                     if (!_alreadySwipedCarousel)
                                     {
                                         // Swipe Left with 50px threshold.
-                                        if (touchPoint.Position.X < (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
+                                        if (touchPoint.Position.X <
+                                            (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
                                         {
                                             NextImage_MouseDown(null, null); // Transition to the next carousel image.
                                             _alreadySwipedCarousel = true;
                                         }
                                         // Swipe Right with 50px threshold.
-                                        if (touchPoint.Position.X > (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
+                                        if (touchPoint.Position.X >
+                                            (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
                                         {
-                                            PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
+                                            PreviousImage_MouseDown(null, null);
+                                                // Transition to the previous carousel image.
                                             _alreadySwipedCarousel = true;
                                         }
                                     }
                                 }
-                                else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
+                                else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help ||
+                                         _currentPage == Pages.Support)
                                 {
                                     ReleaseAllTouchCaptures();
 
-                                    PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
-                                    InformationPage2PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
-                                    InformationPage1PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
+                                    PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset +
+                                                                                  _initialTouchPoint.X -
+                                                                                  touchPoint.Position.X);
+                                    InformationPage2PageDataScrollViewer.ScrollToHorizontalOffset(
+                                        _scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
+                                    InformationPage1PageDataScrollViewer.ScrollToHorizontalOffset(
+                                        _scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
                                 }
                             }
-                            // Perform second finger touch point.
+                                // Perform second finger touch point.
                             else
                             {
                                 if (point != null && touchPoint.TouchDevice.Id != point.TouchDevice.Id)
@@ -511,7 +592,7 @@ namespace CCF_app
                             {
                                 Viewbox.ReleaseTouchCapture(touchPoint.TouchDevice);
                             }
-                            // Release ImageGrid (Carousel) touch capture.
+                                // Release ImageGrid (Carousel) touch capture.
                             else if ((Equals(touchPoint.TouchDevice.Captured, ImageGrid)))
                             {
                                 ImageGrid.ReleaseTouchCapture(touchPoint.TouchDevice);
@@ -532,17 +613,19 @@ namespace CCF_app
                             PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
                             _scrollViewerOffset = PageDataScrollViewer.HorizontalOffset;
 
-                            InformationPage1PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
+                            InformationPage1PageDataScrollViewer.UpdateLayout();
+                                //in case we didn't get the current position
                             _scrollViewerOffset = InformationPage1PageDataScrollViewer.HorizontalOffset;
 
-                            InformationPage2PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
+                            InformationPage2PageDataScrollViewer.UpdateLayout();
+                                //in case we didn't get the current position
                             _scrollViewerOffset = InformationPage2PageDataScrollViewer.HorizontalOffset;
                         }
                     }
                 }
             }
         }
-        
+
         /// <summary>
         ///     Transition page to the next depending on the direction of swipe.
         /// </summary>
@@ -619,7 +702,7 @@ namespace CCF_app
 
             MyVideo1.Visibility = Visibility.Collapsed;
             MyVideo1.NavigateToString("about:blank");
-         
+
             MyVideo2.Visibility = Visibility.Collapsed;
             MyVideo2.NavigateToString("about:blank");
 
@@ -738,7 +821,6 @@ namespace CCF_app
         }
 
         /// <summary>
-
         ///     added mouse click event for the page navigation buttons using an invisible rectangle.
         /// </summary>
         private void BtnRec_MouseUp(object sender, MouseButtonEventArgs e)
@@ -746,7 +828,7 @@ namespace CCF_app
             var rec = (Rectangle) sender;
             string x = rec.Name;
             switch (x)
-            {   
+            {
                 case "AboutUs_BtnRec_Gesture":
                     OnAboutUsPageClick(sender, e);
                     break;
@@ -765,7 +847,7 @@ namespace CCF_app
                 case "Donate_BtnRec_Gesture":
                     OnDonatePageClick(sender, e);
                     break;
-                    
+
                 case "QrDonate_Button_Gesture":
                     QRDonate_Clicked(null, null);
                     break;
@@ -828,7 +910,6 @@ namespace CCF_app
                     }
                     else
                     {
-
                         Txt_Donation.Text = "Please use a QR Code";
                     }
                 }
@@ -836,7 +917,8 @@ namespace CCF_app
                 {
                     // Remove "$" character that gets inherited from retrieving name/value of the donation option selected.
                     _currentDonationAmount = Convert.ToInt32(donationAmount.Replace("$", ""));
-                    _progressBarTimer.Interval = new TimeSpan(0, 0, Constants.ProgressBarWaitTime); //just in case we stopped last time, reset the timer anyway
+                    _progressBarTimer.Interval = new TimeSpan(0, 0, Constants.ProgressBarWaitTime);
+                        //just in case we stopped last time, reset the timer anyway
                     _progressBarTimer.Start(); //start timer for updating progress bar with selected amount
                     String qrCodeContent = donationServer + "/?amount=" + donationAmount;
                     Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image.
@@ -898,21 +980,23 @@ namespace CCF_app
         }
 
         /// <summary>
-        /// Increase the total Donation amount and refresh Donation progress text.
-        /// We need this method seperate because we need to set initial amount at start up
+        ///     Increase the total Donation amount and refresh Donation progress text.
+        ///     We need this method seperate because we need to set initial amount at start up
         /// </summary>
         /// <param name="amount"></param>
         private void UpdateProgressBarAndText(int amount)
         {
             Constants.DonateTotalDonated += amount;
-            Constants.DonatePercentFunded = Constants.DonateTotalDonated * 100 / Constants.DonateTarget;
-            DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go", Constants.DonatePercentFunded, Constants.DonateTotalDonated, Constants.DonateDaysToGo);
+            Constants.DonatePercentFunded = Constants.DonateTotalDonated*100/Constants.DonateTarget;
+            DonateProgressText.Text = String.Format("{0}% funded | ${1} donated | {2} days to go",
+                Constants.DonatePercentFunded, Constants.DonateTotalDonated, Constants.DonateDaysToGo);
             DonationProgress_Bar.Value = Constants.DonatePercentFunded;
-            _progressBarTimer.Stop(); //we've updated the progress bar, don't update until radio buttons are clicked again
+            _progressBarTimer.Stop();
+                //we've updated the progress bar, don't update until radio buttons are clicked again
         }
 
         /// <summary>
-        /// Calls the UpdateProgressBarAndText method when the timer ticks.
+        ///     Calls the UpdateProgressBarAndText method when the timer ticks.
         /// </summary>
         private void ProgressBarTimer_Tick(object sender, EventArgs e)
         {
@@ -920,7 +1004,7 @@ namespace CCF_app
         }
 
         /// <summary>
-        /// Resets the scrollviewer to original position (far left)
+        ///     Resets the scrollviewer to original position (far left)
         /// </summary>
         private void ResetScrollViewerPosition()
         {
@@ -929,7 +1013,7 @@ namespace CCF_app
         }
 
         /// <summary>
-        /// Display QRCode on the donate page by replacing placeholder qr_image.
+        ///     Display QRCode on the donate page by replacing placeholder qr_image.
         /// </summary>
         private void Display_QRCode(String text, int level)
         {
@@ -1013,7 +1097,7 @@ namespace CCF_app
             Donate_Grid.Visibility = Visibility.Collapsed;
             QrDonate_Button.Visibility = Visibility.Visible;
             QrDonate_Button_Gesture.Visibility = Visibility.Visible;
-            
+
             QrCodeDonation.Visibility = Visibility.Collapsed;
             TxtDonate_Button.Visibility = Visibility.Visible;
             TxtDonate_Button_Gesture.Visibility = Visibility.Visible;
@@ -1040,10 +1124,8 @@ namespace CCF_app
             }
         }
 
-        string prev_donation_text = "";
-        double donation_amount = 0;
         /// <summary>
-        ///     When text is entered into the custom donation textbox, update the donation 
+        ///     When text is entered into the custom donation textbox, update the donation
         ///     QRCode or the call number depending on current payment selected.
         /// </summary>
         private void Donation_KeyDown(object sender, KeyEventArgs e)
@@ -1062,10 +1144,10 @@ namespace CCF_app
                 Txt_Donation.Visibility = Visibility.Visible;
             }
 
+            int donateAmount;
             try // Try and convert custom donation amount to integer
             {
-                prev_donation_text = Donation_CustomAmount.Text;
-                donation_amount = Convert.ToInt32(Donation_CustomAmount.Text);
+                donateAmount = Convert.ToInt32(Donation_CustomAmount.Text);
             }
             catch (FormatException) // Donation amount entered is not a number so resolve the issue.
             {
@@ -1080,11 +1162,11 @@ namespace CCF_app
             String qrCodeContent = donationServer + "/?amount=" + Donation_CustomAmount.Text;
             Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image with the given information.
 
-            if (Convert.ToInt32(Donation_CustomAmount.Text) < 999)
+            if (donateAmount < 999)
             {
                 Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
             }
-            else if (Convert.ToInt32(Donation_CustomAmount.Text) >= 999)
+            else if (donateAmount >= 999)
             {
                 // Redirect user to use the QRCode for their own privacy.
                 Txt_Donation.Text = "Please use a QR Code";
@@ -1102,50 +1184,40 @@ namespace CCF_app
 
         private void OnManipulationDelta(object sender, ManipulationDeltaEventArgs e)
         {
-            scaleTransform.ScaleX *= e.DeltaManipulation.Scale.X;
-            scaleTransform.ScaleY *= e.DeltaManipulation.Scale.Y;
-            scaleTransform.ScaleZ *= e.DeltaManipulation.Scale.X;
+            ScaleTransform.ScaleX *= e.DeltaManipulation.Scale.X;
+            ScaleTransform.ScaleY *= e.DeltaManipulation.Scale.Y;
+            ScaleTransform.ScaleZ *= e.DeltaManipulation.Scale.X;
 
-            this._angleBuffer++;
+            _angleBuffer++;
             // To avoid screen slash and to save a few CPU resource, do not rotate the scene whenever a maniputation event occurs.
             // Only rotate the scene if the angle cumulated enough.
             if (_angleBuffer >= 0)
             {
                 Vector delta = e.DeltaManipulation.Translation;
-                this.RotateGlobe(delta);
+                RotateGlobe(delta);
             }
             e.Handled = true;
         }
 
         /// <summary>
-        /// Rotate the global. Given 'delta' the distance the finger/mouse has moved. 
+        ///     Rotate the global. Given 'delta' the distance the finger/mouse has moved.
         /// </summary>
         private void RotateGlobe(Vector delta)
         {
-            if (delta.X != 0 || delta.Y != 0)
+            if (!delta.X.Equals(0.0) || !delta.Y.Equals(0.0))
             {
                 // Convert delta to a 3D vector.
-                Vector3D vOriginal = new Vector3D(-delta.X, delta.Y, 0d);
-                Vector3D vZ = new Vector3D(0, 0, 1);
+                var vOriginal = new Vector3D(-delta.X, delta.Y, 0d);
+                var vZ = new Vector3D(0, 0, 1);
                 // Find a vector that is perpendicular with the delta vector on the XY surface. This will be the rotation axis.
                 Vector3D perpendicular = Vector3D.CrossProduct(vOriginal, vZ);
-                RotateTransform3D rotate = new RotateTransform3D();
+                var rotate = new RotateTransform3D();
                 // The QuaternionRotation3D allows you to easily specify a rotation axis.
-                QuaternionRotation3D quatenion = new QuaternionRotation3D();
-                quatenion.Quaternion = new Quaternion(perpendicular, 3);
+                var quatenion = new QuaternionRotation3D {Quaternion = new Quaternion(perpendicular, 3)};
                 rotate.Rotation = quatenion;
-                transformGroup.Children.Add(rotate);
+                TransformGroup.Children.Add(rotate);
                 _angleBuffer = 0;
             }
-        }
-
-        /// <summary>
-        ///     On touch up. Check to see if the touch point matches the point of interest
-        ///     on the globe.
-        /// </summary>
-        private void OnTouchUp(object sender, TouchEventArgs e)
-        {
-            DoHitTest(e.GetTouchPoint(GlobeGrid).Position);
         }
 
         /// <summary>
@@ -1153,9 +1225,9 @@ namespace CCF_app
         /// </summary>
         private void DoHitTest(Point point)
         {
-            VisualTreeHelper.HitTest(GlobeGrid, null, new HitTestResultCallback(target =>
+            VisualTreeHelper.HitTest(GlobeGrid, null, target =>
             {
-                RayMeshGeometry3DHitTestResult result = target as RayMeshGeometry3DHitTestResult;
+                var result = target as RayMeshGeometry3DHitTestResult;
                 if (result != null)
                 {
                     // Calculate the hit point using barycentric coordinates formula:
@@ -1164,16 +1236,16 @@ namespace CCF_app
                     Point p1 = result.MeshHit.TextureCoordinates[result.VertexIndex1];
                     Point p2 = result.MeshHit.TextureCoordinates[result.VertexIndex2];
                     Point p3 = result.MeshHit.TextureCoordinates[result.VertexIndex3];
-                    double hitX = p1.X * result.VertexWeight1 + p2.X * result.VertexWeight2 + p3.X * result.VertexWeight3;
-                    double hitY = p1.Y * result.VertexWeight1 + p2.Y * result.VertexWeight2 + p3.Y * result.VertexWeight3;
-                    Point pointHit = new Point(hitX * _imageWidth, hitY * _imageHeight);
+                    double hitX = p1.X*result.VertexWeight1 + p2.X*result.VertexWeight2 + p3.X*result.VertexWeight3;
+                    double hitY = p1.Y*result.VertexWeight1 + p2.Y*result.VertexWeight2 + p3.Y*result.VertexWeight3;
+                    var pointHit = new Point(hitX*Constants.ImageWidth, hitY*Constants.ImageHeight);
                     //// If a data center circle is hit, display the information.
-                    foreach (DonatingPlace dc in this._DonatingCities)
+                    foreach (DonatingPlace dc in _donatingCities)
                     {
                         if (dc.Bound.Contains(pointHit))
                         {
-                            this.InfoTextBox.Text = "Number of donaters in " + dc.Name + " are "+dc.AmountOfDonaters;
-                            Storyboard sb = this.Resources["sb"] as Storyboard;
+                            InfoTextBox.Text = "Number of donaters in " + dc.Name + " are " + dc.AmountOfDonaters;
+                            var sb = Resources["sb"] as Storyboard;
                             if (sb != null)
                             {
                                 sb.Begin();
@@ -1183,7 +1255,7 @@ namespace CCF_app
                     }
                 }
                 return HitTestResultBehavior.Continue;
-            }), new PointHitTestParameters(point));
+            }, new PointHitTestParameters(point));
         }
 
         // The following are event handlers for mouse simulation.
@@ -1198,13 +1270,13 @@ namespace CCF_app
         /// </summary>
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_isMouseDown && MouseSimulationCheckBox.IsChecked.Value)
+            if (MouseSimulationCheckBox.IsChecked != null && (_isMouseDown && MouseSimulationCheckBox.IsChecked.Value))
             {
                 _angleBuffer++;
                 if (_angleBuffer >= 0)
                 {
                     Point currentPoint = e.GetPosition(GlobeGrid);
-                    Vector delta = new Vector(currentPoint.X - _startPoint.X, currentPoint.Y - _startPoint.Y);
+                    var delta = new Vector(currentPoint.X - _startPoint.X, currentPoint.Y - _startPoint.Y);
                     RotateGlobe(delta);
                 }
             }
@@ -1216,8 +1288,8 @@ namespace CCF_app
         /// </summary>
         private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this._isMouseDown = false;
-            if (MouseSimulationCheckBox.IsChecked.Value)
+            _isMouseDown = false;
+            if (MouseSimulationCheckBox.IsChecked != null && MouseSimulationCheckBox.IsChecked.Value)
             {
                 DoHitTest(e.GetPosition(GlobeGrid));
             }
@@ -1228,44 +1300,44 @@ namespace CCF_app
         /// </summary>
         private void Grid_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (MouseSimulationCheckBox.IsChecked.Value)
+            if (MouseSimulationCheckBox.IsChecked != null && MouseSimulationCheckBox.IsChecked.Value)
             {
                 double delta = e.Delta > 0 ? 1.2 : 0.8;
-                scaleTransform.ScaleX *= delta;
-                scaleTransform.ScaleY *= delta;
-                scaleTransform.ScaleZ *= delta;
+                ScaleTransform.ScaleX *= delta;
+                ScaleTransform.ScaleY *= delta;
+                ScaleTransform.ScaleZ *= delta;
             }
         }
 
         private void GlobeViewButton_Click(object sender, RoutedEventArgs e)
         {
-        	DisplayGlobe();
+            DisplayGlobe();
             // Swap view/close globe buttons.
             GlobeViewButton.Visibility = Visibility.Collapsed;
             GlobeViewButton_Gesture.Visibility = Visibility.Collapsed;
             GlobeCloseButton.Visibility = Visibility.Visible;
             GlobeCloseButton_Gesture.Visibility = Visibility.Visible;
         }
-		
+
         /// <summary>
         ///     Call this method to display the globe and hide donate page elements.
         /// </summary>
-		private void DisplayGlobe()
-		{
+        private void DisplayGlobe()
+        {
             // Collapse Donation Page elements when the globe is displayed.
             QrDonate_Button.Visibility = Visibility.Collapsed;
-			TxtDonate_Button.Visibility = Visibility.Collapsed;
-                        QrDonate_Button_Gesture.Visibility = Visibility.Collapsed;
+            TxtDonate_Button.Visibility = Visibility.Collapsed;
+            QrDonate_Button_Gesture.Visibility = Visibility.Collapsed;
             TxtDonate_Button_Gesture.Visibility = Visibility.Collapsed;
 
-			ProgressGrid.Visibility = Visibility.Collapsed;
+            ProgressGrid.Visibility = Visibility.Collapsed;
             Donate_Grid.Visibility = Visibility.Collapsed;
             Donation_Help.Visibility = Visibility.Collapsed;
 
 
             GlobeGrid.Visibility = Visibility.Visible;
             _isGlobeOpen = true;
-		}
+        }
 
         /// <summary>
         ///     Call this method to hide the globe.
@@ -1283,35 +1355,19 @@ namespace CCF_app
             GlobeCloseButton_Gesture.Visibility = Visibility.Collapsed;
         }
 
-		/// <summary>
-		/// 	Hide the globe and go back to the start of donate page.
-		/// </summary>
-        private void GlobeCloseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        /// <summary>
+        ///     Hide the globe and go back to the start of donate page.
+        /// </summary>
+        private void GlobeCloseButton_Click(object sender, RoutedEventArgs e)
         {
-        	HideGlobe();
-			OnDonatePageClick(null, null);
+            HideGlobe();
+            OnDonatePageClick(null, null);
         }
 
         // Provide the carousel images with an identifier for easy reference.
-        public enum HomePageImages
-        {
-            Img1 = 1,
-            Img2,
-            Img3
-        };
-
-        // Provide pages with an identifier for easy reference.
-        private enum Pages
-        {
-            Home = 1,
-            AboutUs,
-            Help,
-            Support,
-            Donate
-        };
 
         /// <summary>
-        /// 	Provides mouse support for moving carousel images left and right
+        ///     Provides mouse support for moving carousel images left and right
         /// </summary>
         private void ImageGrid_MouseMove(object sender, MouseEventArgs e)
         {
@@ -1326,15 +1382,18 @@ namespace CCF_app
                 else
                 {
                     Point currentPosition = PointToScreen(Mouse.GetPosition(Application.Current.MainWindow));
-                    double deltaX = currentPosition.X - _initialMouseClick.X; //change in mouse from initial click position
+                    double deltaX = currentPosition.X - _initialMouseClick.X;
+                        //change in mouse from initial click position
                     if (!_alreadySwipedCarousel) //if carousel hasn't been swiped yet
                     {
-                        if (deltaX > Constants.CarouselImageSwipeThreshold) //if change in X position is greater than threshold value
+                        if (deltaX > Constants.CarouselImageSwipeThreshold)
+                            //if change in X position is greater than threshold value
                         {
                             PreviousImage_MouseDown(null, null); // Transition to the next carousel image.
                             _alreadySwipedCarousel = true;
                         }
-                        else if (deltaX < -Constants.CarouselImageSwipeThreshold) //if change in X position is less than threshold value
+                        else if (deltaX < -Constants.CarouselImageSwipeThreshold)
+                            //if change in X position is less than threshold value
                         {
                             NextImage_MouseDown(null, null); // Transition to the next carousel image.
                             _alreadySwipedCarousel = true;
@@ -1348,91 +1407,82 @@ namespace CCF_app
                 _isMouseDownOnCarousel = false;
                 _alreadySwipedCarousel = false;
             }
-
         }
-		
-	    private void TwitterButtonClick(object sender, RoutedEventArgs e)
+
+        private void TwitterButtonClick(object sender, RoutedEventArgs e)
         {
-            if (OpenTwitterFeed.Visibility == System.Windows.Visibility.Visible)
+            if (OpenTwitterFeed.Visibility == Visibility.Visible)
             {
-                CloseTwitterFeed.Visibility = System.Windows.Visibility.Visible;
-                OpenTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
-                this.TwitterFeed.Visibility = System.Windows.Visibility.Visible;
-                Storyboard storyboard = Resources["BoxSlideOut"] as Storyboard;
-                storyboard.Begin(TweetList);
+                CloseTwitterFeed.Visibility = Visibility.Visible;
+                OpenTwitterFeed.Visibility = Visibility.Collapsed;
+                TwitterFeed.Visibility = Visibility.Visible;
+                var storyboard = Resources["BoxSlideOut"] as Storyboard;
+                if (storyboard != null) storyboard.Begin(TweetList);
             }
             else
             {
-                CloseTwitterFeed.Visibility = System.Windows.Visibility.Collapsed;
-                OpenTwitterFeed.Visibility = System.Windows.Visibility.Visible;
-                Storyboard storyboard = Resources["BoxSlideIn"] as Storyboard;
-                storyboard.Begin(TweetList);
+                CloseTwitterFeed.Visibility = Visibility.Collapsed;
+                OpenTwitterFeed.Visibility = Visibility.Visible;
+                var storyboard = Resources["BoxSlideIn"] as Storyboard;
+                if (storyboard != null) storyboard.Begin(TweetList);
             }
         }
 
-        private ObservableCollection<Tweet> _tweets = new ObservableCollection<Tweet>();
-        private void GetTweets_Click()
+        private void GetTweets()
         {
-
-
+            TweetList.DataContext = _tweets;
             _tweets.Clear();
             int twitterCount = 0;
             var service = new TwitterService("gdszkrjT9BXALsntZI3BxQ", "ltpb4xzjzxRf1w9Sq6wqhwOBfDNCKpWDcUkQyth5MeE");
-            service.AuthenticateWith("1966078789-R92gYWO9THXuYJ5uE6DkifcQ9mDLEZFT6dgUcuH", "g3Jb0b8BSt4CgSDrWJMatw6DaXwtocPk4kMhX52jnq4");
+            service.AuthenticateWith("1966078789-R92gYWO9THXuYJ5uE6DkifcQ9mDLEZFT6dgUcuH",
+                "g3Jb0b8BSt4CgSDrWJMatw6DaXwtocPk4kMhX52jnq4");
 
-            var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
+            IEnumerable<TwitterStatus> tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
 
             try
             {
-                foreach (var tweet in tweets)
+                foreach (TwitterStatus tweet in tweets)
                 {
-
                     if (twitterCount < 6)
                     {
                         String name = tweet.User.ScreenName;
                         String status = tweet.Text;
                         String timeString;
-                        Uri image = new Uri(tweet.User.ProfileImageUrl);
                         DateTime time = tweet.CreatedDate.ToLocalTime();
                         TimeSpan timePassed = DateTime.Now.Subtract(time);
                         if (timePassed.TotalSeconds < 60)
                         {
-                            int timeInt = (int)(Math.Floor(timePassed.TotalSeconds));
+                            var timeInt = (int) (Math.Floor(timePassed.TotalSeconds));
                             timeString = timeInt.ToString("N0") + " seconds ago";
                         }
                         else if (timePassed.TotalMinutes < 60)
                         {
-                            int timeInt = (int)(Math.Floor(timePassed.TotalMinutes));
+                            var timeInt = (int) (Math.Floor(timePassed.TotalMinutes));
                             timeString = timeInt.ToString("N0") + " minutes ago";
                         }
                         else if (timePassed.TotalHours < 24)
                         {
-                            int timeInt = (int)Math.Floor(timePassed.TotalHours);
+                            var timeInt = (int) Math.Floor(timePassed.TotalHours);
                             timeString = timeInt.ToString("N1") + " hours ago";
                         }
                         else
                         {
-                            int timeInt = (int)(Math.Floor(timePassed.TotalDays));
+                            var timeInt = (int) (Math.Floor(timePassed.TotalDays));
                             timeString = timeInt.ToString("N1") + " days ago";
                         }
 
-                        DataContext = this;
                         _tweets.Add(new Tweet("@" + name, status, timeString.Replace(".0", "")));
                         twitterCount++;
                     }
                 }
-
-
             }
             catch (NullReferenceException)
             {
-                Console.WriteLine("NOOOOOOOOOOO");
             }
-
         }
 
         /// <summary>
-        /// makes all the pages transparent
+        ///     makes all the pages transparent
         /// </summary>
         public void MakeAllPagesOpacityZero()
         {
@@ -1443,8 +1493,9 @@ namespace CCF_app
             InformationPage3.Opacity = 0;
             DonatePage.Opacity = 0;
         }
+
         /// <summary>
-        ///  collapses all the pages (doesn't make top nav and bottom nav invisible)
+        ///     collapses all the pages (doesn't make top nav and bottom nav invisible)
         /// </summary>
         public void MakeAllPagesInvisible()
         {
@@ -1454,24 +1505,23 @@ namespace CCF_app
             InformationPage2.Visibility = Visibility.Hidden;
             InformationPage3.Visibility = Visibility.Hidden;
             DonatePage.Visibility = Visibility.Hidden;
-
         }
 
         /// <summary>
-        ///  reverts the animation effect on the pages. needed for re-animation
+        ///     reverts the animation effect on the pages. needed for re-animation
         /// </summary>
         public void UnAnimatePages()
         {
-            HomePage.BeginAnimation(Grid.OpacityProperty, unanimation);
+            HomePage.BeginAnimation(OpacityProperty, Constants.Unanimation);
 
-            InformationPage1.BeginAnimation(Grid.OpacityProperty, unanimation);
-            InformationPage2.BeginAnimation(Grid.OpacityProperty, unanimation);
-            InformationPage3.BeginAnimation(Grid.OpacityProperty, unanimation);
-            DonatePage.BeginAnimation(Grid.OpacityProperty, unanimation);
+            InformationPage1.BeginAnimation(OpacityProperty, Constants.Unanimation);
+            InformationPage2.BeginAnimation(OpacityProperty, Constants.Unanimation);
+            InformationPage3.BeginAnimation(OpacityProperty, Constants.Unanimation);
+            DonatePage.BeginAnimation(OpacityProperty, Constants.Unanimation);
         }
 
         /// <summary>
-        ///  runs page animations depending on the current page in focus
+        ///     runs page animations depending on the current page in focus
         /// </summary>
         public void RunPageAnimation()
         {
@@ -1480,36 +1530,32 @@ namespace CCF_app
 
             switch (_currentPage)
             {
-
                 case Pages.Home:
                     //begins animation if the page is home page
-                    HomePage.BeginAnimation(Grid.OpacityProperty, animation);
+                    HomePage.BeginAnimation(OpacityProperty, Constants.Animation);
                     break;
                 case Pages.AboutUs:
                     //begins animation if the page is about us page
 
-                    InformationPage3.BeginAnimation(Grid.OpacityProperty, animation);
+                    InformationPage3.BeginAnimation(OpacityProperty, Constants.Animation);
                     break;
                 case Pages.Help:
                     //begins animation if the page is help page
 
-                    InformationPage1.BeginAnimation(Grid.OpacityProperty, animation);
+                    InformationPage1.BeginAnimation(OpacityProperty, Constants.Animation);
                     break;
                 case Pages.Support:
                     //begins animation if the page is support page
 
-                    InformationPage2.BeginAnimation(Grid.OpacityProperty, animation);
+                    InformationPage2.BeginAnimation(OpacityProperty, Constants.Animation);
                     break;
                 case Pages.Donate:
                     //begins animation if the page is donate page
-                    DonatePage.BeginAnimation(Grid.OpacityProperty, animation);
+                    DonatePage.BeginAnimation(OpacityProperty, Constants.Animation);
                     break;
             }
-
-
-
         }
 
-
+        
     }
 }

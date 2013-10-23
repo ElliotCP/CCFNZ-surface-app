@@ -8,7 +8,7 @@
     xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
     mc:Ignorable="d"
     xmlns:fluidControls="clr-namespace:FluidKit.Controls;assembly=FluidKit"
-    xmlns:shapes="clr-namespace:CCF_app"
+    xmlns:globe="clr-namespace:CCF_app.Globe"
     Title="CCF_app"
     Width="1920"
     Height="1080">
@@ -17,21 +17,23 @@
         <Storyboard x:Key="sb">
             <DoubleAnimation Storyboard.TargetName="InfoScale" Storyboard.TargetProperty="ScaleX" From="0" To="1">
                 <DoubleAnimation.EasingFunction>
-                    <BounceEase/>
+                    <BounceEase />
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
             <DoubleAnimation Storyboard.TargetName="InfoScale" Storyboard.TargetProperty="ScaleY" From="0" To="1">
                 <DoubleAnimation.EasingFunction>
-                    <BounceEase/>
+                    <BounceEase />
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
-		<Storyboard x:Key="BoxSlideIn" >
-            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="0,140,0,180.666" To="0,140,-500,180.666" DecelerationRatio=".9" />
+        <Storyboard x:Key="BoxSlideIn">
+            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="0,140,0,180.666"
+                                To="0,140,-500,180.666" DecelerationRatio=".9" />
         </Storyboard>
 
         <Storyboard x:Key="BoxSlideOut">
-            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" From="0,140,-500,180.666" To="0,140,0,180.666" AccelerationRatio=".9"/>
+            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" From="0,140,-500,180.666"
+                                To="0,140,0,180.666" AccelerationRatio=".9" />
         </Storyboard>
     </s:SurfaceWindow.Resources>
     <Frame>
@@ -46,12 +48,6 @@
 
                         <!-- Carousel Image Grid -->
                         <Grid x:Name="ImageGrid" Margin="0,150,0,200" Opacity="0.8" MouseMove="ImageGrid_MouseMove">
-                            <!--<Grid.Background>
-    							<ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
-    						</Grid.Background>-->
-                            <!--<Grid.Background>
-    							<ImageBrush ImageSource="Assets/Images/HomePage_Pic1.jpg" Stretch="UniformToFill" />                              
-    						</Grid.Background>-->
                             <!-- Add following tags for auto image rotation after x:Name. RestDuration="0:0:5" for image switch every 5 seconds and IsLooped=true  -->
                             <fluidControls:TransitionPresenter x:Name="TransitionPresenter"
                                                                Transition="{StaticResource SlideTransitioner}">
@@ -170,7 +166,9 @@
                                             <ColumnDefinition Width="1*" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock TextWrapping="Wrap" Text="$"
-                                                   VerticalAlignment="Center" KeyDown="Donations_Radio_Checked" FontSize="32" Margin="0,0,-6.333,0" Width="20" Height="42.5633333333333" />
+                                                   VerticalAlignment="Center" KeyDown="Donations_Radio_Checked"
+                                                   FontSize="32" Margin="0,0,-6.333,0" Width="20"
+                                                   Height="42.5633333333333" />
                                         <s:SurfaceTextBox x:Name="Donation_CustomAmount" Margin="10,0,0,0"
                                                           TextWrapping="NoWrap" Text="0" Grid.Column="1"
                                                           Background="#FFFF4444" Foreground="Black" Width="80"
@@ -202,24 +200,32 @@
                                            HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed" />
                                 <TextBlock x:Name="Donations_Instructions" HorizontalAlignment="Left"
                                            TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Grid.Row="1"
-                                           Grid.Column="1" Margin="0,0,0,200" FontFamily="Segoe UI Light" FontSize="24" Visibility="Collapsed" />
+                                           Grid.Column="1" Margin="0,0,0,200" FontFamily="Segoe UI Light" FontSize="24"
+                                           Visibility="Collapsed" />
                                 <Border x:Name="QrCodeDonation" BorderBrush="Black" BorderThickness="5" Grid.Row="1"
-                                        Grid.Column="1" Height="250" Margin="50,0,0,100" HorizontalAlignment="Left" Padding="0" Visibility="Collapsed">
+                                        Grid.Column="1" Height="250" Margin="50,0,0,100" HorizontalAlignment="Left"
+                                        Padding="0" Visibility="Collapsed">
                                     <Image x:Name="QrCodeImg" Margin="0" />
                                 </Border>
                             </Grid>
-                            <s:SurfaceButton x:Name="QrDonate_Button" Content="" Margin="-82.667,73.516,417.333,-126.835"
-                                             Click="QRDonate_Clicked" FontFamily="Segoe UI Light" HorizontalAlignment="Center"
+                            <s:SurfaceButton x:Name="QrDonate_Button" Content=""
+                                             Margin="-82.667,73.516,417.333,-126.835"
+                                             Click="QRDonate_Clicked" FontFamily="Segoe UI Light"
+                                             HorizontalAlignment="Center"
                                              Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1"
-                                             FontSize="26.667" Width="323.5" Foreground="Black" d:LayoutOverrides="GridBox">
+                                             FontSize="26.667" Width="323.5" Foreground="Black"
+                                             d:LayoutOverrides="GridBox">
                                 <s:SurfaceButton.Background>
                                     <ImageBrush ImageSource="Assets/Icons/qr_donate.png" Stretch="Uniform" />
                                 </s:SurfaceButton.Background>
                             </s:SurfaceButton>
                             <Rectangle Grid.Column="1" x:Name="QrDonate_Button_Gesture" Fill="#FF0099CC"
-                            	Margin="-94.417,73.516,0,-124.585" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" HorizontalAlignment="Left" Grid.Row="1" Width="323.5" />
-                            <s:SurfaceButton x:Name="TxtDonate_Button" Content="" Margin="417.333,73.516,-82.667,-126.835"
-                                             Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light" HorizontalAlignment="Center"
+                                       Margin="-94.417,73.516,0,-124.585" MouseLeftButtonUp="BtnRec_MouseUp"
+                                       Opacity="0" HorizontalAlignment="Left" Grid.Row="1" Width="323.5" />
+                            <s:SurfaceButton x:Name="TxtDonate_Button" Content=""
+                                             Margin="417.333,73.516,-82.667,-126.835"
+                                             Click="TxtDonate_Clicked" Foreground="Black" FontFamily="Segoe UI Light"
+                                             HorizontalAlignment="Center"
                                              Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1"
                                              FontSize="26.667" Width="323.5" d:LayoutOverrides="GridBox">
                                 <s:SurfaceButton.Background>
@@ -227,11 +233,13 @@
                                 </s:SurfaceButton.Background>
                             </s:SurfaceButton>
                             <Rectangle Grid.Column="1" x:Name="TxtDonate_Button_Gesture" Fill="#FF0099CC"
-                            	Margin="0,77.516,-94.417,-128.585" MouseLeftButtonUp="BtnRec_MouseUp" HorizontalAlignment="Right" Grid.Row="1" Width="323.5" Opacity="0" />
+                                       Margin="0,77.516,-94.417,-128.585" MouseLeftButtonUp="BtnRec_MouseUp"
+                                       HorizontalAlignment="Right" Grid.Row="1" Width="323.5" Opacity="0" />
                             <TextBlock x:Name="Donation_Help" TextWrapping="Wrap"
                                        Text="Choose An Amount You Would Like To Donate From The Left..."
                                        VerticalAlignment="Bottom" FontFamily="Segoe UI Light" FontSize="26.667"
-                                       Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0" Visibility="Collapsed" />
+                                       Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                                       Margin="0" Visibility="Collapsed" />
                             <Grid x:Name="ProgressGrid" Grid.Column="1" Grid.Row="2" Margin="0,128.585,0,52">
                                 <StatusBarItem x:Name="Feedback" Height="100" Margin="0,0,-12.333,-30"
                                                BorderThickness="5,0,0,0" Background="#00000000">
@@ -241,25 +249,27 @@
                                     </StatusBarItem.Resources>
                                     <ProgressBar x:Name="DonationProgress_Bar" Height="40" Margin="8,0,8,46"
                                                  Minimum="0" Maximum="100" Value="60" Width="602.667"
-                                                 Background="#FFCCC7C7" VerticalAlignment="Bottom" Foreground="#FF99CC00">
-                                    	<ProgressBar.Template>
-							                <ControlTemplate>
-							                    <Grid Background="{TemplateBinding Background}">
-							                        <Rectangle Name="PART_Track"/>
-							                        <Rectangle Name="PART_Indicator" HorizontalAlignment="Left" Fill="{TemplateBinding Foreground}">
-							                        	<!--
+                                                 Background="#FFCCC7C7" VerticalAlignment="Bottom"
+                                                 Foreground="#FF99CC00">
+                                        <ProgressBar.Template>
+                                            <ControlTemplate>
+                                                <Grid Background="{TemplateBinding Background}">
+                                                    <Rectangle Name="PART_Track" />
+                                                    <Rectangle Name="PART_Indicator" HorizontalAlignment="Left"
+                                                               Fill="{TemplateBinding Foreground}">
+                                                        <!--
 														To change to image, uncomment the Rectangle.Fill tag and remove
 														Fill="{TemplateBinding Foreground} from Rectangle properties
 														-->
-														<!--
+                                                        <!--
 							                        	<Rectangle.Fill>
 							                        		<ImageBrush ImageSource="Assets/Icons/progressbar_foreground.jpg"/>
 														</Rectangle.Fill>
 														-->
-							                        </Rectangle>
-							                    </Grid>
-							                </ControlTemplate>
-							            </ProgressBar.Template>
+                                                    </Rectangle>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </ProgressBar.Template>
                                     </ProgressBar>
                                 </StatusBarItem>
 
@@ -269,95 +279,36 @@
                                     <Run Language="en-nz" Text="60% funded | $70 donated | 15 days to go" />
                                 </TextBlock>
                             </Grid>
-                            <s:SurfaceButton x:Name="GlobeViewButton" Content="View Donations From Around The World" 
+                            <s:SurfaceButton x:Name="GlobeViewButton" Content="View Donations From Around The World"
                                              Margin="53.333,0,54.229,-20" VerticalAlignment="Bottom" Height="56"
-                                             Background="#FFC73737" Foreground="White" FontSize="26.667" 
-                                             Grid.Column="1" Grid.Row="2" Click="GlobeViewButton_Click"/>
-                            <Rectangle x:Name="GlobeViewButton_Gesture" Grid.Column="1" Fill="#FF0099CC" Height="56" Margin="53.333,0,54.229,-20" Grid.Row="2" VerticalAlignment="Bottom" Opacity="0" MouseLeftButtonUp="BtnRec_MouseUp"/>
-                            <s:SurfaceButton x:Name="GlobeCloseButton" Content="Close Globe" 
-                            	Margin="53.333,0,54.229,-20" VerticalAlignment="Bottom" Height="56"
-                            	Background="#FFC73737" Foreground="White" FontSize="26.667" 
-                            	Grid.Column="1" Grid.Row="2" Click="GlobeCloseButton_Click"/>
-                            <Rectangle x:Name="GlobeCloseButton_Gesture" Grid.Column="1" Fill="#FF0099CC" Height="56" Margin="53.333,0,54.229,-20" Grid.Row="2" VerticalAlignment="Bottom" Opacity="0" MouseLeftButtonUp="BtnRec_MouseUp"/>
+                                             Background="#FFC73737" Foreground="White" FontSize="26.667"
+                                             Grid.Column="1" Grid.Row="2" Click="GlobeViewButton_Click" />
+                            <Rectangle x:Name="GlobeViewButton_Gesture" Grid.Column="1" Fill="#FF0099CC" Height="56"
+                                       Margin="53.333,0,54.229,-20" Grid.Row="2" VerticalAlignment="Bottom" Opacity="0"
+                                       MouseLeftButtonUp="BtnRec_MouseUp" />
+                            <s:SurfaceButton x:Name="GlobeCloseButton" Content="Close Globe"
+                                             HorizontalContentAlignment="Center"
+                                             Margin="53.333,0,54.229,-20" VerticalAlignment="Bottom" Height="56"
+                                             Background="#FFC73737" Foreground="White" FontSize="26.667"
+                                             Grid.Column="1" Grid.Row="2" Click="GlobeCloseButton_Click" />
+                            <Rectangle x:Name="GlobeCloseButton_Gesture" Grid.Column="1" Fill="#FF0099CC" Height="56"
+                                       Margin="53.333,0,54.229,-20" Grid.Row="2" VerticalAlignment="Bottom" Opacity="0"
+                                       MouseLeftButtonUp="BtnRec_MouseUp" />
                         </Grid>
                     </Grid>
-                    
-                    
-                    
-                    <!--<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.229*" />
-                            <RowDefinition Height="0.566*" />
-                            <RowDefinition Height="0.205*" />
-                        </Grid.RowDefinitions>
-                        <Grid.Background>
-                            <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
-                        </Grid.Background>
-                        <s:SurfaceScrollViewer x:Name="PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
-                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
-                            <Grid Background="#00000000" Margin="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="600" />
-                                    <ColumnDefinition Width="800" />
-                                    <ColumnDefinition Width="800" />
-                                </Grid.ColumnDefinitions>
-                                <WebBrowser x:Name="MyVideo1" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
-                                <WebBrowser x:Name="MyVideo2" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.Column="0"
-                                            Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
-                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.Column="0"
-                                            Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>                                    
-                                <TextBlock x:Name="TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
-                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
-                                    <InlineUIContainer>
-                                        <TextBlock x:Name="Text1" TextWrapping="Wrap" Text="TextBlock" />
-                                    </InlineUIContainer>
-                                </TextBlock>
-                                <TextBlock x:Name="TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
-                                           FontFamily="Segoe UI Light" Grid.Column="3">
-                                    <Run Text="" />
-                                    <InlineUIContainer>
-                                        <TextBlock x:Name="Text2" TextWrapping="Wrap">
-                                            <Run Language="en-nz" Text="Text block" />
-                                        </TextBlock>
-                                    </InlineUIContainer>
-                                </TextBlock>
-                            </Grid>
-                        </s:SurfaceScrollViewer>
-                        <Image Grid.Row="0" x:Name="Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
-                               Stretch="Fill"
-                               Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
-                               d:LayoutOverrides="Height">
-                            <Image.OpacityMask>
-                                <ImageBrush ImageSource="Assets/Icons/pointer_original.png" />
-                            </Image.OpacityMask>
-                        </Image>
-                        <TextBlock Grid.Row="0" x:Name="InformationPageTitle" TextWrapping="Wrap" Text="TextBlock"
-                                   FontSize="48"
-                                   HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
-                                   FontFamily="Segoe UI Light" FontWeight="Bold" />
-                    </Grid>-->
-
-
-
-
-
-
-
-
-
-
                     <Grid x:Name="InformationPage1" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.229*" />
-                            <RowDefinition Height="0.566*" />
-                            <RowDefinition Height="0.205*" />
+                            <RowDefinition Height="2.5*" />
+                            <RowDefinition Height="6*" />
+                            <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
                         <Grid.Background>
                             <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
                         </Grid.Background>
-                        <s:SurfaceScrollViewer x:Name="InformationPage1PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
-                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                        <s:SurfaceScrollViewer x:Name="InformationPage1PageDataScrollViewer" Grid.Row="1"
+                                               PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                               HorizontalScrollBarVisibility="Hidden" PanningRatio="2"
+                                               PanningDeceleration="10">
                             <Grid Background="#00000000" Margin="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
@@ -365,15 +316,20 @@
                                     <ColumnDefinition Width="800" />
                                     <ColumnDefinition Width="800" />
                                 </Grid.ColumnDefinitions>
-                                <WebBrowser x:Name="MyVideo1" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+                                <WebBrowser x:Name="MyVideo1" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432"
+                                            VerticalAlignment="Top" Margin="20,0,0,0"
+                                            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
 
-                                <TextBlock x:Name="InformationPage1TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                <TextBlock x:Name="InformationPage1TextBlockOuter1" Grid.Column="2" Margin="20,0"
+                                           TextWrapping="Wrap"
                                            d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
                                     <InlineUIContainer>
                                         <TextBlock x:Name="InformationPage1Text1" TextWrapping="Wrap" Text="TextBlock" />
                                     </InlineUIContainer>
                                 </TextBlock>
-                                <TextBlock x:Name="InformationPage1TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                <TextBlock x:Name="InformationPage1TextBlockOuter2" Margin="20,0" TextWrapping="Wrap"
+                                           FontSize="26.667"
                                            FontFamily="Segoe UI Light" Grid.Column="3">
                                     <Run Text="" />
                                     <InlineUIContainer>
@@ -384,7 +340,8 @@
                                 </TextBlock>
                             </Grid>
                         </s:SurfaceScrollViewer>
-                        <Image Grid.Row="0" x:Name="InformationPage1Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                        <Image Grid.Row="0" x:Name="InformationPage1Pointer" Margin="20,10,0,0" Width="80"
+                               HorizontalAlignment="Left"
                                Stretch="Fill"
                                Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
                                d:LayoutOverrides="Height">
@@ -401,15 +358,17 @@
 
                     <Grid x:Name="InformationPage2" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.229*" />
-                            <RowDefinition Height="0.566*" />
-                            <RowDefinition Height="0.205*" />
+                            <RowDefinition Height="2.5*" />
+                            <RowDefinition Height="6*" />
+                            <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
                         <Grid.Background>
                             <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
                         </Grid.Background>
-                        <s:SurfaceScrollViewer x:Name="InformationPage2PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
-                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                        <s:SurfaceScrollViewer x:Name="InformationPage2PageDataScrollViewer" Grid.Row="1"
+                                               PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                               HorizontalScrollBarVisibility="Hidden" PanningRatio="2"
+                                               PanningDeceleration="10">
                             <Grid Background="#00000000" Margin="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
@@ -417,15 +376,20 @@
                                     <ColumnDefinition Width="800" />
                                     <ColumnDefinition Width="800" />
                                 </Grid.ColumnDefinitions>
-                                <WebBrowser x:Name="MyVideo2" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+                                <WebBrowser x:Name="MyVideo2" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432"
+                                            VerticalAlignment="Top" Margin="20,0,0,0"
+                                            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
 
-                                <TextBlock x:Name="InformationPage2TextBlockOuter" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                <TextBlock x:Name="InformationPage2TextBlockOuter" Grid.Column="2" Margin="20,0"
+                                           TextWrapping="Wrap"
                                            d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
                                     <InlineUIContainer>
                                         <TextBlock x:Name="InformationPage2Text1" TextWrapping="Wrap" Text="TextBlock" />
                                     </InlineUIContainer>
                                 </TextBlock>
-                                <TextBlock x:Name="InformationPage2TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                <TextBlock x:Name="InformationPage2TextBlockOuter2" Margin="20,0" TextWrapping="Wrap"
+                                           FontSize="26.667"
                                            FontFamily="Segoe UI Light" Grid.Column="3">
                                     <Run Text="" />
                                     <InlineUIContainer>
@@ -436,7 +400,8 @@
                                 </TextBlock>
                             </Grid>
                         </s:SurfaceScrollViewer>
-                        <Image Grid.Row="0" x:Name="InformationPage2Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                        <Image Grid.Row="0" x:Name="InformationPage2Pointer" Margin="20,10,0,0" Width="80"
+                               HorizontalAlignment="Left"
                                Stretch="Fill"
                                Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
                                d:LayoutOverrides="Height">
@@ -451,11 +416,6 @@
                     </Grid>
 
 
-
-
-
-
-
                     <Grid x:Name="InformationPage3" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.229*" />
@@ -465,8 +425,10 @@
                         <Grid.Background>
                             <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
                         </Grid.Background>
-                        <s:SurfaceScrollViewer x:Name="PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
-                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                        <s:SurfaceScrollViewer x:Name="PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly"
+                                               VerticalScrollBarVisibility="Disabled"
+                                               HorizontalScrollBarVisibility="Hidden" PanningRatio="2"
+                                               PanningDeceleration="10">
                             <Grid Background="#00000000" Margin="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
@@ -474,15 +436,20 @@
                                     <ColumnDefinition Width="800" />
                                     <ColumnDefinition Width="800" />
                                 </Grid.ColumnDefinitions>
-                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432"
+                                            VerticalAlignment="Top" Margin="20,0,0,0"
+                                            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
 
-                                <TextBlock x:Name="InformationPage3TextBlockOuter" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                <TextBlock x:Name="InformationPage3TextBlockOuter" Grid.Column="2" Margin="20,0"
+                                           TextWrapping="Wrap"
                                            d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
                                     <InlineUIContainer>
                                         <TextBlock x:Name="InformationPage3Text1" TextWrapping="Wrap" Text="TextBlock" />
                                     </InlineUIContainer>
                                 </TextBlock>
-                                <TextBlock x:Name="InformationPage3TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                <TextBlock x:Name="InformationPage3TextBlockOuter2" Margin="20,0" TextWrapping="Wrap"
+                                           FontSize="26.667"
                                            FontFamily="Segoe UI Light" Grid.Column="3">
                                     <Run Text="" />
                                     <InlineUIContainer>
@@ -493,7 +460,8 @@
                                 </TextBlock>
                             </Grid>
                         </s:SurfaceScrollViewer>
-                        <Image Grid.Row="0" x:Name="InformationPage3Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                        <Image Grid.Row="0" x:Name="InformationPage3Pointer" Margin="20,10,0,0" Width="80"
+                               HorizontalAlignment="Left"
                                Stretch="Fill"
                                Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
                                d:LayoutOverrides="Height">
@@ -506,9 +474,6 @@
                                    HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
                                    FontFamily="Segoe UI Light" FontWeight="Bold" />
                     </Grid>
-
-
-
 
 
                     <Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="100" Margin="0,40,0,0" OpacityMask="White">
@@ -527,11 +492,12 @@
                                          VerticalContentAlignment="Center" BorderThickness="0"
                                          FontFamily="Segoe UI Light" FontSize="33.333" Margin="2.5,0,2.5,20"
                                          Click="OnHomePageClick" Background="#FF33B5E5" Height="140" Foreground="Black" />
-                        <Rectangle Grid.Column="0" x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40" Margin="2.5,0,2.5,40"
-                                   VerticalAlignment="Bottom"/>
+                        <Rectangle Grid.Column="0" x:Name="Home_BtnRec" Fill="#FF0099CC" Height="40"
+                                   Margin="2.5,0,2.5,40"
+                                   VerticalAlignment="Bottom" />
                         <Rectangle Grid.Column="0" x:Name="Home_BtnRec_Gesture" Fill="#FF0099CC"
-                    		       Margin="2.5,20,2.5,40" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
-                        
+                                   Margin="2.5,20,2.5,40" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+
                         <s:SurfaceButton x:Name="AboutUs_Btn" Content="What Is CCFNZ?"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                          Grid.Column="1" BorderThickness="0" Foreground="Black"
@@ -539,8 +505,9 @@
                                          Background="#FFAA66CC" Height="140" Click="OnAboutUsPageClick" />
                         <Rectangle x:Name="AboutUs_BtnRec" Fill="#FF9933CC" Height="40" Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" Grid.Column="1" MouseLeftButtonUp="BtnRec_MouseUp" />
-                        <Rectangle x:Name="AboutUs_BtnRec_Gesture" Fill="#FF9933CC" Margin="2.5,20,2.5,40" Grid.Column="1" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0"/>
-                        
+                        <Rectangle x:Name="AboutUs_BtnRec_Gesture" Fill="#FF9933CC" Margin="2.5,20,2.5,40"
+                                   Grid.Column="1" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+
                         <s:SurfaceButton x:Name="Help_Btn" Content="How Can I Help?"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                          Grid.Column="2" BorderThickness="0" Foreground="Black"
@@ -548,8 +515,9 @@
                                          Click="OnHelpPageClick" Background="#FF99CC00" Height="140" />
                         <Rectangle x:Name="Help_BtnRec" Fill="#FF669900" Height="40" Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" Grid.Column="2" MouseLeftButtonUp="BtnRec_MouseUp" />
-                        <Rectangle x:Name="Help_BtnRec_Gesture" Fill="#FF669900" Margin="2.5,20,2.5,40" Grid.Column="2" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
-                        
+                        <Rectangle x:Name="Help_BtnRec_Gesture" Fill="#FF669900" Margin="2.5,20,2.5,40" Grid.Column="2"
+                                   MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+
                         <s:SurfaceButton x:Name="Support_Btn" Content="How Can I Get Support?"
                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                          Grid.Column="3" BorderThickness="0" Foreground="Black"
@@ -557,8 +525,9 @@
                                          Click="OnSupportPageClick" Background="#FFFFBB33" Height="140" />
                         <Rectangle x:Name="Support_BtnRec" Fill="#FFFF8800" Height="40" Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" Grid.Column="3" MouseLeftButtonUp="BtnRec_MouseUp" />
-                        <Rectangle x:Name="Support_BtnRec_Gesture" Fill="#FFFF8800" Margin="2.5,20,2.5,40" Grid.Column="3" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
-                        
+                        <Rectangle x:Name="Support_BtnRec_Gesture" Fill="#FFFF8800" Margin="2.5,20,2.5,40"
+                                   Grid.Column="3" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+
                         <s:SurfaceButton x:Name="Donate_Btn" Content="Donate" HorizontalContentAlignment="Center"
                                          VerticalContentAlignment="Center" Grid.Column="4" BorderThickness="0"
                                          Foreground="Black" FontFamily="Segoe UI Light" FontSize="33.333"
@@ -566,73 +535,89 @@
                                          Click="OnDonatePageClick" />
                         <Rectangle x:Name="Donate_BtnRec" Fill="#FFCC0000" Height="40" Margin="2.5,0,2.5,40"
                                    VerticalAlignment="Bottom" Grid.Column="4" MouseLeftButtonUp="BtnRec_MouseUp" />
-                        <Rectangle x:Name="Donate_BtnRec_Gesture" Fill="#FFCC0000" Margin="2.5,20,2.5,40" Grid.Column="4" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
-                        
+                        <Rectangle x:Name="Donate_BtnRec_Gesture" Fill="#FFCC0000" Margin="2.5,20,2.5,40"
+                                   Grid.Column="4" MouseLeftButtonUp="BtnRec_MouseUp" Opacity="0" />
+
                     </Grid>
                     <TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Bottom" Width="12" />
                     <TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap"
-                               Text="TextBlock" VerticalAlignment="Bottom" Width="0" />                    
+                               Text="TextBlock" VerticalAlignment="Bottom" Width="0" />
 
                     <Grid x:Name="GlobeGrid" HorizontalAlignment="Left" Margin="678.5,299.5,0,266" Width="539.5"
-                          IsManipulationEnabled="True" ManipulationDelta="OnManipulationDelta" 
+                          IsManipulationEnabled="True" ManipulationDelta="OnManipulationDelta"
                           MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeftButtonUp="Grid_MouseLeftButtonUp"
-                          MouseMove="Grid_MouseMove" MouseWheel="Grid_MouseWheel" Background="Transparent" Visibility="Collapsed">
-                    	<Grid.ColumnDefinitions>
-                    		<ColumnDefinition Width="Auto" MinWidth="17.5"/>
-                    		<ColumnDefinition Width="Auto" MinWidth="35.911"/>
-                    		<ColumnDefinition/>
-                    	</Grid.ColumnDefinitions>
-                        <Viewport3D x:Name="viewport_globe" Grid.ColumnSpan="3" Margin="0,0,0,64">
+                          MouseMove="Grid_MouseMove" MouseWheel="Grid_MouseWheel" Background="Transparent"
+                          Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="17.5" />
+                            <ColumnDefinition Width="Auto" MinWidth="35.911" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Viewport3D x:Name="ViewportGlobe" Grid.ColumnSpan="3" Margin="0,0,0,64">
                             <Viewport3D.Camera>
-                                <PerspectiveCamera Position="0,0,5"/>
+                                <PerspectiveCamera Position="0,0,5" />
                             </Viewport3D.Camera>
 
                             <ModelVisual3D x:Name="Light">
                                 <ModelVisual3D.Content>
                                     <Model3DGroup>
-                                        <AmbientLight x:Name="light" Color="White"/>
+                                        <AmbientLight x:Name="ALight" Color="White" />
                                     </Model3DGroup>
                                 </ModelVisual3D.Content>
                             </ModelVisual3D>
-                                    <shapes:Sphere x:Name="earth">
-                                        <shapes:Sphere.Material>
-                                            <DiffuseMaterial>
-                                                <DiffuseMaterial.Brush>
-                                            <ImageBrush ImageSource="Assets/Images/worldmap.jpg"/>
-                                                </DiffuseMaterial.Brush>
-                                            </DiffuseMaterial>
-                                        </shapes:Sphere.Material>
-                                    <shapes:Sphere.Transform>
-                                    <Transform3DGroup x:Name="transformGroup">
-                                        <ScaleTransform3D x:Name="scaleTransform"/>
+                            <globe:Sphere x:Name="Earth">
+                                <globe:Sphere.Material>
+                                    <DiffuseMaterial>
+                                        <DiffuseMaterial.Brush>
+                                            <ImageBrush ImageSource="Assets/Images/worldmap.jpg" />
+                                        </DiffuseMaterial.Brush>
+                                    </DiffuseMaterial>
+                                </globe:Sphere.Material>
+                                <globe:Sphere.Transform>
+                                    <Transform3DGroup x:Name="TransformGroup">
+                                        <ScaleTransform3D x:Name="ScaleTransform" />
                                     </Transform3DGroup>
-                                </shapes:Sphere.Transform>
-                            </shapes:Sphere>
+                                </globe:Sphere.Transform>
+                            </globe:Sphere>
                         </Viewport3D>
 
-                        <Rectangle Fill="#00000000" Grid.ColumnSpan="3" Margin="0,0,0,64"/>
-                        <CheckBox x:Name="MouseSimulationCheckBox" Content="Use Mouse" VerticalAlignment="Bottom" Margin="180.416,0,233,114.54" d:LayoutOverrides="Width" Grid.Column="2"/>
-                        <TextBlock x:Name="InfoTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,55,10,0" FontSize="24" Foreground="Red" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
-                        <TextBlock.RenderTransform>
-                            <ScaleTransform x:Name="InfoScale"/>
-                        </TextBlock.RenderTransform>
+                        <Rectangle Fill="#00000000" Grid.ColumnSpan="3" Grid.Column="0" Margin="0,0,0,64" />
+                        <CheckBox x:Name="MouseSimulationCheckBox" Content="Use Mouse" VerticalAlignment="Bottom"
+                                  Margin="180.416,0,233,114.54" d:LayoutOverrides="Width" Grid.Column="2" />
+                        <TextBlock Grid.Column="0" x:Name="InfoTextBox" HorizontalAlignment="Center"
+                                   VerticalAlignment="Top" Margin="10,55,10,0" FontSize="24" Foreground="Red"
+                                   FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                            <TextBlock.RenderTransform>
+                                <ScaleTransform x:Name="InfoScale" />
+                            </TextBlock.RenderTransform>
                         </TextBlock>
-                        <Line x:Name="TouchLine" Stroke="Red" StrokeThickness="2" Grid.ColumnSpan="3" Margin="0,0,0,64"/>
+                        <Line x:Name="TouchLine" Stroke="Red" StrokeThickness="2" Grid.ColumnSpan="3" Grid.Column="0"
+                              Margin="0,0,0,64" />
                     </Grid>
-                    <Button x:Name="OpenTwitterFeed" Margin="1766,10,8,0"  Click="TwitterButtonClick" Visibility="Visible" Width="130" Height="130" VerticalAlignment="Top" d:LayoutOverrides="Height">
-                        <Image Source="Assets/Icons/ShowFeed.png" Height="130" Width="130"  />
+                    <Button x:Name="OpenTwitterFeed" Margin="1766,10,8,0" Click="TwitterButtonClick"
+                            Visibility="Visible" Width="130" Height="130" VerticalAlignment="Top"
+                            d:LayoutOverrides="Height" BorderThickness="0">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Assets/Icons/ShowFeed.png"/>
+                        </Button.Background>
                     </Button>
-                    <Button x:Name="CloseTwitterFeed" Margin="1766,10,8,0"  Click="TwitterButtonClick" Visibility="Collapsed" Height="130" VerticalAlignment="Top" Width="130">
-                        <Image Source="Assets/Icons/HideFeed.png" Height="130" Width="130"  />
+                    <Button x:Name="CloseTwitterFeed" Margin="1766,10,8,0" Click="TwitterButtonClick"
+                            Visibility="Collapsed" Height="130" VerticalAlignment="Top" Width="130"
+                            BorderThickness="0">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Assets/Icons/HideFeed.png"/>
+                        </Button.Background>
                     </Button>
-                    <Rectangle x:Name="OpenTwitterFeed_Gesture" Fill="#FF0099CC" HorizontalAlignment="Right" Height="130.833" Margin="0,8,8,0" VerticalAlignment="Top" Width="128.667" Opacity="0" MouseLeftButtonUp="BtnRec_MouseUp"/>
-                    
-                    <Grid x:Name="TwitterFeed" Visibility="Collapsed" >
-                        
-                        <ListBox x:Name="TweetList" 
-            HorizontalContentAlignment="Stretch"
-            Margin="0,140,0,180.666" HorizontalAlignment="Right" Width="370" Height="720"  >
+                    <Rectangle x:Name="OpenTwitterFeed_Gesture" Fill="#FF0099CC" HorizontalAlignment="Right"
+                               Height="130.833" Margin="0,8,8,0" VerticalAlignment="Top" Width="128.667" Opacity="0"
+                               MouseLeftButtonUp="BtnRec_MouseUp" />
+
+                    <Grid x:Name="TwitterFeed" Visibility="Collapsed">
+
+                        <ListBox x:Name="TweetList"
+                                 HorizontalContentAlignment="Stretch"
+                                 Margin="0,140,0,180.666" HorizontalAlignment="Right" Width="370" Height="720">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -645,22 +630,27 @@
                                             <ColumnDefinition Width="115" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding UserName}"
-                Grid.Column="0"  Padding="2" FontWeight="Bold" FontFamily="Segoe UI"  FontSize="20" Foreground="#FFAA66CC" />
-                                        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="17" FontFamily="Segoe UI Light" Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2"/>
-                                        <TextBlock Grid.Column="2" Name="textBlock_1" Text="{Binding TimeString}" FontFamily="Segoe UI Light" Foreground="LightGray" FontSize="16"/>
+                                                   Grid.Column="0" Padding="2" FontWeight="Bold" FontFamily="Segoe UI"
+                                                   FontSize="20" Foreground="#FFAA66CC" />
+                                        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="17"
+                                                   FontFamily="Segoe UI Light" Grid.Column="0" Grid.Row="1"
+                                                   Grid.ColumnSpan="2" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Name="textBlock_1"
+                                                   Text="{Binding TimeString}" FontFamily="Segoe UI Light"
+                                                   Foreground="LightGray" FontSize="16" />
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
                     <Grid x:Name="ScreenSaver" d:IsHidden="True">
-                    	<Image Stretch="Fill" MaxHeight="1080">
-                    		<Image.Source>
-                    			<ImageSource>Assets/Images/ScreenSaver.png</ImageSource>
-                    		</Image.Source>
-                    	</Image>
+                        <Image Stretch="Fill" MaxHeight="1080">
+                            <Image.Source>
+                                <ImageSource>Assets/Images/ScreenSaver.png</ImageSource>
+                            </Image.Source>
+                        </Image>
                     </Grid>
-                
+
                 </Grid>
             </Viewbox>
         </Frame.Content>
