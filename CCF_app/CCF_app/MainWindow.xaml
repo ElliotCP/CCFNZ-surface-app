@@ -108,8 +108,7 @@
                                        VerticalAlignment="Top"
                                        Grid.Row="1" />
                             <Grid x:Name="Donate_Grid" Margin="0" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0"
-                                  Grid.RowSpan="3"
-                                  Visibility="Collapsed">
+                                  Grid.RowSpan="3" Visibility="Collapsed">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="1*" />
                                     <RowDefinition Height="3*" />
@@ -118,7 +117,7 @@
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
-                                <Grid x:Name="DonationAmount_Radio" Margin="0,0,200,0" Grid.Row="1" Width="250"
+                                <Grid x:Name="DonationAmount_Radio" Margin="0,0,200,100" Grid.Row="1" Width="300"
                                       VerticalAlignment="Center" HorizontalAlignment="Right" Height="200">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="1*" />
@@ -136,7 +135,7 @@
                                                           VerticalContentAlignment="Center" FontFamily="Segoe UI Light"
                                                           Padding="25,0,0,0" Checked="Donations_Radio_Checked"
                                                           Foreground="Black" BorderBrush="#FFFF4444"
-                                                          Background="#00FF4444" BorderThickness="8" FontSize="24" />
+                                                          Background="#00FF4444" BorderThickness="8" FontSize="32" />
                                     <s:SurfaceRadioButton GroupName="DonationAmount" Margin="0"
                                                           d:LayoutOverrides="Height" Grid.Row="1" Grid.Column="0"
                                                           Content="$10"
@@ -144,46 +143,46 @@
                                                           VerticalContentAlignment="Center" FontFamily="Segoe UI Light"
                                                           Checked="Donations_Radio_Checked" Foreground="Black"
                                                           BorderBrush="#FFFF4444" Background="#00FF4444"
-                                                          BorderThickness="8" FontSize="24" />
+                                                          BorderThickness="8" FontSize="32" />
                                     <s:SurfaceRadioButton GroupName="DonationAmount" Content="$15" Margin="0"
                                                           d:LayoutOverrides="Width" Grid.Row="2" Grid.Column="0"
                                                           VerticalContentAlignment="Center" FontFamily="Segoe UI Light"
                                                           Padding="25,0,0,0" Checked="Donations_Radio_Checked"
                                                           Foreground="Black" BorderBrush="#FFFF4444"
-                                                          Background="#00FF4444" BorderThickness="8" FontSize="24" />
+                                                          Background="#00FF4444" BorderThickness="8" FontSize="32" />
                                     <s:SurfaceRadioButton GroupName="DonationAmount" Margin="0"
                                                           d:LayoutOverrides="Width" Grid.Row="3" Grid.Column="0"
                                                           Content="$20"
                                                           VerticalContentAlignment="Center" FontFamily="Segoe UI Light"
                                                           Padding="25,0,0,0" Checked="Donations_Radio_Checked"
                                                           Foreground="Black" BorderBrush="#FFFF4444"
-                                                          Background="#00FF4444" BorderThickness="8" FontSize="24" />
+                                                          Background="#00FF4444" BorderThickness="8" FontSize="32" />
                                     <s:SurfaceRadioButton GroupName="DonationAmount" Content="Custom" Margin="0"
                                                           Grid.Row="4" Grid.Column="0" Padding="25,0,0,0"
                                                           VerticalContentAlignment="Center" Width="150"
                                                           FontFamily="Segoe UI Light" Checked="Donations_Radio_Checked"
                                                           Foreground="Black" BorderBrush="#FFFF4444"
-                                                          Background="#00FF4444" BorderThickness="8" FontSize="24" />
+                                                          Background="#00FF4444" BorderThickness="8" FontSize="32" />
                                     <Grid x:Name="CustomAmount" Margin="0" Grid.Column="1" Grid.Row="4"
-                                          Background="#00FF0000" Width="100" Visibility="Collapsed">
+                                          Background="#00FF0000" Width="120">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.1*" />
                                             <ColumnDefinition Width="1*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock TextWrapping="Wrap" Text="$" d:LayoutOverrides="Width"
-                                                   VerticalAlignment="Center" KeyDown="Donations_Radio_Checked" />
-                                        <s:SurfaceTextBox x:Name="Donation_CustomAmount" Margin="0"
+                                        <TextBlock TextWrapping="Wrap" Text="$"
+                                                   VerticalAlignment="Center" KeyDown="Donations_Radio_Checked" FontSize="32" Margin="0,0,-6.333,0" Width="20" Height="42.5633333333333" />
+                                        <s:SurfaceTextBox x:Name="Donation_CustomAmount" Margin="10,0,0,0"
                                                           TextWrapping="NoWrap" Text="0" Grid.Column="1"
                                                           Background="#FFFF4444" Foreground="Black" Width="80"
-                                                          FontFamily="Segoe UI Light" UndoLimit="5"
+                                                          FontFamily="Segoe UI Light" UndoLimit="3"
                                                           ToolTip="Enter any amount you wish to donate"
                                                           VerticalContentAlignment="Center" Padding="5,0,0,0"
                                                           HorizontalScrollBarVisibility="Disabled" MaxLines="1"
-                                                          MaxLength="6" AcceptsReturn="True" BorderThickness="0"
+                                                          MaxLength="4" AcceptsReturn="True" BorderThickness="0"
                                                           HorizontalContentAlignment="Stretch"
                                                           HorizontalAlignment="Left"
                                                           d:LayoutOverrides="VerticalAlignment, GridBox"
-                                                          KeyDown="Donation_KeyDown" Height="30" />
+                                                          KeyDown="Donation_KeyDown" Height="30" FontSize="32" />
                                     </Grid>
                                 </Grid>
                                 <TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="100,20,50,0"
@@ -199,15 +198,13 @@
                                                  Grid.Column="0"
                                                  FontSize="16" Padding="5,6,5,5" />
                                 <TextBlock x:Name="Txt_Donation" TextWrapping="Wrap" Text="3032 02" FontSize="48"
-                                           FontFamily="Segoe UI Light" Grid.Row="1" Grid.Column="1" Margin="35,0,0,0"
+                                           FontFamily="Segoe UI Light" Grid.Row="1" Grid.Column="1" Margin="35,0,0,100"
                                            HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed" />
                                 <TextBlock x:Name="Donations_Instructions" HorizontalAlignment="Left"
                                            TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Grid.Row="1"
-                                           Grid.Column="1" Margin="0,0,0,100" FontFamily="Segoe UI Light" FontSize="24"
-                                           Visibility="Collapsed" />
+                                           Grid.Column="1" Margin="0,0,0,200" FontFamily="Segoe UI Light" FontSize="24" Visibility="Collapsed" />
                                 <Border x:Name="QrCodeDonation" BorderBrush="Black" BorderThickness="5" Grid.Row="1"
-                                        Grid.Column="1" Height="300" Margin="50,0,0,0" HorizontalAlignment="Left"
-                                        Visibility="Collapsed">
+                                        Grid.Column="1" Height="250" Margin="50,0,0,100" HorizontalAlignment="Left" Padding="0" Visibility="Collapsed">
                                     <Image x:Name="QrCodeImg" Margin="0" />
                                 </Border>
                             </Grid>
@@ -229,9 +226,8 @@
                             </s:SurfaceButton>
                             <TextBlock x:Name="Donation_Help" TextWrapping="Wrap"
                                        Text="Choose An Amount You Would Like To Donate From The Left..."
-                                       VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="26.667"
-                                       Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"
-                                       Visibility="Collapsed" />
+                                       VerticalAlignment="Bottom" FontFamily="Segoe UI Light" FontSize="26.667"
+                                       Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0" Visibility="Collapsed" />
                             <Grid x:Name="ProgressGrid" Grid.Column="1" Grid.Row="2" Margin="0,128.585,0,52">
                                 <StatusBarItem x:Name="Feedback" Height="100" Margin="0,0,-12.333,-30"
                                                BorderThickness="5,0,0,0" Background="#00000000">
@@ -275,7 +271,10 @@
                                              Grid.Column="1" Grid.Row="2" Click="GlobeViewButton_Click"/>
                         </Grid>
                     </Grid>
-                    <Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
+                    
+                    
+                    
+                    <!--<Grid x:Name="InformationPage" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.229*" />
                             <RowDefinition Height="0.566*" />
@@ -327,7 +326,181 @@
                                    FontSize="48"
                                    HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
                                    FontFamily="Segoe UI Light" FontWeight="Bold" />
+                    </Grid>-->
+
+
+
+
+
+
+
+
+
+
+                    <Grid x:Name="InformationPage1" Margin="0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.229*" />
+                            <RowDefinition Height="0.566*" />
+                            <RowDefinition Height="0.205*" />
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
+                        </Grid.Background>
+                        <s:SurfaceScrollViewer x:Name="InformationPage1PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                            <Grid Background="#00000000" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="600" />
+                                    <ColumnDefinition Width="800" />
+                                    <ColumnDefinition Width="800" />
+                                </Grid.ColumnDefinitions>
+                                <WebBrowser x:Name="MyVideo1" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+
+                                <TextBlock x:Name="InformationPage1TextBlockOuter1" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage1Text1" TextWrapping="Wrap" Text="TextBlock" />
+                                    </InlineUIContainer>
+                                </TextBlock>
+                                <TextBlock x:Name="InformationPage1TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                           FontFamily="Segoe UI Light" Grid.Column="3">
+                                    <Run Text="" />
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage1Text2" TextWrapping="Wrap">
+                                            <Run Language="en-nz" Text="Text block" />
+                                        </TextBlock>
+                                    </InlineUIContainer>
+                                </TextBlock>
+                            </Grid>
+                        </s:SurfaceScrollViewer>
+                        <Image Grid.Row="0" x:Name="InformationPage1Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                               Stretch="Fill"
+                               Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
+                               d:LayoutOverrides="Height">
+                            <Image.OpacityMask>
+                                <ImageBrush ImageSource="Assets/Icons/pointer_original.png" />
+                            </Image.OpacityMask>
+                        </Image>
+                        <TextBlock Grid.Row="0" x:Name="InformationPage1Title" TextWrapping="Wrap" Text="TextBlock"
+                                   FontSize="48"
+                                   HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
+                                   FontFamily="Segoe UI Light" FontWeight="Bold" />
                     </Grid>
+
+
+                    <Grid x:Name="InformationPage2" Margin="0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.229*" />
+                            <RowDefinition Height="0.566*" />
+                            <RowDefinition Height="0.205*" />
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
+                        </Grid.Background>
+                        <s:SurfaceScrollViewer x:Name="InformationPage2PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                            <Grid Background="#00000000" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="600" />
+                                    <ColumnDefinition Width="800" />
+                                    <ColumnDefinition Width="800" />
+                                </Grid.ColumnDefinitions>
+                                <WebBrowser x:Name="MyVideo2" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+
+                                <TextBlock x:Name="InformationPage2TextBlockOuter" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage2Text1" TextWrapping="Wrap" Text="TextBlock" />
+                                    </InlineUIContainer>
+                                </TextBlock>
+                                <TextBlock x:Name="InformationPage2TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                           FontFamily="Segoe UI Light" Grid.Column="3">
+                                    <Run Text="" />
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage2Text2" TextWrapping="Wrap">
+                                            <Run Language="en-nz" Text="Text block" />
+                                        </TextBlock>
+                                    </InlineUIContainer>
+                                </TextBlock>
+                            </Grid>
+                        </s:SurfaceScrollViewer>
+                        <Image Grid.Row="0" x:Name="InformationPage2Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                               Stretch="Fill"
+                               Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
+                               d:LayoutOverrides="Height">
+                            <Image.OpacityMask>
+                                <ImageBrush ImageSource="Assets/Icons/pointer_original.png" />
+                            </Image.OpacityMask>
+                        </Image>
+                        <TextBlock Grid.Row="0" x:Name="InformationPage2Title" TextWrapping="Wrap" Text="TextBlock"
+                                   FontSize="48"
+                                   HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
+                                   FontFamily="Segoe UI Light" FontWeight="Bold" />
+                    </Grid>
+
+
+
+
+
+
+
+                    <Grid x:Name="InformationPage3" Margin="0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.229*" />
+                            <RowDefinition Height="0.566*" />
+                            <RowDefinition Height="0.205*" />
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
+                        </Grid.Background>
+                        <s:SurfaceScrollViewer x:Name="PageDataScrollViewer" Grid.Row="1" PanningMode="HorizontalOnly" VerticalScrollBarVisibility="Disabled"
+                                      HorizontalScrollBarVisibility="Hidden" PanningRatio="2" PanningDeceleration="10">
+                            <Grid Background="#00000000" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="600" />
+                                    <ColumnDefinition Width="800" />
+                                    <ColumnDefinition Width="800" />
+                                </Grid.ColumnDefinitions>
+                                <WebBrowser x:Name="MyVideo3" Visibility="Collapsed" Grid.ColumnSpan="2" Height="432" VerticalAlignment="Top" Margin="20,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+
+                                <TextBlock x:Name="InformationPage3TextBlockOuter" Grid.Column="2" Margin="20,0" TextWrapping="Wrap"
+                                           d:LayoutOverrides="Height" FontSize="26.667" FontFamily="Segoe UI Light">
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage3Text1" TextWrapping="Wrap" Text="TextBlock" />
+                                    </InlineUIContainer>
+                                </TextBlock>
+                                <TextBlock x:Name="InformationPage3TextBlockOuter2" Margin="20,0" TextWrapping="Wrap" FontSize="26.667"
+                                           FontFamily="Segoe UI Light" Grid.Column="3">
+                                    <Run Text="" />
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="InformationPage3Text2" TextWrapping="Wrap">
+                                            <Run Language="en-nz" Text="Text block" />
+                                        </TextBlock>
+                                    </InlineUIContainer>
+                                </TextBlock>
+                            </Grid>
+                        </s:SurfaceScrollViewer>
+                        <Image Grid.Row="0" x:Name="InformationPage3Pointer" Margin="20,10,0,0" Width="80" HorizontalAlignment="Left"
+                               Stretch="Fill"
+                               Source="Assets/Icons/pointer_original.png" Height="80" VerticalAlignment="Bottom"
+                               d:LayoutOverrides="Height">
+                            <Image.OpacityMask>
+                                <ImageBrush ImageSource="Assets/Icons/pointer_original.png" />
+                            </Image.OpacityMask>
+                        </Image>
+                        <TextBlock Grid.Row="0" x:Name="InformationPage3Title" TextWrapping="Wrap" Text="TextBlock"
+                                   FontSize="48"
+                                   HorizontalAlignment="Left" Margin="90,10,0,10" VerticalAlignment="Bottom"
+                                   FontFamily="Segoe UI Light" FontWeight="Bold" />
+                    </Grid>
+
+
+
+
+
                     <Grid x:Name="TopNavBar" VerticalAlignment="Top" Height="100" Margin="0,40,0,0" OpacityMask="White">
                         <Image Margin="0,0,0,20" Source="Assets/Images/SAFEANDGENTLE BANNER8.png"
                                HorizontalAlignment="Center" />
