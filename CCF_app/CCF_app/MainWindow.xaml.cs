@@ -78,11 +78,15 @@ namespace CCF_app
         private Point _startPoint;
 
         // Keeps track of the state of the globe.
-        bool isGlobeOpen = false;
+        private bool _isGlobeOpen = false;
         
 		// Initialises a twitter refresh timer and the refresh rate 
 		System.Windows.Threading.DispatcherTimer twitterTimer;
         int TwitterRefreshRate = 180;
+
+        // creating animation instances for screen transtion. DoubleAnimation(final opacity, duration)
+        DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.3));
+        DoubleAnimation unanimation = new DoubleAnimation(0.5, TimeSpan.FromSeconds(0.3));
 
         public MainWindow()
         {
@@ -266,6 +270,7 @@ namespace CCF_app
 
             _currentPage = Pages.Home;
             HideGlobe(); // Hide globe if HomePage button is clicked
+            RunPageAnimation(); //Start screen fade animation
         }
 
         /// <summary>
@@ -295,6 +300,7 @@ namespace CCF_app
             Text2.Text = Constants.HelpText2;
             _currentPage = Pages.Help;
             HideGlobe(); // Hide globe if HelpPage button is clicked
+            RunPageAnimation(); //Start screen fade animation
         }
 
         /// <summary>
@@ -320,6 +326,7 @@ namespace CCF_app
             Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_orange.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.Support;
             HideGlobe(); // Hide globe if SupportPage button is clicked
+            RunPageAnimation(); //Start screen fade animation
         }
 
         /// <summary>
@@ -346,6 +353,7 @@ namespace CCF_app
             Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.AboutUs;
             HideGlobe(); // Hide globe if AboutUsPage button is clicked
+            RunPageAnimation(); //Start screen fade animation
         }
 
         /// <summary>
@@ -388,6 +396,7 @@ namespace CCF_app
             UncheckRadioButtons();
             _currentPage = Pages.Donate;
             HideGlobe(); // Hide globe if DonatePage button is clicked
+            RunPageAnimation(); //Start screen fade animation
         }
 
         /// <summary>
@@ -396,7 +405,7 @@ namespace CCF_app
         /// </summary>
         private void Touch_FrameReported(object sender, TouchFrameEventArgs e)
         {
-            if (isGlobeOpen)
+            if (_isGlobeOpen)
             {
                 var touchPoints = e.GetTouchPoints(viewport_globe);
                 if (touchPoints.Count >= 2 && touchPoints[0].Action == TouchAction.Up)
@@ -1182,7 +1191,7 @@ namespace CCF_app
             Donation_Help.Visibility = Visibility.Collapsed;
 
             GlobeGrid.Visibility = Visibility.Visible;
-            isGlobeOpen = true;
+            _isGlobeOpen = true;
 		}
 
         /// <summary>
@@ -1192,7 +1201,7 @@ namespace CCF_app
         {
             GlobeGrid.Visibility = Visibility.Collapsed;
             ProgressGrid.Visibility = Visibility.Visible;
-            isGlobeOpen = false;
+            _isGlobeOpen = false;
         }
 
 		/// <summary>
@@ -1342,5 +1351,74 @@ namespace CCF_app
             }
 
         }
+
+        /// <summary>
+        /// makes all the pages transparent
+        /// </summary>
+        public void MakeAllPagesOpacityZero()
+        {
+            HomePage.Opacity = 0;
+            InformationPage.Opacity = 0;
+            DonatePage.Opacity = 0;
+        }
+        /// <summary>
+        ///  collapses all the pages (doesn't make top nav and bottom nav invisible)
+        /// </summary>
+        public void MakeAllPagesInvisible()
+        {
+            HomePage.Visibility = Visibility.Hidden;
+            InformationPage.Visibility = Visibility.Hidden;
+            DonatePage.Visibility = Visibility.Hidden;
+
+        }
+
+        /// <summary>
+        ///  reverts the animation effect on the pages. needed for re-animation
+        /// </summary>
+        public void UnAnimatePages()
+        {
+            HomePage.BeginAnimation(Grid.OpacityProperty, unanimation);
+            InformationPage.BeginAnimation(Grid.OpacityProperty, unanimation);
+            DonatePage.BeginAnimation(Grid.OpacityProperty, unanimation);
+        }
+
+        /// <summary>
+        ///  runs page animations depending on the current page in focus
+        /// </summary>
+        public void RunPageAnimation()
+        {
+            UnAnimatePages();
+            MakeAllPagesOpacityZero();
+
+            switch (_currentPage)
+            {
+
+                case Pages.Home:
+                    //begins animation if the page is home page
+                    HomePage.BeginAnimation(Grid.OpacityProperty, animation);
+                    break;
+                case Pages.AboutUs:
+                    //begins animation if the page is about us page
+                    InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+                    break;
+                case Pages.Help:
+                    //begins animation if the page is help page
+                    InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+                    break;
+                case Pages.Support:
+                    //begins animation if the page is support page
+                    InformationPage.BeginAnimation(Grid.OpacityProperty, animation);
+                    break;
+                case Pages.Donate:
+                    //begins animation if the page is donate page
+                    DonatePage.BeginAnimation(Grid.OpacityProperty, animation);
+                    break;
+            }
+
+
+
+        }
+
+
     }
 }
