@@ -45,7 +45,8 @@ namespace CCF_app
         private FrameworkElement _nextImage; // Stores the image element of the image about to be displayed in the carousel.
 
         // Used to prevent a long swipe from being processed as multiple smaller swipes.
-        private bool _alreadySwiped;
+        private bool _alreadySwiped = false;
+        private bool _alreadySwipedCarousel = false;
 
         //Used to keep track of scrollviewer position, and to reset it when page switches
         private double _scrollViewerOffset = 0;
@@ -377,18 +378,22 @@ namespace CCF_app
                                 {
                                     ReleaseAllTouchCaptures();
                                     touchPoint.TouchDevice.Capture(ImageGrid);
-                                    // Swipe Left with 50px threshold.
-                                    if (touchPoint.Position.X < (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
+                                    if (!_alreadySwipedCarousel)
                                     {
-                                        NextImage_MouseDown(null, null); // Transition to the next carousel image.
-                                        _alreadySwiped = true;
-                                    }
-
-                                    // Swipe Right with 50px threshold.
-                                    if (touchPoint.Position.X > (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
-                                    {
-                                        PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
-                                        _alreadySwiped = true;
+                                        // Swipe Left with 50px threshold.
+                                        if (touchPoint.Position.X < (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
+                                        {
+                                            Debug.WriteLine("Current Image: " + Constants.CurrentHomeImage);
+                                            NextImage_MouseDown(null, null); // Transition to the next carousel image.
+                                            _alreadySwipedCarousel = true;
+                                        }
+                                        // Swipe Right with 50px threshold.
+                                        if (touchPoint.Position.X > (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
+                                        {
+                                            Debug.WriteLine("Current Image: " + Constants.CurrentHomeImage);
+                                            PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
+                                            _alreadySwipedCarousel = true;
+                                        }
                                     }
                                 }
                                 else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
@@ -425,6 +430,7 @@ namespace CCF_app
                         else if (touchPoint.Action == TouchAction.Up)
                         {
                             _alreadySwiped = false;
+                            _alreadySwipedCarousel = false;
                             // Release viewbox touch capture.
                             if (Equals(touchPoint.TouchDevice.Captured, Viewbox))
                             {
