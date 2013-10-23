@@ -120,16 +120,19 @@ namespace CCF_app
             };
             Touch.FrameReported += Touch_FrameReported;
 
-            _DonatingCities = new List<DonatingPlace>(9);
-            _DonatingCities.Add(new DonatingPlace() { Name = "Auckland", AmountOfDonaters=200, Bound = new Rect(1893, 844.5, 30, 30) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Queenstown", AmountOfDonaters = 200, Bound = new Rect(1867.5, 892.5, 30, 30) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Malaysia", AmountOfDonaters = 200, Bound = new Rect(1506, 607.5, 30, 30) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Russia", AmountOfDonaters = 200, Bound = new Rect(1632, 192, 30, 30) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "France", AmountOfDonaters = 200, Bound = new Rect(984, 392.5, 30, 30) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Germany", AmountOfDonaters = 200, Bound = new Rect(1020, 261, 30, 30) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "United Kingdom", AmountOfDonaters = 200, Bound = new Rect(960, 250.5, 30, 30) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Indiana", AmountOfDonaters = 200, Bound = new Rect(541.5, 270, 30, 30) });
-            _DonatingCities.Add(new DonatingPlace() { Name = "Missouri", AmountOfDonaters = 200, Bound = new Rect(466.5, 321, 30, 30) });
+            int offset = 30;
+            _DonatingCities = new List<DonatingPlace>(10);
+            _DonatingCities.Add(new DonatingPlace() { Name = "Auckland", AmountOfDonaters = 200, Bound = new Rect(1893 - offset, 844.5 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Queenstown", AmountOfDonaters = 200, Bound = new Rect(1867.5 - offset, 892.5 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Malaysia", AmountOfDonaters = 200, Bound = new Rect(1506 - offset, 607.5 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Russia", AmountOfDonaters = 200, Bound = new Rect(1632 - offset, 192 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "France", AmountOfDonaters = 200, Bound = new Rect(984 - offset, 294 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Germany", AmountOfDonaters = 200, Bound = new Rect(1020 - offset, 261 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "United Kingdom", AmountOfDonaters = 200, Bound = new Rect(960 - offset, 250.5 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Indiana", AmountOfDonaters = 200, Bound = new Rect(541.5 - offset, 270 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Missouri", AmountOfDonaters = 200, Bound = new Rect(466.5 - offset, 321 - offset, 50, 50) });
+            _DonatingCities.Add(new DonatingPlace() { Name = "Sydney", AmountOfDonaters = 200, Bound = new Rect(1758 - offset, 828 - offset, 50, 50) });
+
         }
 
         // Twitter refresh timer activates this 
