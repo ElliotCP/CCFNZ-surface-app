@@ -348,6 +348,7 @@ namespace CCF_app
             InformationPage3Title.Text = "What Is CCFNZ?";
 
             InformationPage3Text1.Text = Constants.AboutUsText1;
+            InformationPage3Text2.Text = Constants.AboutUsText2;
             InformationPage3Pointer.Source = new BitmapImage(new Uri("Assets/Icons/pointer_purple.png", UriKind.RelativeOrAbsolute));
             _currentPage = Pages.AboutUs;
             HideGlobe(); // Hide globe if AboutUsPage button is clicked
@@ -462,7 +463,9 @@ namespace CCF_app
                                 else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
                                 {
                                     ReleaseAllTouchCaptures();
-                                    PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X); 
+                                    PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
+                                    InformationPage2PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
+                                    InformationPage1PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
                                 }
                             }
                             // Perform second finger touch point.
@@ -508,9 +511,23 @@ namespace CCF_app
                             {
                                 PageDataScrollViewer.ReleaseTouchCapture(touchPoint.TouchDevice);
                             }
+                            else if ((Equals(touchPoint.TouchDevice.Captured, InformationPage1PageDataScrollViewer)))
+                            {
+                                InformationPage1PageDataScrollViewer.ReleaseTouchCapture(touchPoint.TouchDevice);
+                            }
+                            else if ((Equals(touchPoint.TouchDevice.Captured, InformationPage2PageDataScrollViewer)))
+                            {
+                                InformationPage2PageDataScrollViewer.ReleaseTouchCapture(touchPoint.TouchDevice);
+                            }
                             // Update current position of scrollviewer
                             PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
                             _scrollViewerOffset = PageDataScrollViewer.HorizontalOffset;
+
+                            InformationPage1PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
+                            _scrollViewerOffset = InformationPage1PageDataScrollViewer.HorizontalOffset;
+
+                            InformationPage1PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
+                            _scrollViewerOffset = InformationPage1PageDataScrollViewer.HorizontalOffset;
                         }
                     }
                 }
