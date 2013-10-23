@@ -361,30 +361,6 @@ namespace CCF_app
                         TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(Viewbox); // First touch point on the ViewBox
                         if (touchPoint.Action == TouchAction.Down)
                         {
-                            if (_currentPage == Pages.Home)
-                            {
-                                ReleaseAllTouchCaptures();
-                                touchPoint.TouchDevice.Capture(ImageGrid);
-                                // Swipe Left
-                                if (touchPoint.Position.X < (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
-                                {
-                                    NextImage_MouseDown(null, null); // Transition to the next carousel image.
-                                    _alreadySwiped = true;
-                                }
-
-                                // Swipe Right
-                                if (touchPoint.Position.X > (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
-                                {
-                                    PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
-                                    _alreadySwiped = true;
-                                }
-                            }
-                            else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
-                            {
-                                ReleaseAllTouchCaptures();
-                                PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X);
-
-                            }
                             // Make sure the touches are captured from the viewbox.
                             // Might need to adjust depending on components that might affected by swipe gestures. - ASA
                             touchPoint.TouchDevice.Capture(Viewbox);
@@ -418,13 +394,7 @@ namespace CCF_app
                                 else if (_currentPage == Pages.AboutUs || _currentPage == Pages.Help || _currentPage == Pages.Support)
                                 {
                                     ReleaseAllTouchCaptures();
-                                    // Offset the current position of scrollviewer
-                                    // HorizontalOffset is divided by 2.3 to keep the movement ratio 1:1
-                                    // with single finger touch. This value was calculated emperically.
-
-                                    PageDataScrollViewer.ScrollToHorizontalOffset((_initialTouchPoint.X - touchPoint.Position.X) * 1.72);
-                                    //PageDataScrollViewer.ScrollToHorizontalOffset(PageDataScrollViewer.HorizontalOffset + _initialTouchPoint.X - touchPoint.Position.X);
-
+                                    PageDataScrollViewer.ScrollToHorizontalOffset(_scrollViewerOffset + _initialTouchPoint.X - touchPoint.Position.X); 
                                 }
                             }
                             // Perform second finger touch point.
@@ -469,12 +439,9 @@ namespace CCF_app
                             {
                                 PageDataScrollViewer.ReleaseTouchCapture(touchPoint.TouchDevice);
                             }
-
-                        // Update current position of scrollviewer
-                        PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
-                        _scrollViewerOffset = PageDataScrollViewer.HorizontalOffset;
                             // Update current position of scrollviewer
-                            PageDataScrollViewer.UpdateLayout();
+                            PageDataScrollViewer.UpdateLayout(); //in case we didn't get the current position
+                            _scrollViewerOffset = PageDataScrollViewer.HorizontalOffset;
                         }
                     }
                 }
