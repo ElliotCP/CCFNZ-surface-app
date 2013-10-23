@@ -402,14 +402,14 @@ namespace CCF_app
                                     ReleaseAllTouchCaptures();
                                     touchPoint.TouchDevice.Capture(ImageGrid);
                                     // Swipe Left with 50px threshold.
-                                    if (touchPoint.Position.X > (_initialTouchPoint.X - 100))
+                                    if (touchPoint.Position.X < (_initialTouchPoint.X - Constants.CarouselImageSwipeThreshold))
                                     {
                                         NextImage_MouseDown(null, null); // Transition to the next carousel image.
                                         _alreadySwiped = true;
                                     }
 
                                     // Swipe Right with 50px threshold.
-                                    if (touchPoint.Position.X < (_initialTouchPoint.X + 100))
+                                    if (touchPoint.Position.X > (_initialTouchPoint.X + Constants.CarouselImageSwipeThreshold))
                                     {
                                         PreviousImage_MouseDown(null, null); // Transition to the previous carousel image.
                                         _alreadySwiped = true;
