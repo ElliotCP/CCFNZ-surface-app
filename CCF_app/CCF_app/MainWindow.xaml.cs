@@ -44,9 +44,21 @@ namespace CCF_app
         // Used to prevent a long swipe from being processed as multiple smaller swipes.
         private bool _alreadySwiped;
 
+<<<<<<< HEAD
         DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.5));
         DoubleAnimation unanimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5));
         DoubleAnimation animationForInformationPage = new DoubleAnimation(0.8, TimeSpan.FromSeconds(1));
+=======
+<<<<<<< HEAD
+        DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.5));
+        DoubleAnimation unanimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5));
+        DoubleAnimation animationForInformationPage = new DoubleAnimation(0.8, TimeSpan.FromSeconds(1));
+=======
+        DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromSeconds(1));
+        DoubleAnimation unanimation = new DoubleAnimation(0, TimeSpan.FromSeconds(1));
+
+>>>>>>> parent of df0bbb0... tweaked transition effect
+>>>>>>> conflict resolving
         public MainWindow()
         {
             InitializeComponent();
