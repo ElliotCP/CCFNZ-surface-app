@@ -347,12 +347,23 @@
                     <TextBlock HorizontalAlignment="Right" Height="0" Margin="0,0,-1992,304" TextWrapping="Wrap"
                                Text="TextBlock" VerticalAlignment="Bottom" Width="12" />
                     <TextBlock HorizontalAlignment="Right" Height="6" Margin="0,0,-474,-272" TextWrapping="Wrap"
-                               Text="TextBlock" VerticalAlignment="Bottom" Width="0" />                    
+                               Text="TextBlock" VerticalAlignment="Bottom" Width="0" />
+
+                    <Grid x:Name="ScreenTransitionMask" d:IsHidden="True">
+                        <Image Stretch="Fill" MaxHeight="1080">
+                            <Image.Source>Assets/Images/ScreenTransitionMask.png</Image.Source>
+                        </Image>
+                    </Grid>
+                    
                     <Grid x:Name="ScreenSaver" d:IsHidden="True">
                         <Image Stretch="Fill" MaxHeight="1080">
                             <Image.Source>Assets/Images/ScreenSaver.png</Image.Source>
                         </Image>
                     </Grid>
+
+
+
+
                 </Grid>
             </Viewbox>
         </Frame.Content>
