@@ -27,13 +27,13 @@
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Key="BoxSlideIn">
-            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="0,140,0,180.666"
-                                To="0,140,-500,180.666" DecelerationRatio=".9" />
+            <ThicknessAnimation Duration="0:0:.75" Storyboard.TargetProperty="Margin" From="0,150,0,0"
+                                To="0,150,-500,0" DecelerationRatio=".9" />
         </Storyboard>
 
         <Storyboard x:Key="BoxSlideOut">
-            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" From="0,140,-500,180.666"
-                                To="0,140,0,180.666" AccelerationRatio=".9" />
+            <ThicknessAnimation Duration="0:0:.5" Storyboard.TargetProperty="Margin" From="0,150,-500,0"
+                                To="0,150,0,0" AccelerationRatio=".9" />
         </Storyboard>
     </s:SurfaceWindow.Resources>
     <Frame>
@@ -41,9 +41,9 @@
             <Viewbox x:Name="Viewbox">
                 <Grid Height="1041" Width="1904">
                     <Grid x:Name="HomePage" Margin="0">
-                        <Grid.Background>
-                            <ImageBrush ImageSource="Assets/Images/Background.scale-100.png" />
-                        </Grid.Background>
+                    	<Grid.Background>
+                    		<ImageBrush TileMode="Tile" ImageSource="Assets/Images/Background.scale-100.png"/>
+                    	</Grid.Background>
 
 
                         <!-- Carousel Image Grid -->
@@ -296,7 +296,7 @@
                                        MouseLeftButtonUp="BtnRec_MouseUp" />
                         </Grid>
                     </Grid>
-                    <Grid x:Name="InformationPage1" Margin="0" Visibility="Collapsed">
+                    <Grid x:Name="WhatIsPage" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2.5*" />
                             <RowDefinition Height="6*" />
@@ -356,7 +356,7 @@
                     </Grid>
 
 
-                    <Grid x:Name="InformationPage2" Margin="0" Visibility="Collapsed">
+                    <Grid x:Name="HelpPage" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2.5*" />
                             <RowDefinition Height="6*" />
@@ -416,7 +416,7 @@
                     </Grid>
 
 
-                    <Grid x:Name="InformationPage3" Margin="0" Visibility="Collapsed">
+                    <Grid x:Name="SupportPage" Margin="0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.229*" />
                             <RowDefinition Height="0.566*" />
@@ -554,6 +554,8 @@
                             <ColumnDefinition Width="Auto" MinWidth="35.911" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
+                        
+                        <!-- The below code will show errors in Visual Studio. It compiles fine however. -->
                         <Viewport3D x:Name="ViewportGlobe" Grid.ColumnSpan="3" Margin="0,0,0,64">
                             <Viewport3D.Camera>
                                 <PerspectiveCamera Position="0,0,5" />
@@ -581,7 +583,8 @@
                                 </globe:Sphere.Transform>
                             </globe:Sphere>
                         </Viewport3D>
-
+                        <!-- End erroring section -->
+                        
                         <Rectangle Fill="#00000000" Grid.ColumnSpan="3" Grid.Column="0" Margin="0,0,0,64" />
                         <CheckBox x:Name="MouseSimulationCheckBox" Content="Use Mouse" VerticalAlignment="Bottom"
                                   Margin="180.416,0,233,114.54" d:LayoutOverrides="Width" Grid.Column="2" />
@@ -595,54 +598,49 @@
                         <Line x:Name="TouchLine" Stroke="Red" StrokeThickness="2" Grid.ColumnSpan="3" Grid.Column="0"
                               Margin="0,0,0,64" />
                     </Grid>
-                    <Button x:Name="OpenTwitterFeed" Margin="1766,10,8,0" Click="TwitterButtonClick"
+                    <Image x:Name="OpenTwitterFeed" Margin="0,10,10,0" MouseDown="TwitterButtonClick"
                             Visibility="Visible" Width="130" Height="130" VerticalAlignment="Top"
-                            d:LayoutOverrides="Height" BorderThickness="0">
-                        <Button.Background>
-                            <ImageBrush ImageSource="Assets/Icons/ShowFeed.png"/>
-                        </Button.Background>
-                    </Button>
-                    <Button x:Name="CloseTwitterFeed" Margin="1766,10,8,0" Click="TwitterButtonClick"
+                            d:LayoutOverrides="Height" Source="Assets/Icons/ShowFeed.png" HorizontalAlignment="Right"/>
+                    <Image x:Name="CloseTwitterFeed" Margin="0,10,10,0" MouseDown="TwitterButtonClick"
                             Visibility="Collapsed" Height="130" VerticalAlignment="Top" Width="130"
-                            BorderThickness="0">
-                        <Button.Background>
-                            <ImageBrush ImageSource="Assets/Icons/HideFeed.png"/>
-                        </Button.Background>
-                    </Button>
-                    <Rectangle x:Name="OpenTwitterFeed_Gesture" Fill="#FF0099CC" HorizontalAlignment="Right"
-                               Height="130.833" Margin="0,8,8,0" VerticalAlignment="Top" Width="128.667" Opacity="0"
+                            HorizontalAlignment="Right" Source="Assets/Icons/ShowFeed.png" />
+                    <Rectangle x:Name="TwitterFeed_Gesture" HorizontalAlignment="Right"
+                               Height="130" Margin="0,10,10,0" VerticalAlignment="Top" Width="130" Opacity="0"
                                MouseLeftButtonUp="BtnRec_MouseUp" />
-
-                    <Grid x:Name="TwitterFeed" Visibility="Collapsed">
-
-                        <ListBox x:Name="TweetList"
-                                 HorizontalContentAlignment="Stretch"
-                                 Margin="0,140,0,180.666" HorizontalAlignment="Right" Width="370" Height="720">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="30" />
-                                            <RowDefinition Height="88" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="230" />
-                                            <ColumnDefinition Width="115" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding UserName}"
-                                                   Grid.Column="0" Padding="2" FontWeight="Bold" FontFamily="Segoe UI"
-                                                   FontSize="20" Foreground="#FFAA66CC" />
-                                        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="17"
-                                                   FontFamily="Segoe UI Light" Grid.Column="0" Grid.Row="1"
-                                                   Grid.ColumnSpan="2" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Name="textBlock_1"
-                                                   Text="{Binding TimeString}" FontFamily="Segoe UI Light"
-                                                   Foreground="LightGray" FontSize="16" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                    <Grid>
+                    	<ListBox x:Name="TweetList"
+                    		HorizontalContentAlignment="Stretch"
+                    		BorderBrush="#99000000" Margin="0,150.332,0,0" Height="691" Width="370" HorizontalAlignment="Right" VerticalAlignment="Top" BorderThickness="2,2,1,2">
+                    		<ListBox.Background>
+                    			<ImageBrush TileMode="Tile" ImageSource="Assets/Images/Background.scale-100.png"/>
+                    		</ListBox.Background>
+                    		<ListBox.ItemTemplate>
+                    			<DataTemplate>
+                    				<Grid Height="110">
+                    					<Grid.RowDefinitions>
+                    						<RowDefinition Height="30" />
+                    						<RowDefinition Height="80" />
+                    					</Grid.RowDefinitions>
+                    					<Grid.ColumnDefinitions>
+                    						<ColumnDefinition Width="230" />
+                    						<ColumnDefinition Width="115" />
+                    					</Grid.ColumnDefinitions>
+                    					<TextBlock Text="{Binding UserName}"
+                    						Grid.Column="0" Padding="2" FontWeight="Bold" FontFamily="Segoe UI"
+                    						FontSize="20" Foreground="#FFAA66CC" />
+                    					<TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="16"
+                    						FontFamily="Segoe UI Light" Grid.Column="0" Grid.Row="1"
+                    						Grid.ColumnSpan="2" />
+                    					<TextBlock Grid.Row="0" Grid.Column="1" x:Name="textBlock_1"
+                    						Text="{Binding TimeString}" FontFamily="Segoe UI Light"
+                    						Foreground="LightGray" FontSize="16" />
+                    				</Grid>
+                    			</DataTemplate>
+                    		</ListBox.ItemTemplate>
+                    	</ListBox>
                     </Grid>
+
+                    <Grid x:Name="TwitterFeed"/>
                     <Grid x:Name="ScreenSaver" d:IsHidden="True">
                         <Image Stretch="Fill" MaxHeight="1080">
                             <Image.Source>

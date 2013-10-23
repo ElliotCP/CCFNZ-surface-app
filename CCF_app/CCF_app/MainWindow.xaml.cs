@@ -30,7 +30,9 @@ namespace CCF_app
     /// </summary>
     public partial class MainWindow
     {
-        //used in screen saver
+        #region Definitions
+
+//used in screen saver
         public enum HomePageImages
         {
             Img1 = 1,
@@ -61,7 +63,7 @@ namespace CCF_app
         private int _currentDonationAmount;
 
         private FrameworkElement _currentImage;
-            // Stores the image element of the image currently being displayed in the carousel.
+        // Stores the image element of the image currently being displayed in the carousel.
 
         private Pages _currentPage = Pages.Home; // Keeps track of the current page that is on focus.
 
@@ -77,7 +79,7 @@ namespace CCF_app
         private bool _isMouseDownOnCarousel;
 
         private FrameworkElement _nextImage;
-            // Stores the image element of the image about to be displayed in the carousel.
+        // Stores the image element of the image about to be displayed in the carousel.
 
         // Initial mouse click on carousel image
 
@@ -90,6 +92,13 @@ namespace CCF_app
 
         // Initialises a twitter refresh timer and the refresh rate 
         private DispatcherTimer _twitterTimer;
+
+        public Constants Constants
+        {
+            get { return _constants; }
+        }
+
+        #endregion
 
         // creating animation instances for screen transtion. DoubleAnimation(final opacity, duration)
 
@@ -198,11 +207,6 @@ namespace CCF_app
             GlobeCloseButton.Visibility = Visibility.Collapsed;
             GlobeCloseButton_Gesture.Visibility = Visibility.Collapsed;
             _constants = new Constants();
-        }
-
-        public Constants Constants
-        {
-            get { return _constants; }
         }
 
         // Twitter refresh timer activates this 
@@ -360,7 +364,7 @@ namespace CCF_app
             MyVideo1.NavigateToString(Constants.YoutubeVideo_Help);
             MyVideo1.Visibility = Visibility.Visible;
 
-            InformationPage1.Visibility = Visibility.Visible;
+            WhatIsPage.Visibility = Visibility.Visible;
             Help_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPage1Title.Text = "How Can I Help?";
@@ -389,7 +393,7 @@ namespace CCF_app
             MyVideo2.NavigateToString(Constants.YoutubeVideo_Support);
             MyVideo2.Visibility = Visibility.Visible;
 
-            InformationPage2.Visibility = Visibility.Visible;
+            HelpPage.Visibility = Visibility.Visible;
             Support_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPage2Title.Text = "How Can I Get Support?";
@@ -416,7 +420,7 @@ namespace CCF_app
             MyVideo3.NavigateToString(Constants.YoutubeVideo_About);
             MyVideo3.Visibility = Visibility.Visible;
 
-            InformationPage3.Visibility = Visibility.Visible;
+            SupportPage.Visibility = Visibility.Visible;
             AboutUs_BtnRec.BeginAnimation(HeightProperty, Constants.Da);
 
             InformationPage3Title.Text = "What Is CCFNZ?";
@@ -689,9 +693,9 @@ namespace CCF_app
         {
             HomePage.Visibility = Visibility.Collapsed;
 
-            InformationPage1.Visibility = Visibility.Collapsed;
-            InformationPage2.Visibility = Visibility.Collapsed;
-            InformationPage3.Visibility = Visibility.Collapsed;
+            WhatIsPage.Visibility = Visibility.Collapsed;
+            HelpPage.Visibility = Visibility.Collapsed;
+            SupportPage.Visibility = Visibility.Collapsed;
             DonatePage.Visibility = Visibility.Collapsed;
 
             AboutUs_BtnRec.Visibility = Visibility.Visible;
@@ -856,7 +860,7 @@ namespace CCF_app
                     TxtDonate_Clicked(sender, e);
                     break;
 
-                case "OpenTwitterFeed_Gesture":
+                case "TwitterFeed_Gesture":
                     TwitterButtonClick(sender, e);
                     break;
 
@@ -1488,9 +1492,9 @@ namespace CCF_app
         {
             HomePage.Opacity = 0;
 
-            InformationPage1.Opacity = 0;
-            InformationPage2.Opacity = 0;
-            InformationPage3.Opacity = 0;
+            WhatIsPage.Opacity = 0;
+            HelpPage.Opacity = 0;
+            SupportPage.Opacity = 0;
             DonatePage.Opacity = 0;
         }
 
@@ -1501,9 +1505,9 @@ namespace CCF_app
         {
             HomePage.Visibility = Visibility.Hidden;
 
-            InformationPage1.Visibility = Visibility.Hidden;
-            InformationPage2.Visibility = Visibility.Hidden;
-            InformationPage3.Visibility = Visibility.Hidden;
+            WhatIsPage.Visibility = Visibility.Hidden;
+            HelpPage.Visibility = Visibility.Hidden;
+            SupportPage.Visibility = Visibility.Hidden;
             DonatePage.Visibility = Visibility.Hidden;
         }
 
@@ -1514,9 +1518,9 @@ namespace CCF_app
         {
             HomePage.BeginAnimation(OpacityProperty, Constants.Unanimation);
 
-            InformationPage1.BeginAnimation(OpacityProperty, Constants.Unanimation);
-            InformationPage2.BeginAnimation(OpacityProperty, Constants.Unanimation);
-            InformationPage3.BeginAnimation(OpacityProperty, Constants.Unanimation);
+            WhatIsPage.BeginAnimation(OpacityProperty, Constants.Unanimation);
+            HelpPage.BeginAnimation(OpacityProperty, Constants.Unanimation);
+            SupportPage.BeginAnimation(OpacityProperty, Constants.Unanimation);
             DonatePage.BeginAnimation(OpacityProperty, Constants.Unanimation);
         }
 
@@ -1537,17 +1541,17 @@ namespace CCF_app
                 case Pages.AboutUs:
                     //begins animation if the page is about us page
 
-                    InformationPage3.BeginAnimation(OpacityProperty, Constants.Animation);
+                    SupportPage.BeginAnimation(OpacityProperty, Constants.Animation);
                     break;
                 case Pages.Help:
                     //begins animation if the page is help page
 
-                    InformationPage1.BeginAnimation(OpacityProperty, Constants.Animation);
+                    WhatIsPage.BeginAnimation(OpacityProperty, Constants.Animation);
                     break;
                 case Pages.Support:
                     //begins animation if the page is support page
 
-                    InformationPage2.BeginAnimation(OpacityProperty, Constants.Animation);
+                    HelpPage.BeginAnimation(OpacityProperty, Constants.Animation);
                     break;
                 case Pages.Donate:
                     //begins animation if the page is donate page
