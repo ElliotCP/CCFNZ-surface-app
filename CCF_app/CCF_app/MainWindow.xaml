@@ -180,7 +180,7 @@
                                                           HorizontalContentAlignment="Stretch"
                                                           HorizontalAlignment="Left"
                                                           d:LayoutOverrides="VerticalAlignment, GridBox"
-                                                          KeyUp="Donation_KeyDown" Height="30" FontSize="32" />
+                                                          KeyUp="Donation_KeyUp" Height="30" FontSize="32" />
                                     </Grid>
                                 </Grid>
                                 <TextBlock x:Name="DonationMethod_Text" HorizontalAlignment="Left" Margin="100,20,50,0"
