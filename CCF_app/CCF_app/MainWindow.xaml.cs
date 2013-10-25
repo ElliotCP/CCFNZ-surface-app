@@ -1137,7 +1137,7 @@ namespace CCF_app
         ///     When text is entered into the custom donation textbox, update the donation
         ///     QRCode or the call number depending on current payment selected.
         /// </summary>
-        private void Donation_KeyDown(object sender, KeyEventArgs e)
+        private void Donation_KeyUp(object sender, KeyEventArgs e)
         {
             Donations_Instructions.Visibility = Visibility.Visible;
 
