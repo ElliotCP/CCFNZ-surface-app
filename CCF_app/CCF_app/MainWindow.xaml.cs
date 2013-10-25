@@ -908,6 +908,11 @@ namespace CCF_app
                     // Set initial amount to zero. 
                     String qrCodeContent = donationServer + "/?amount=" + Donation_CustomAmount.Text;
                     Display_QRCode(qrCodeContent, 5); // Generate and set QR_Code image.
+                    if(Donation_CustomAmount.Text == "")
+                    {
+                        //set to 0 if string is empty
+                        Donation_CustomAmount.Text = "0";
+                    }
                     if (Convert.ToInt32(Donation_CustomAmount.Text) < 999)
                     {
                         Txt_Donation.Text = "3032 " + Donation_CustomAmount.Text;
@@ -1151,6 +1156,7 @@ namespace CCF_app
             int donateAmount;
             try // Try and convert custom donation amount to integer
             {
+                Donation_CustomAmount.Text = Donation_CustomAmount.Text.Replace(" ", "").Replace("-",""); //strip white spaces and dashes
                 donateAmount = Convert.ToInt32(Donation_CustomAmount.Text);
             }
             catch (FormatException) // Donation amount entered is not a number so resolve the issue.
